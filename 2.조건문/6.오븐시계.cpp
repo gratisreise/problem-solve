@@ -17,3 +17,21 @@ int main(){
     
     cout<<a<<" "<<b<<"\n";   
 }
+
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int a,b,c;
+    cin>>a>>b>>c;
+    a+=c/60; b+=c%60;
+    if(b>59){
+        a++;b-=60;
+            if(a>23){
+                a-=24;
+            }
+    }
+    else{
+        if(a>23) a-=24;
+    }    
+    cout<<a<<" "<<b<<"\n";
+}
