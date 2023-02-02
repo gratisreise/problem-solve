@@ -34,3 +34,24 @@ int main(){
     cout<<a<<"\n";
     cout<<b<<"\n";
 }
+
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    ios::sync_with_stdio(0);cin.tie(0);
+    int n,maxi;
+    int max=-1;
+    for(int i=0;i<9;i++){
+        cin>>n;
+        if(n>max){ //입력받는 수를 이용하여 max변수와 비교한다.
+            max=n;
+            maxi=i+1;
+        }
+    }
+    cout<<max<<"\n";
+    cout<<maxi<<"\n";
+
+    return 0;
+}
+//1.누가 최대인가? -> 최대 변수 설정해주고 그걸 토대로 순회하면서 비교
+//2.최대의 순서는 몇번째인가? -> 비교하면서 나온 i값으로 구한다.
