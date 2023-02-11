@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 vector<pair<int,int>> v;
 int main(){
@@ -7,11 +7,11 @@ int main(){
     int x,y;
     for(int i=0;i<n;i++){
         cin>>x>>y;
-        v.push_back({y,x});
+        v.push_back({x,y});
     }
     sort(v.begin(),v.end());
-    for(auto it:v) cout<<it.second<<' '<<it.first<<'\n';
-
+    for(int i=0;i<n;i++) cout<<v[i].first<<" "<<v[i].second<<'\n';
+    
     return 0;
 }
-//1.위치만 바꿔줘서 출력하면 굳~~
+//vector와 pair을 이용한 정렬하기
