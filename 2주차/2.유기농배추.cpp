@@ -3,8 +3,7 @@ using namespace std;
 int dy[4] = {-1, 0, 1, 0};
 int dx[4] = {0, 1, 0, -1};
 int m, n, k, y, x, ret, ny, nx, t;
-int a[51][51];
-bool visited[51][51];
+int a[51][51]; bool visited[51][51];
 void dfs(int y, int x){
     visited[y][x] = 1;
     for(int i = 0; i < 4; i++){
