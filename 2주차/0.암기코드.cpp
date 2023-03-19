@@ -349,10 +349,11 @@ int main(){
 //승원이
 #include<bits/stdc++.h>
 using namespace std; 
-const int max_n = 104; 
+const int max_n = 104;
+int n, m, y, x, sy, sx, ey, ex;
+int a[max_n][max_n], visited[max_n][max_n]
 int dy[4] = {-1, 0, 1, 0};
 int dx[4] = {0, 1, 0, -1}; 
-int n, m, a[max_n][max_n], visited[max_n][max_n], y, x, sy, sx, ey, ex;
 int main(){ 
     scanf("%d %d", &n, &m); 
     cin >> sy >> sx; 
