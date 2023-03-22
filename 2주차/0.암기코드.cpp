@@ -476,6 +476,26 @@ int main(){
     inOrder(root); 
     return 0;
 }
+<dp의 맛보기!!>
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> v[1004];
+int visited[1004]; 
+int dfs(int here){
+    int ret = 1;
+    for(int i : adj[here]){
+        if(visited[i]) continue;
+        visited[i] = 1;
+        ret += dfs(i);
+    }
+    return ret;
+}
+int main(){
+    v[1].push_back(2);
+    v[1].push_back(3);
+    visited[1] = 1;
+    cout << dfs(1) << '\n';
+}
 
 
 
