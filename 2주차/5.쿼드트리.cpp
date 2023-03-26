@@ -14,7 +14,7 @@ string quard(int y, int x, int size){
                 ret += quard(y, x, size / 2); //왼쪽 위 
                 ret += quard(y, x + size / 2, size / 2); // 오른쪽 위
                 ret += quard(y + size / 2, x, size / 2); // 왼쪽 아래
-                ret += quard(y + size / 2, x + size / 2, size /2); // 오른쪽 아래
+                ret += quard(y + size / 2, x + size / 2, size / 2); // 오른쪽 아래
                 ret += ')';
                 return ret;
             }
@@ -31,6 +31,6 @@ int main(){
             a[i][j] = s[j];
         }
     }
-    cout << quard(0, 0, n) <a< '\n';
+    cout << quard(0, 0, n) << '\n';
     return 0;
 }

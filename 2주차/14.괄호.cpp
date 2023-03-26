@@ -6,12 +6,12 @@ bool check(string s){
     stack<char> stk;
     for(char c : s){
         if(c == '(') stk.push(c);
-        else{
-            if(!stk.empty()) stk.pop();
-            else return false;
+        else{ // 다른 괄호가 왔다는거네..
+            if(!stk.empty()) stk.pop(); //비어있지 않다면 팝
+            else return false; // 비어있다면 NO의 예시니깐 false
         }
     }
-    return stk.empty();
+    return stk.empty(); // 마지막 재확인??
 }
 int main(){
     cin >> t;
