@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int n, m, a[54][54], result = 987654321;
-vector<vector<int>> chickenList; // 치킨 조합들의 좌표모음저장
+vector<vector<int>> chickenList; // 치킨집 좌표의 인덱스를 저장
 vector<pair<int, int>> _home, chicken; // 치킨과 집의 좌표저장
 void combi(int start, vector<int> v){ // 조합으로 좌표모음을 푸쉬해줌
     if(v.size() == m){ // v벡터의 크기가 m곽 같아졌을 때 치킨리스트에 푸쉬
@@ -11,7 +11,8 @@ void combi(int start, vector<int> v){ // 조합으로 좌표모음을 푸쉬해�
     for(int i = start + 1; i < chicken.size(); i++){ //치킨 사이즈 만큼 i 푸쉬하고 
         v.push_back(i); // 
         combi(i, v); // 
-        v.pop_back(); //
+        v.pop_back(); //뒤에거 지워주면서 다른애들 들어갈 자리 만들어줌
+        
     }
     return;
 }
@@ -41,3 +42,7 @@ int main(){
     cout << result << '\n'; //출력!!
     return 0;
 }
+/*
+1. 재귀를 통한 조합이해 및  외우기
+
+*/
