@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int INF = 987654321;
 int a[3], n, visited[64][64][64];
 int _a[6][3] = { // 때리는 경우의 수
     {9, 3, 1}, 

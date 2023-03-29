@@ -16,7 +16,7 @@ bool check(int y, int x, int cnt){ //색종이가 칠해질 수 있는지 탐색
 }
 
 void draw(int y, int x, int cnt, int value){ //색칠하는 로직
-    for(int i = y; i < y+ cnt; i++){
+    for(int i = y; i < y + cnt; i++){
         for(int j = x; j < x + cnt; j++){
             a[i][j] = value;
         }

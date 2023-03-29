@@ -1,4 +1,3 @@
-//컴백홈
 #include <bits/stdc++.h>
 using namespace std;
 int n, m, k, visited[10][10];
