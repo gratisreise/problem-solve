@@ -2,7 +2,7 @@
 using namespace std;
 typedef long long ll;
 //입력받을 부등호의 갯수, 각 자리수 사이의 부등호르 나타내는 a 배열, 중복사용 방지 check배열
-int n, check[10]
+int n, check[10];
 char a[20];
 vector<string> ret;
 bool good(char x, char y, char op){ //x와 y의 대소를 판별하여 부등호 만족여부 
@@ -30,6 +30,6 @@ int main(){
     cin >> n;
     for(int i = 0; i < n; i++) cin >> a[i];
     go(0, "");
-    sort(ret.begin(), ret.end9));
+    sort(ret.begin(), ret.end());
     cout << ret[ret.size() - 1] << '\n' << ret[0] << '\n';
 }

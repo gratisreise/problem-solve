@@ -2,13 +2,14 @@
 using namespace std; 
 int n, m, x1, y1, x2, y2;
 int visited[301][301]; char a[301][301];
-int dy[4] = {-1, 0, 1, 0}; int dx[4] = {0, 1, 0, -1};
+int dy[4] = {-1, 0, 1, 0}; 
+int dx[4] = {0, 1, 0, -1};
 queue<int> q;
 int main(){
     scanf("%d %d", &n, &m);
     scanf("%d %d %d %d", &y1, &x1, &y2, &x2);
-    y1--, x1--, y2--, x2--; // 좌표 다운 시켜서
-    for(int i = 0; i < n; i++){
+    y1--, x1--, y2--, x2--; // x,y범위가 1부터 시작하니깐 0부터 시작으로 맞출려고
+    for(int i = 0; i < n; i++){ 
         scanf("%s", a[i]); 
     }  
     q.push(1000 * y1 + x1); // 2차원을 1차원으로 표현해주는 방법
@@ -37,3 +38,9 @@ int main(){
     }
     printf("%d\n", visited[y2][x2]); 
 }
+/*
+1.bfs
+2. 2차원의 또다른 표현
+3. 큐를 2개 선언해서 문제풀기
+4. 
+*/

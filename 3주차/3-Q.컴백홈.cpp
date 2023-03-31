@@ -9,7 +9,7 @@ int go(int y, int x){ // int형 탐색으로 타고 올라가면서 ++
         if(k == visited[y][x]) return 1; // 방문배열기준으로 k이면 리턴1
         return 0;
     }
-    int ret = 0; // 
+    int ret = 0; 
     for(int i = 0; i < 4; i++){
         int ny = y + dy[i];
         int nx = x + dx[i];
@@ -17,7 +17,7 @@ int go(int y, int x){ // int형 탐색으로 타고 올라가면서 ++
         if(visited[ny][nx] || a[ny][nx] == 'T') continue;
         visited[ny][nx] = visited[y][x] + 1;
         ret += go(ny, nx);
-        visited[ny][nx] = 0; // 도르마무
+        visited[ny][nx] = 0; // 원복-> 0해줘서 다음 경우가 지나갈 수 있게
     }
     return ret;
 }
