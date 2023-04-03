@@ -1,4 +1,5 @@
 // 순열
+makePermuatation(3, 3, 0);
 void makePermutation(int n, int r, int depth){
     if(r == depth){
         printV(v);
@@ -8,7 +9,21 @@ void makePermutation(int n, int r, int depth){
     for(int i = depth; i < n; i++){
         swap(v[i], v[depth]); // 교체 투입
         makePermutation(n, r, depth + 1); //다르게 들어갈 매개변수
-        swap(v[i], v[depth]); // 원상복수
+        swap(v[i], v[depth]); // 원상복구
+    }
+    return;
+}
+
+//조합코드
+void combi(int start, vector<int> b){
+    if(b.size() == k){ //뽑을 갯수 k
+        print(b);
+        return;
+    }
+    for(int i = start + 1; i < n; i++){ // n개중에서 
+        b.push_back(i);
+        combi(i, b);
+        b.pop_back();
     }
     return;
 }
