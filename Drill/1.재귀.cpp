@@ -1,20 +1,20 @@
-// 순열
+// 순열 -> 원상복구 재귀 이용
 makePermuatation(3, 3, 0);
 void makePermutation(int n, int r, int depth){
-    if(r == depth){
+    if(depth == r){
         printV(v);
         return;
     }
     cout << n << " : " << r << " : " << depth << '\n';
     for(int i = depth; i < n; i++){
-        swap(v[i], v[depth]); // 교체 투입
+        swap(v[i], v[depth]); // 교체 
         makePermutation(n, r, depth + 1); //다르게 들어갈 매개변수
         swap(v[i], v[depth]); // 원상복구
     }
     return;
 }
 
-//조합코드
+//n개중 k개를 뽑는 조합코드
 void combi(int start, vector<int> b){
     if(b.size() == k){ //뽑을 갯수 k
         print(b);

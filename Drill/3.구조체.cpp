@@ -1,5 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
 struct Point{ //구조체를 기반으로 정렬하는 연산이 필요할 때
     int y, x;
     Point(int y, int x) : y(y), x(x){}
