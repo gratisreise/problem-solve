@@ -33,6 +33,5 @@ int main(){
         if(check && stk.size() == 0)  cout << "yes\n";
         else cout << "no\n";
     } 
-
     return 0;
 }

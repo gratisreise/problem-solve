@@ -30,14 +30,14 @@ int main() {
                 int k = i * m + j;
                 if ((s & (1 << k)) != 0) {
                     cur = cur * 10 + a[i][j];
-                } else {
+                }else{
                     sum += cur;
                     cur = 0;
                 }
             }
             sum += cur;
         }
-        ret = max(ret,sum);
+        ret = max(ret, sum);
     }
     cout << ret << '\n';
     return 0;
