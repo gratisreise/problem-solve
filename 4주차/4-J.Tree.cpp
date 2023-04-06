@@ -10,7 +10,6 @@ void dfs(int here){
     } 
     return;
 } 
-
 int main(){
     scanf("%d\n", &t); 
     while(t--){

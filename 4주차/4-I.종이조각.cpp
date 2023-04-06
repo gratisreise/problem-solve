@@ -6,10 +6,10 @@ int main() {
     scanf("%d %d",&n,&m);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            scanf("%1d", &a[i][j]); // 1d를 쓰는 이유는 숫자 하나를 입력받아서 1의 자리 숫자를 저장할려고
+            scanf("%1d", &a[i][j]); 
         }
     } 
-    for (int s = 0; s < (1 << (n * m)); s++) { // s변수는 이어붙일 숫자들을 결정하는 비트마스크
+    for (int s = 0; s < (1 << (n * m)); s++) {
         int sum = 0; 
         for (int i = 0; i < n; i++) {
             int cur = 0;

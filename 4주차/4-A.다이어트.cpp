@@ -1,42 +1,55 @@
 #include<bits/stdc++.h>
-using namespace std;
-typedef long long ll;
-const int INF = 1e9;
-int n, mp, mf, ms, mv;
-int b, c, d, e, ret = INF, sum; // ret: 가장 적은 비용의 식단 비용, sum :식단 비용
-struct A{
-    int mp, mf, ms, mv, cost;
-}a[16]; // 최대 16개의 식재료 정보를 담을 구조체 배열
-map<int, vector<vector< int>>> ret_v; // 가장 적은 비용의 식단들을 모아둘 벡터를 map에 저장
+using namespace std;  
+typedef long long ll; 
+
+const int INF = 1e9; // 최대 -> 최소
+
+int n, mp, mf, ms, mv; // n: 재료의 개수, mp: 최소 단백질, mf: 최소 지방, ms: 최소 탄수화물, mv: 최소 비타민
+
+int b, c, d, e, ret = INF, sum; // b: 단백질의 합, c: 지방의 합, d: 탄수화물의 합, e: 비타민의 합, ret: 가장 작은 비용, sum: 현재 조합의 비용
+
+struct A{ // 각 재료에 대한 정보를 담고 있는 구조체
+    int mp, mf, ms, mv, cost; // mp: 단백질, mf: 지방, ms: 탄수화물, mv: 비타민, cost: 가격
+}a[16]; 
+
+map<int, vector<vector<int>>> ret_v; // 가장 적은 비용을 갖는 조합들을 저장할 맵 
+
 int main(){
-    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-    cin >> n;
-    cin >> mp >> mf >> ms >> mv;
-    for(int i = 0; i < n; i++){ //식재료들의 양과 비용을 입력
-        cin >> a[i].mp >> a[i].mf >> a[i].ms >> a[i].mv >> a[i].cost;
+    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); // 입출력 가속화를 위한 코드
+
+    cin >> n; 
+    cin >> mp >> mf >> ms >> mv; 
+
+    for(int i = 0; i < n; i++){ // 각 재료에 대한 정보를 입력받음
+        cin >> a[i].mp >> a[i].mf >> a[i].ms >> a[i].mv >> a[i].cost;  
     }
-    for(int i = 1; i < (1 << n); i++){ //1~2^n-1까지의 모든 수를 확인하며 가능한 모든 식단 만듬
-        b = c = d = e = sum = 0;
-        vector<int> v;
+
+    for(int i = 1; i < (1 << n); i++){ // 모든 조합에 대해 검사
+        b = c = d = e = sum = 0; // 초기화
+        vector<int> v; // 현재 검사 중인 조합의 재료 번호들을 저장할 벡터 
+
         for(int j = 0; j < n; j++){
-            if(i & (1 << j)){// i의 j번째 비트가 1이라면 j번째 식재료를 사용하겠다는 뜻
-                v.push_back(j + 1);
-                b += a[j].mp;
-                c += a[j].mf;
-                d += a[j].ms;
-                e += a[j].mv;
-                sum += a[j].cost;
+            if(i & (1 << j)){ // j번째 재료를 사용할 경우 
+                v.push_back(j + 1); // 사용한 재료의 번호를 벡터에 추가 
+                b += a[j].mp; // 단백질 합산 
+                c += a[j].mf; // 지방 합산 
+                d += a[j].ms; // 탄수화물 합산 
+                e += a[j].mv; // 비타민 합산 
+                sum += a[j].cost; // 가격 합산 
             }
         }
-        if(b >= mp && c >= mf && d >= ms && e >= mv){
-            if(ret >= sum){
-                ret = sum;
-                ret_v[ret].push_back(v);
+
+        if(b >= mp && c >= mf && d >= ms && e >= mv){ // 최소값을 만족할 경우 
+            if(ret >= sum){ // 현재 조합의 비용이 현재 최소 비용보다 작거나 같은 경우 
+                ret = sum; // 최소 비용 갱신 
+                ret_v[ret].push_back(v); // 가장 작은 비용을 갖는 조합들을 맵에 추가 
             }
         }
     }
-    if(ret == INF) cout << -1 << '\n';
+
+    if(ret == INF) cout << -1 << '\n'; // ret이갱신되지 않았으면 
     else{
+        // 가장 작은 sum 값을 가진 조합을 출력하기 위해 sum 값에 따라 오름차순 정렬 -> 사전순도 자동으로 됨
         sort(ret_v[ret].begin(), ret_v[ret].end());
         cout << ret << '\n';
         for(int a : ret_v[ret][0]){

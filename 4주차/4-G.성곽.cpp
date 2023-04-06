@@ -4,8 +4,8 @@ int n, m, mx, big, cnt;
 int visited[51][51], a[51][51], compSize[2504];
 const int dy[] = {0, -1, 0, 1};
 const int dx[] = {-1, 0, 1, 0};
-int dfs(int y, int x, int cnt){ //
-    if(visited[y][x]) return 0; //함수를 종료
+int dfs(int y, int x, int cnt){ 
+    if(visited[y][x]) return 0; 
     visited[y][x] = cnt;
     int ret = 1;
     for(int i = 0; i < 4; i++){
@@ -17,6 +17,7 @@ int dfs(int y, int x, int cnt){ //
     }
     return ret;
 }
+
 int main(){
     cin >> n >> m;
     for(int i = 0; i < m; i++){
@@ -24,18 +25,18 @@ int main(){
             cin >> a[i][j];
         }
     }
-    for(int i = 0; i < m; i++){//가장넓은 방 크기
+    for(int i = 0; i < m; i++){
         for(int j = 0; j < n; j++){
             if(!visited[i][j]){
-                cnt++;//아이디 부여를 위한 숫자
-                compSize[cnt] = dfs(i, j, cnt); //각 사이즈 저장
+                cnt++;
+                compSize[cnt] = dfs(i, j, cnt);
                 mx = max(mx, compSize[cnt]);
             }
         }
     }
-    for(int i = 0; i < m; i++){ //하나의 벽 제거 가장 큰거 찾기
+    for(int i = 0; i < m; i++){ 
         for(int j = 0; j < n; j++){
-            if(i + 1 < m){ //오버플로 생각
+            if(i + 1 < m){ 
                 int a = visited[i + 1][j];
                 int b = visited[i][j];
                 if(a != b){
