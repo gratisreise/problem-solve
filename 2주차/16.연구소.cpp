@@ -15,7 +15,7 @@ void dfs(int y, int x){ //바이러스 퍼져나가기
         dfs(ny, nx);
     }
 }
-int solve(){
+int solve(){ //정수형 함수를 쓰고 
     //바이러스 퍼뜨리기
     fill(&visited[0][0], &visited[0][0] + 10 * 10, 0);
     for(auto b : virusList){
