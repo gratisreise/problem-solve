@@ -38,7 +38,6 @@ int main(){
         for(int j = 0; j < n; j++){
             if(i + 1 < m){ 
                 int a = visited[i + 1][j];
-                int b = visited[i][j];
                 if(a != b){
                     big = max(big, compSize[a] + compSize[b]);
                 }

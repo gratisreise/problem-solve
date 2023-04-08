@@ -17,12 +17,9 @@ pair<int, int> dfs(int here, int value){
     return ret; 
 }  
 int main(){
-    ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >> n;
-
     for(int i = 1; i <= n; i++) cin >> a[i]; 
-
     for(int i = 1; i <= n; i++){
         cin >> m; 
         for(int j = 0; j < m; j++){
@@ -31,7 +28,6 @@ int main(){
             adj[temp].push_back(i); 
         } 
     }
-    
     for(int i = 1; i < (1 << n) - 1; i++){
         fill(comp, comp + 11, 0);
         fill(visited, visited + 11, 0);
@@ -44,5 +40,5 @@ int main(){
         pair<int, int> comp2 = dfs(idx2, 0);   
         if(comp1.first + comp2.first == n) ret = min(ret, abs(comp1.second - comp2.second)); 
     }
-    cout << (ret == INF ? -1 : ret)<< "\n";
+    cout << (ret == INF ? -1 : ret) << "\n";
 }
