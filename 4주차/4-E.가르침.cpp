@@ -23,9 +23,16 @@ int main(){
     for(int i = 0; i < n; i++){
         cin >> s;
         for(char str : s){
-            words[i]
+            words[i];
         }
     }
     cout << go(0, m, 0) << '\n';
     return 0;
 }
+/*
+1. k개의 단어만 가르칠 수 있다.
+2. k개의 알파벳으로 이루어진 단어만 읽을 수 있다.
+3. anta, tica는 고정
+4. 학생들이 읽을 수 있는 단어의 최댓값 구하기
+5.
+*/

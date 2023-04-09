@@ -10,16 +10,16 @@ int main(){
     }
     if(x == 1) v.push_back(1);
     for(int i : v) if(i == 1) cnt++;
-    cout << cnt <<'\n';
+    cout << cnt << '\n';
 }
 
 // 큰돌
 #include <bits/stdc++.h>
 using namespace std;
-int n, ret = 1;
+int n, ret = 1; //64보다 작거나 같으니깐 최소가 1
 int main(){ 
 	cin >> n; 
-	while(n != 1){ // n 이 1이면 어차피 
+	while(n != 1){ // n이 1이면 
         if(n & 1) ret++;  //n이 홀수일 때 1이 생성되므로 ++
         n /= 2; // 나누기 2해서 넣어주기
 	}
