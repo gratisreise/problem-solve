@@ -32,7 +32,8 @@ void mise_go(int dy[], int dx[]){
         }
     }
     return;
-}  
+} 
+//회전해서 돌리는 것
 vector<pair<int, int>> chung(int sy, int sx, int dy[], int dx[]){   
     vector<pair<int, int>> v; 
     int cnt = 0; 

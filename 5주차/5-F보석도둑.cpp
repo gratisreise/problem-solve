@@ -11,7 +11,7 @@ int main(){
         cin >> v[i].first >> v[i].second; // 무게 >> 가치
     }
     for(int i = 0; i < k; i++) cin >> vv[i]; // 가방의 무게 입력받기
-    sort(v.begin(), v.end());  // 오름차 정렬
+    sort(v.begin(), v.end());  // 오름차 정렬 무게를 기반으로 오름차순 정렬
     sort(vv.begin(), vv.end()); // 오름차 정렬
     priority_queue<ll> pq; // 우선순위 큐선언 -> 기본이 내림차라 가치 큰 것부터
 

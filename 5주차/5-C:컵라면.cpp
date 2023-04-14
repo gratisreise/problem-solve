@@ -7,8 +7,7 @@ int main(){
     ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >> n;
     for(int i = 0; i < n; i++){
-        cin >> a >> b;
-        v.push_back({a, b});
+        cin >> a >> b; v.push_back({a, b});
     }
     sort(v.begin(), v.end());
     for(int i = 0; i < n; i++){
@@ -22,3 +21,5 @@ int main(){
     cout << ret << '\n';
     return 0;
 }
+
+// ret을 for문 안에 넣어서 while 줄여버리기 가능

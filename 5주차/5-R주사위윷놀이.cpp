@@ -35,10 +35,11 @@ bool isMal(int mal_idx, int idx){
 void add(int here, int there){
 	adj[here].push_back(there); 
 }
-void setMap(){
+void setMap(){ // 입력을 받는 방법이 조금 어렵다
 	for(int i = 0; i <= 19; i++) add(i, i + 1); 
 	add(5, 21); add(21, 22); add(22, 23); add(23, 24); 
 	add(15, 29); add(29, 30); add(30, 31);add(31, 24);
+
 	add(10, 27); add(27, 28); add(28, 24); add(24, 25); 
 	add(25, 26); add(26, 20); add(20, 100);  
 

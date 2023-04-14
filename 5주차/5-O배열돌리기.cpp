@@ -1,5 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define s second
+#define f first
 const int INF = 1e9;
 const int dy[] = {0, 1, 0, -1}; 
 const int dx[] = {1, 0, -1, 0};
@@ -18,7 +20,7 @@ bool cmp(A &a, A &b){
 void go(int y, int x, int first){   
 	if(!first && y == sy && x == sx) dir++; 
 	if(!first && y == sy && x == ex) dir++; 
-	if(!first && y == ey && x == ex) dir++;
+	if(!firstㅎ && y == ey && x == ex) dir++;
 	if(!first && y == ey && x == sx) dir++; 
 	int ny = y + dy[dir]; 
 	int nx = x + dx[dir]; 
@@ -28,7 +30,7 @@ void go(int y, int x, int first){
 	go(ny, nx, 0); 
 }
 void rotateAll(int y, int x, int cnt){
-	for(int i = 1; i <= cnt; i++){
+	for(int i = 1; i <= cnt; i++){ //각 네점에 분기점을 나눔
 		sy = y - 1 * i; 
 		sx = x - 1 * i; 
 		ey = y + 1 * i; 
@@ -46,12 +48,12 @@ void rotateAll(int y, int x, int cnt){
 	}  
 }
 int solve(){
-	for(int i : v_idx) rotateAll(v[i].y, v[i].x, v[i].cnt);
+	for(int i : v_idx) rotateAll(v[i].y, v[i].x, v[i].cnt); //다 돌려보기
 	int _ret = INF;
 	for(int i = 0; i < n; i++){
 		int cnt = 0;
 		for(int j = 0; j < m; j++) cnt += b[i][j];
-		_ret = min(_ret, cnt);
+		_ret = min(_ret, cnt); //최솟값구하기
 	}
 	return _ret; 
 }
@@ -70,7 +72,7 @@ int main(){
 	do{
 		memcpy(b, a, sizeof(b));
 		ret = min(ret, solve());
-	}while(next_permutation(v_idx.begin(), v_idx.end())); 
+	}while(next_permutation(v_idx.begin(), v_idx.end())); // 회전의 순서 상관이 있음
 	cout << ret << "\n";
 	return 0;
 }

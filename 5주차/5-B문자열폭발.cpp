@@ -23,7 +23,7 @@ int main() {
     cin >> S >> T;
     for(char a : S){ 
         stk.push(a); 
-        // 스택 가장 위 문자가 문자열 T의 끝 글자와 같다면
+        // 스택 가장 위 문자가 문자열 T의 끝 글자와 같다면 , 비교할 때 사이즈 체크 중요
         if(stk.size() >= T.size() && stk.top() == T[T.size() - 1]){
             //문자열이 t와 같은지 검사
             string ss = "";

@@ -14,7 +14,7 @@ int main(){
     cin >> n >> k; 
     for(int i = 0; i < k; i++){
         cin >> y >> x; 
-        a[--y][--x] = 1; 
+        a[--y][--x] = 1; //기준이 1더 크게 되어있으므로
     }
     cin >> l; 
     for(int i = 0; i < l; i++){
@@ -37,7 +37,7 @@ int main(){
         visited[ny][nx] = 1;  
         dq.push_front({ny, nx}); 
         if(time == _time[idx].first){
-            dir = (dir + _time[idx].second) % 4; 
+            dir = (dir + _time[idx].second) % 4; // 방향전환을 위해 있는 코드
             idx++; 
         }    
     }

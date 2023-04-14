@@ -21,7 +21,7 @@ int findL(int pos){
 // 현재 위치에서 오른쪽으로 연결되는 톱니바퀴의 가장 오른쪽 톱니바퀴 위치를 찾는 함수
 int findR(int pos){
     for(int i = pos; i <= n - 2; i++){
-        if(s[i][2] == s[i + 1][6]){
+        if(s[i][2] == s[i + 1][6]){ 
             return i;
         }
     }

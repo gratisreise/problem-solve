@@ -11,7 +11,7 @@ int main(){
 		}
 	}
 	for(int i = 2; i <= n; i++){
-		if(!che[i]) a[p++] = i; //소수만 배열에 담아줌
+		if(!che[i]) a[p++] = i; //소수만 배열에 담아줌 , 벡터 푸쉬백역할을 함
 	}  
     while(1){
         if(sum >= n) sum -= a[lo++]; //sum이 n 이상이면 lo인덱스를 이동시켜서 작게 만들어줌

@@ -12,7 +12,7 @@ int main(){
     for(int i = 0; i < n; i++){
         pq.push(v[i].second); // 강연료를 우선순위 큐에 저장
         // 우선순위 큐의 크기가 마감일보다 크면 강연료가 가장 적은 강연을 뺌
-        if(pq.size() > v[i].first){ 
+        if(pq.size() > v[i].first){ // 오름차순으로 
             pq.pop();
         }
     }

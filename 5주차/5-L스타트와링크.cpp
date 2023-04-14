@@ -21,8 +21,9 @@ int main() {
             cin >> s[i][j];
         }
     } 
-    for (int i = 0; i < (1 << n); i++) {
+    for (int i = 0; i < (1 << n); i++) { //비트마스킹 모든 경우의 수
 		if(__builtin_popcount(i) != n / 2) continue; // 이진수 i에 1이 몇개인지 세어서, n/2와 다르면 continue
+		// 비트가 켜져있는게 몇개인가?? 팝카운트
         vector<int> start, link; // 크기가 작으니깐 지역선언 가능
 		for(int j = 0; j < n; j++){
 			if(i & (1 << j))start.push_back(j); // i의 j번째 비트가 1이면 start 팀에 포함

@@ -12,7 +12,7 @@ int main() {
     cin >> R >> C >> M;
     for (int i = 1; i <= M; i++) {
         cin >> a[i].y >> a[i].x >> a[i].s >> a[i].dir >> a[i].z;
-        a[i].y--; a[i].x--; a[i].dir--;
+        a[i].y--; a[i].x--; a[i].dir--; // 모듈러 연산때문에 좌표0으로 바꿔줌
 		
 		if(a[i].dir <= 1) a[i].s %= (2 * (R - 1));
 		else a[i].s %= (2 * (C - 1));
@@ -20,7 +20,7 @@ int main() {
         shark[a[i].y][a[i].x] = i;
     }
     for (int t = 0; t < C; t++) {
-        for (int y = 0; y < R; y++) {
+        for (int y = 0; y < R; y++) { //사람이 움직이면서 돈다
             if (shark[y][t]) {
                 a[shark[y][t]].death = 1;
                 ret += a[shark[y][t]].z;
@@ -28,7 +28,7 @@ int main() {
                 break;
             }
         }
-        memset(temp, 0, sizeof(temp));
+        memset(temp, 0, sizeof(temp)); //temp배열 0으로 둔다
         for (int i = 1; i <= M; i++) {
             if (a[i].death) continue; 
 
@@ -38,7 +38,7 @@ int main() {
             int d = a[i].dir; 
 			int ny, nx; 
 
-			while (1) {  
+			while (1) {  // 최대2번만 작동하게됨
 				ny = y + s * dy[d];
 				nx = x + s * dx[d]; 
                 if (nx < C && ny < R && ny >= 0 && nx >= 0)break;
@@ -62,7 +62,7 @@ int main() {
 				d ^= 1;  
             }
             
-			if (temp[ny][nx]) {
+			if (temp[ny][nx]) { //상어 크기비교
                 if (a[temp[ny][nx]].z < a[i].z) { 
 					a[temp[ny][nx]].death = 1; 
 					temp[ny][nx] = i; 

@@ -14,7 +14,7 @@ void go(int x, int y, int d, int g){ // 드래곤 커브 생성 함수
         }
     }
     return; // 커브 생성 완료
-}
+} 
 void makeDragon(){ // 드래곤 커브 생성 함수
     for(int i = 0; i < 4; i++){ // 4개의 방향에 대해서
         dragon[i][0].push_back(i); // 0세대는 i방향 하나만 가지므로 삽입
