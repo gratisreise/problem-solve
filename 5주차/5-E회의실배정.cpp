@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-int from, to, n, ret = 1;  
+int from, to, n, ret = 1; // 왜 ret이 1이냐 그것은 바로 자기자신이 있기 때문이지!!
 int main(){
     ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >> n;

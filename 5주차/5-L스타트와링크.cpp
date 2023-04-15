@@ -12,7 +12,7 @@ int go(vector<int> &a, vector<int> &b){
 			ret.second += s[b[i]][b[j]]; // b팀의 능력치 합
 		}
 	}
-	return abs(ret.first - ret.second); // 두 팀의 능력치 차이 절댓값 반환
+	return abs(ret.fir hst - ret.second); // 두 팀의 능력치 차이 절댓값 반환
 }
 int main() { 
     cin >> n;

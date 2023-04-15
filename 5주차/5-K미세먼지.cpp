@@ -15,7 +15,8 @@ void mise_go(int dy[], int dx[]){
             }
         }
     }
-    while(q.size()){ 
+
+    while(q.size()){
         tie(y, x) = q.front(); q.pop(); 
         int spread = a[y][x] / 5; 
         for(int i = 0; i < 4; i++){
@@ -32,7 +33,8 @@ void mise_go(int dy[], int dx[]){
         }
     }
     return;
-} 
+}
+
 //회전해서 돌리는 것
 vector<pair<int, int>> chung(int sy, int sx, int dy[], int dx[]){   
     vector<pair<int, int>> v; 
@@ -54,6 +56,7 @@ vector<pair<int, int>> chung(int sy, int sx, int dy[], int dx[]){
     }
     return v;
 } 
+
 void go(vector<pair<int, int>> &v){  
     for(int i = v.size() - 1; i > 0; i--){
         a[v[i].first][v[i].second] = a[v[i - 1].first][v[i - 1].second];
@@ -61,6 +64,7 @@ void go(vector<pair<int, int>> &v){
     a[v[0].first][v[0].second] = 0; 
     return;
 }
+
 int main(){
     cin >> n >> m >> t; 
     bool flag = 1; 
@@ -75,11 +79,13 @@ int main(){
             }
         }
     }
+
     while(t--){
         mise_go(dy1, dx1); 
         go(v1); 
         go(v2);   
-    } 
+    }
+ 
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
             if(a[i][j] != -1) ret += a[i][j];

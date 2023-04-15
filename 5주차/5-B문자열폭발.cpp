@@ -14,7 +14,8 @@ int main() {
     else cout << ret << "\n";
     return 0;
 }
-
+// 문자열 먼저 집어넣고 생각하기
+// erase는 포인터 
 #include <bits/stdc++.h>
 using namespace std;
 string S, T, ret;
@@ -28,7 +29,7 @@ int main() {
             //문자열이 t와 같은지 검사
             string ss = "";
             for(char i : T){
-                ss += stk.top();
+                // ss += stk.top();
                 stk.pop();
             }
             reverse(ss.begin(), ss.end());
@@ -39,7 +40,7 @@ int main() {
             }
         }  
     }    
-    if(stk.size() == 0){
+    if(!stk.size()){
         cout << "FRULA\n";
     }else{
         //스택에서 뽑아내서 문자열 만들기

@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long ll;
+typedef long long ll; // 무게 값이 10억 단위가 나와버림
 ll n, k, ret;
 int main(){
     ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -10,17 +10,18 @@ int main(){
     for(int i  = 0; i < n; i++){ // 무게 가치 벡터에 넣기
         cin >> v[i].first >> v[i].second; // 무게 >> 가치
     }
+    cin >> k;
     for(int i = 0; i < k; i++) cin >> vv[i]; // 가방의 무게 입력받기
     sort(v.begin(), v.end());  // 오름차 정렬 무게를 기반으로 오름차순 정렬
     sort(vv.begin(), vv.end()); // 오름차 정렬
     priority_queue<ll> pq; // 우선순위 큐선언 -> 기본이 내림차라 가치 큰 것부터
 
     int j = 0; //
-    for(int i = 0; i < k; i++){
-        // 보석가치 큰 것부터 차례로 우선순위큐에 넣기
-        while(j < n &&  v[j].first <= vv[i]) pq.push(v[j++].second);
-        if(pq.size()){
-            ret += pq.top(); pq.pop();
+    // for(int i = 0; i < k; i++){
+    //     // 보석가치 큰 것부터 차례로 우선순위큐에 넣기
+    //     while(j < n &&  v[j].first <= vv[i]) pq.push(v[j++].second);
+    //     if(pq.size()){
+    //         ret += pq.top(); pq.pop();
         }
     }
     cout << ret << '\n';
