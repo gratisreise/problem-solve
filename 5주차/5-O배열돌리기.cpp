@@ -20,7 +20,7 @@ bool cmp(A &a, A &b){
 void go(int y, int x, int first){   
 	if(!first && y == sy && x == sx) dir++; 
 	if(!first && y == sy && x == ex) dir++; 
-	if(!firstㅎ && y == ey && x == ex) dir++;
+	if(!first && y == ey && x == ex) dir++;
 	if(!first && y == ey && x == sx) dir++; 
 	int ny = y + dy[dir]; 
 	int nx = x + dx[dir]; 

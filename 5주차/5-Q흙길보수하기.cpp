@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;   
-int n, l, idx, ret, b; // b: 보수지점
+int n, l, idx, ret, b; // b: 사용된 널빤지 갯수, idx : 널빤지 지점
 int main(){
 	ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 	cin >> n >> l; 
@@ -16,7 +16,7 @@ int main(){
 			b = (a[i].second - idx) / l + ((a[i].second - idx) % l ? 1 : 0); 
 			idx = idx + b * l; 
 		}  
-		ret += b; // 보수지점의 총합 
+		ret += b; // 사용된 널빤지 갯수 총합
 	} 
 	cout << ret << "\n"; 
 	return 0;

@@ -30,7 +30,7 @@ struct Board{
             memcpy(a, temp, sizeof(a)); // 임시 배열 temp의 값을 원래 배열 a에 복사
     }
 
-
+    //최댓값 구하기
     void get_max(){
         for(int i = 0; i < n; i++){
             for(int j = 0; j < n; j++){
@@ -40,7 +40,7 @@ struct Board{
     }
 };
 
-void go(Board c, int here){
+void go(Board c, int here){ // 보드 돌리고 최댓값 구하는 함수
     if(here == 5){ // 움직일 수 있는 횟수 다 사용했으 때
         c.get_max(); // 최댓값 구하고 리턴
         return;

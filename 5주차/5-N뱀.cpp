@@ -1,47 +1,48 @@
 #include<bits/stdc++.h>
-using namespace std;  
+using namespace std;
 #define time ff
-// ret : 게임종료시간, idx : 다음 이동 명령의 인덱스, dir : 현재 뱀의 진행방향(0 : 위, 1:오른쪽, 2:아래, 3: 왼쪽)
 int n, k, l, y, x, t, ret, idx, dir = 1;
-int a[104][104], visited[104][104], time; 
-char c; 
-deque<pair<int, int>> dq; // 뱀의 위치를 저장하는 덱 
-vector<pair<int, int>> _time; // 이동명령 저장하는 벡터(현재시간, 방향(1:오,3:왼)
+int a[104][104], visited[104][104], time;
+char c;
+deque<pair<int, int>> dq;
+vector<pair<int, int>> _time;
 const int dy[] = {-1, 0, 1, 0};
-const int dx[] = {0, 1, 0, -1}; 
+const int dx[] = {0, 1, 0, -1};
 int main(){
     ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-    cin >> n >> k; 
+    cin >> n >> k;
     for(int i = 0; i < k; i++){
-        cin >> y >> x; 
-        a[--y][--x] = 1; //기준이 1더 크게 되어있으므로
+        cin >> y >> x;
+        a[--y][--x] = 1;
     }
-    cin >> l; 
+    cin >> l;
     for(int i = 0; i < l; i++){
-        cin >> t >> c;   
-        if(c == 'D') _time.push_back({t, 1});
-        else _time.push_back({t, 3}); 
-    } 
-    dq.push_back({0, 0}); 
-    while(dq.size()){ 
-        time++; 
-        tie(y, x) = dq.front();
-        int ny = y + dy[dir]; 
-        int nx = x + dx[dir]; 
-        if(ny >= n || ny < 0 || nx >= n || nx < 0 || visited[ny][nx]) break;
-        if(!a[ny][nx]){ 
-            visited[dq.back().first][dq.back().second] = 0;  
-            dq.pop_back(); 
-        }else a[ny][nx] = 0; 
-
-        visited[ny][nx] = 1;  
-        dq.push_front({ny, nx}); 
-        if(time == _time[idx].first){
-            dir = (dir + _time[idx].second) % 4; // 방향전환을 위해 있는 코드
-            idx++; 
-        }    
+        cin >> t >> c;
+        if(c == 'D') _time.push_back({t, 1}); // 오른쪽
+        else _time.push_back({t, 3}); // 왼쪽
     }
-    cout << time << "\n"; 
+    dq.push_back({0, 0}); // 뱀의 초기 머리위치
+    while(dq.size()){ 
+        time++; // 게임 시간 증가
+        tie(y, x) = dq.front(); // 머리위치
+        int ny = y + dy[dir]; // 다음 머리 위치
+        int nx = x + dx[dir];
+        // 다음 위치가 게임판 밖이거나 이미 방문한 위치라면 게임 종료
+        if(ny < 0 || nx < 0 || ny >= n || nx >= n || visited[ny][nx]) break;
+        if(!a[ny][nx]){ // 다음 위치에 사과가 없다면
+            visited[dq.back().first][dq.back().second] = 0; // 방문해제
+            dq.pop_back(); // 뱀의 길이 줄어듬
+        }else a[ny][nx] = 0; // 사과 있다면 사과제거
+
+        visited[ny][nx] = 1; // 다음 위치 방문처리
+        dq.push_front({ny, nx}); // 머리르 다음 위치로 이동
+        
+        if(time == _time[idx].first){ // 방향전환
+            dir = (dir + _time[idx].second) % 4;
+            idx++;
+        }
+    }
+    cout << time << '\n';
     return 0;
 }
 /*

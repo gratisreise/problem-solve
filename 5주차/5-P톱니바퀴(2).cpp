@@ -49,7 +49,7 @@ int main(){
             cnt++;
         }
     }
-    for(int i = 0; i < n; i++)if(s[i][0] == '1') ret++; //12시방향이 1인 토비 카운트
+    for(int i = 0; i < n; i++) if(s[i][0] == '1') ret++; //12시방향이 1인 토비 카운트
     cout << ret << "\n";
     
     return 0;
