@@ -6,7 +6,7 @@ ll go(ll a, ll b){
     if(b == 1) return a % c;  //기저사례
     ll ret = go(a, b / 2); //
     ret = (ret * ret) % c; //곱하기 후 모듈러 연산
-	if(b % 2)ret = (ret * a)% c;//1은 true, 이해 잘 안됨, a를 한번 더 곱한 뒤 모듈러연산
+	if(b % 2)ret = (ret * a) % c;//1은 true, 이해 잘 안됨, a를 한번 더 곱한 뒤 모듈러연산
     return ret;
 }
 int main() {
