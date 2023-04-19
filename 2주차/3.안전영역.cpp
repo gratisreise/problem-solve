@@ -1,7 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
+const int mx = 101;
 int n, y, x, ret = 1;
-int a[101][101]; bool visited[101][101];
+int a[mx][mx]; bool visited[mx][mx];
 int dy[4] = {-1, 0, 1, 0};
 int dx[4] = {0, 1, 0, -1};
 void dfs(int y, int x, int d){
@@ -23,7 +24,7 @@ int main(){
         }
     }
     for(int d = 1; d <= 100; d++){
-        fill(&visited[0][0],&visited[0][0] + 101 * 101,0);
+        fill(&visited[0][0],&visited[0][0] + mx * mx,0);
         int cnt = 0;
         for(int i = 0; i < n; i++){
             for(int j = 0; j < n; j++){
