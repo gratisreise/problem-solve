@@ -16,7 +16,7 @@ int main(){
     for(int i = 0; i < s; i++) cin >> a[i], sum += a[i]; // 각 닭의 파닭 길이를 입력 받고, 전체 파닭 길이의 합도 구함
     ll lo = 1, hi = 1e9;
     while(lo <= hi){
-        ll mid = (lo + hi) / (1LL * 2); // 이분탐색을 위한 mid
+        ll mid = (lo + hi) / (1LL * 2); // 이분탐색을 위한 mid ,뒤는 형변환 보여줌
         if(check(mid)){
             lo = mid + 1; // 파를 c개 이상 만들 수 있으므로 mid+1에서 계속 탐색
             ret = mid; // 최적의 파닭 길이를 저장

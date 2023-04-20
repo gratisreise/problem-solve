@@ -6,11 +6,11 @@ bool check(int mid){
     int temp = mid;
     int cnt = 0;
     for(int i = 0; i < n; i++){
-        if(mid - a[i] < 0){
-            mid = temp;
-            cnt++;
+        if(mid - a[i] < 0){ // 크기가 음수면 블루레이 증가
+            mid = temp; // 다시 충전
+            cnt++; // 썻으니깐 추가
         }
-        mid -= a[i];
+        mid -= a[i]; //계속빼주면서 체크
     }
     if(mid != temp) cnt++; // 마지막 mid가 0보다 크면 마지막 블루레이에 포함 안되므로 cnt 증가
     return cnt <= m;
