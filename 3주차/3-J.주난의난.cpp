@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std; 
+#define y1 aaaa
 int n, m, x1, y1, x2, y2;
 int visited[301][301]; char a[301][301];
 int dy[4] = {-1, 0, 1, 0}; 
@@ -39,7 +40,7 @@ int main(){
     printf("%d\n", visited[y2][x2]); 
 }
 /*
-1.bfs
+1. bfs
 2. 2차원의 또다른 표현
 3. 큐를 2개 선언해서 문제풀기
 4. 

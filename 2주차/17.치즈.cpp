@@ -37,6 +37,7 @@ int main(){
 			cnt2++; // 녹아지는 순간을 체크
 			a[b.first][b.second] = 0;
 		}   
+        // 사간의 표현
         bool flag = 0;
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){

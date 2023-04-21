@@ -17,9 +17,7 @@ int solve(int a, int b, int c){
     visited[a][b][c] = 1;
     q.push({a, b, c});
     while(q.size()){
-        int a = q.front().a;
-        int b = q.front().b;
-        int c = q.front().c;
+        tie(a, b, c) = q.front();
         q.pop();
         if(visited[0][0][0]) break;// 시작부터 반복문 시작 필요성 없음
         for(int i = 0; i < 6; i++){ // 각 경우에 따라 반복

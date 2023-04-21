@@ -1,14 +1,11 @@
 #include <bits/stdc++.h>
-using namespace std;  
+using namespace std; 
+
 vector<int> num; 
 vector<char> oper_str; 
-int n, ret = -987654321;
+int n, ret = -1e9;
 string s;
-void fastIO(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); 
-    cout.tie(NULL);   
-} 
+
 int oper(char a, int b, int c){ // 진짜 연산자로 바꿔주는 작업
     if(a == '+') return b + c; 
     if(a == '-') return b - c; 
@@ -28,12 +25,12 @@ void go(int here, int _num){ // 계산순서 변경해주는 작업
     }
     return;
 } 
+
 int main(){
-    fastIO();
-    cin >> n;  
-    cin >> s; 
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    cin >> n >> s; 
     for(int i = 0; i < n; i++){
-        if(i % 2 == 0)num.push_back(s[i] - '0');
+        if(i % 2 == 0) num.push_back(s[i] - '0'); //숫자로 받아준다고??
         else oper_str.push_back(s[i]);
     } 
     go(0, num[0]);  

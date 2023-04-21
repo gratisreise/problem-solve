@@ -19,7 +19,7 @@ void bfs(int y, int x){
             if(visited[ny][nx] || a[ny][nx] == 'W') continue; 
             visited[ny][nx] = visited[y][x] + 1; 
             q.push({ny, nx});
-            ret = max(ret, visited[ny][nx]);
+            ret = max(ret, visited[ny][nx]); // 탐색하면서 최대찾기
         }
     }
     return;

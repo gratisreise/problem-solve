@@ -24,8 +24,8 @@ int main(){
             prev = idx; // 배열의 이전 요소와 쉽게 비교하기위해
         }
         if(is_include_v == 0) flag = 1;
-        if(flag) cout << "<" << s << ">" << " is not acceptable.\n";
-        else cout << "<" << s << ">" << " is acceptable.\n";
+        if(flag) cout << "<" << s << "> is not acceptable.\n";
+        else cout << "<" << s << "> is acceptable.\n";
     }
     return 0;
 }
