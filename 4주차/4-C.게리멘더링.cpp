@@ -23,9 +23,9 @@ int main(){
     ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >> n;
     for(int i = 1; i <= n; i++) cin >> a[i];  // 정점의 인구수 저장
-    for(int i = 1; i <= n; i++){ // 인접리스트 생성
+    for(int i = 1; i <= n; i++){ // 트리 입력 방법
         cin >> m; 
-        for(int j = 0; j < m; j++){
+        for(int j = 0; j < m; j++){ // 양방향으로
             cin >> temp; 
             adj[temp].push_back(i);
             adj[i].push_back(temp); 
@@ -36,14 +36,14 @@ int main(){
         fill(visited, visited + 11, 0);
         //각 선거구에 구성된 정점의 번호를 저장하는 변수
         int idx1 = -1, idx2 = -1; 
-        for(int j = 0; j < n; j++){
+        for(int j = 0; j < n; j++){ // 1,0으로 선거구 유형 저장
             if(i & (1 << j)){comp[j + 1] = 1; idx1 = j + 1;}
             else idx2 = j + 1;
         }
         // 정점의 개수와 인구수의 합을 저장하는 pair
         pair<int, int> comp1 = dfs(idx1, 1);
         pair<int, int> comp2 = dfs(idx2, 0);
-        if(comp1.first + comp2.first == n) ret = min(ret, abs(comp1.second - comp2.second)); 
+        if(comp1.first + comp2.first == n) ret = min(ret, abs(comp1.second - comp2.second));
     }
     cout << (ret == INF ? -1 : ret) << "\n";
 }

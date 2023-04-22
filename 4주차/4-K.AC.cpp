@@ -8,10 +8,10 @@ int main(){
         deque<int> D;
         cin >> P >> N >> order;
         x = 0;
-        for(char c : order){
+        for(char c : order){ // 숫자만 뽑아먹는방법 -> 순회하면서 구분해줌
         	if(c == '[' || c == ']') continue;
             if(c >= '0' && c <= '9') x = x * 10 + c - '0'; // 숫자가 나오면 현재 수*10 한 뒤 더함         
-            else{ 
+            else{  //콤마 처리
                 if(x > 0) D.push_back(x);
                 x = 0; 
             }
@@ -31,7 +31,6 @@ int main(){
 		
         
         if(error) cout << "error" << '\n'; 
-        
         else{ 
         	cout << "[";  
             if(rev) reverse(D.begin(), D.end());
@@ -39,7 +38,8 @@ int main(){
         		cout << D[i];  
                 if(i < D.size()-1) cout << ",";
             }
-        	cout << "]\n";  
+        	cout << "\n";  
         }
     }
 } 
+}

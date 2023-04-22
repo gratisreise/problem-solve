@@ -1,14 +1,11 @@
-#include <iostream>
-#include <stack>
-#include <string>
+#include<bits/stdc++.h>
 using namespace std;
 
 int n, d[200001], ret, cnt; 
 string s;
 stack<int> stk;
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(0); 
+	ios_base::sync_with_stdio(0);cin.tie(0); 
 	cin >> n >> s;   
 	for (int i = 0; i < n; i++) {
 		if (s[i] == '(') stk.push(i);  
