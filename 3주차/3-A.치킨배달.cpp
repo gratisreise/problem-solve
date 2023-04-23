@@ -30,7 +30,7 @@ int main(){
     for(vector<int> cList : chickenList){ // 안닫은 치킨집의 번호 먼저뽑기
         // int ret = 0; // 도시치킨거리 초기화
         for(pair<int, int> home : _home){ // 집 탐색하며 거리 구할려고
-            int _min = 987654321; //최솟값 구하기위해 최대한 큰 값 넣기
+            int _min = 1e9; //최솟값 구하기위해 최대한 큰 값 넣기
             for(int ch : cList){ // 좌표 모음에서 각 좌표의 번호 넣고 뽑기
                 int _dist = abs(home.first - chicken[ch].first) + abs(home.second - chicken[ch].second); //거리구하기
                 _min = min(_min, _dist); // 치킨거리 구하기위해 최솟값 구하기
