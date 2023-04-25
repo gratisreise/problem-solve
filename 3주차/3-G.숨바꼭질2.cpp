@@ -3,10 +3,11 @@ using namespace std;
 const int mx = 200000;
 int visited[mx + 4];
 long long cnt[mx + 4];
+int n, m;
 int main(){
-    int n, m;
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >> n >> m;
-    if(n == m){ // 반례 있거나 없거나 최대최소 같거나 다르거나!!!
+    if(n == m){ // 반례 찾기 : 있거나 없거나 최대,최소 같거나 다르거나!!!
         puts("0"); puts("1"); //puts 문자열 출력함수
         return 0;
     }
@@ -18,7 +19,7 @@ int main(){
         int now = q.front(); //now = 앞에있는 큐
         q.pop(); // 큐내보내기
         for(int next : {now - 1, now + 1, now * 2}){ //연산선언
-            if(0 <= next && next <= mx){ // 언,옵제한
+            if(0 <= next && next <= mx){ // 언,옵플로우제한
                 if(!visited[next]){ //최소로 해줘야 하니깐
                     q.push(next);  // empty
                     visited[next] = visited[now] + 1; //최소의 시간
