@@ -2,6 +2,7 @@
 using namespace std;
 int n;
 int main(){
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >> n;
     vector<pair<int, int>> a(n);
     for(int i = 0; i < n; i++) cin >> a[i].first >> a[i].second; 
@@ -20,10 +21,7 @@ int main(){
     return 0;
 }
 /*
-이후, 가장 먼저 도착한 소는 일단 무조건 건너가야 하므로,
-해당 소가 건너가는 데 걸리는 시간과 도착 시간을 더해 realTime 변수에 저장합니다.
-
-이후 반복문에서는 정렬된 소들을 순서대로 확인하면서,
-현재 시간과 해당 소의 도착 시간 중 큰 값을 선택하여 현재 시간을 갱신하고,
-건너가는 데 걸리는 시간을 더해 realTime 변수를 갱신합니다.
+goal : 소가 길은 건너는 최소시간
+조건1 : 한 번에 한 마리만 검문가능
+1. 
 */

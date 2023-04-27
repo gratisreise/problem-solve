@@ -7,7 +7,7 @@ int main() {
         ret += a;
          
         if(ret.size() >= T.size() && ret.substr(ret.size() - T.size(), T.size()) == T){
-            ret.erase(ret.end() - T.size(), ret.end()); 
+            ret.erase(ret.size() - T.size(), ret.size()); 
         }
     }
     if(!ret.size())cout << "FRULA" << "\n";
@@ -34,7 +34,7 @@ int main() {
             }
             reverse(ss.begin(), ss.end());
             if(T != ss){
-                for(int i : ss){
+                for(char i : ss){
                     stk.push(i);
                 }
             }
