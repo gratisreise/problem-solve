@@ -6,10 +6,11 @@ GROUP BY car_type
 HAVING SUM(option_name = 'ABS') > 0;
 
 <성분으로 구분한 아이스크림 총 주문량>
-SELECT A.ingredient, SUM(B.amount) as total_amount
-FROM products A 
-JOIN sales B ON A.product_id = B.product_id
-GROUP BY A.ingredient;
+SELECT I.INGREDIENT_TYPE, SUM(F.TOTAL_ORDER) AS TOTAL_ORDER
+FROM FIRST_HALF F
+inner join ICECREAM_INFO I
+on F.FLAVOR = I.FLAVOR
+GROUP BY I.INGREDIENT_TYPE
 
 <진료과별 총 예약 횟수 출력하기>
 SELECT department, COUNT(*) AS reservation_count
@@ -93,23 +94,25 @@ ORDER BY month ASC, rental_count DESC
 
 [LEVEL 4]
 <식품분류별 가장 비싼 식품의 정보 조회하기>
-SELECT F.FOOD_CLASS, F.FOOD_NAME, F.PRICE
-FROM FOODS F
-JOIN (
-    SELECT FOOD_CLASS, MAX(PRICE) AS MAX_PRICE
-    FROM FOODS
-    GROUP BY FOOD_CLASS
-) MAX_F
-ON F.FOOD_CLASS = MAX_F.FOOD_CLASS AND F.PRICE = MAX_F.MAX_PRICE
-ORDER BY F.FOOD_CLASS
+select a.CATEGORY,
+       max(a.PRICE) as MAX_PRICE,
+       (select PRODUCT_NAME 
+        from FOOD_PRODUCT 
+        where CATEGORY = a.CATEGORY 
+        order by PRICE desc limit 1) as PRODUCT_NAME
+from FOOD_PRODUCT a
+where CATEGORY in ('과자', '국', '김치', '식용유')
+group by CATEGORY
+order by MAX_PRICE desc
 
 <저자 별 카테고리 별 매출액 집계하기>
-SELECT a.author_name, b.category, SUM(b.amount) as sales
-FROM authors a
-INNER JOIN books b ON a.author_id = b.author_id
-INNER JOIN orders o ON b.book_id = o.book_id
-GROUP BY a.author_name, b.category
-ORDER BY sales DESC
+SELECT CATEGORY,sum(SALES) as TOTAL_SALES
+from BOOK as b
+join BOOK_SALES as bs 
+on b.BOOK_ID = bs.BOOK_ID
+where year(SALES_DATE) = '2022' and month(sales_date)= "01"
+group by CATEGORY
+order by CATEGORY
 
 <년, 월, 성별 별 상품 구매 회원 수 구하기>
 SELECT YEAR(order_date) AS '년도', MONTH(order_date) AS '월', gender AS '성별', COUNT(DISTINCT user_id) AS '구매 회원 수'
