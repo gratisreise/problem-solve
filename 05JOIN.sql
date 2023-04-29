@@ -5,12 +5,15 @@ FROM AUTHOR A
 JOIN BOOK B ON A.AUTHOR_ID = B.AUTHOR_ID
 WHERE B.PUBLISH_YEAR >= 2015
 
+select b.title, a.name 
+from author A
+join book b on a.author_id = b.author_id
 <상품 별 오프라인 매출 구하기>
-SELECT P.PRODUCT_NAME, SUM(O.PRICE)
-FROM ORDERS O
-JOIN PRODUCT P ON O.PRODUCT_ID = P.PRODUCT_ID
-WHERE O.TYPE = 'offline'
-GROUP BY P.PRODUCT_NAME
+select p.product_code, sum(p.price * o.sales_amount) as sales
+from product p
+inner join offline_sale o on p.product_id = o.product_id
+group by p.product_code
+order by sales desc, p.product_code asc
 
 [LEVEL 3]
 <없어진 기록 찾기>
@@ -22,12 +25,11 @@ WHERE ANIMAL_INS.ANIMAL_ID IS NULL
 ORDER BY ANIMAL_OUTS.ANIMAL_ID;
 
 <있었는데요 없었습니다>
-SELECT OUTS.ANIMAL_ID, OUTS.NAME
-FROM ANIMAL_OUTS OUTS
-LEFT JOIN ANIMAL_INS INS
-ON OUTS.ANIMAL_ID = INS.ANIMAL_ID
-WHERE INS.ANIMAL_ID IS NULL
-ORDER BY OUTS.ANIMAL_ID ASC;
+select a.ANIMAL_ID, a.NAME
+from ANIMAL_INS a
+inner join ANIMAL_OUTS b on a.ANIMAL_ID = b.ANIMAL_ID
+and a.DATETIME > b.DATETIME
+order by a.DATETIME asc
 
 <오랜 기간 보호한 동물(1)>
 SELECT ANIMAL_ID, NAME
@@ -37,14 +39,19 @@ ORDER BY DATETIME ASC;
 
 [LEVEL 4]
 <특정 기간동안 대여 가능한 자동차들의 대여비용 구하기>
-SELECT R.CAR_ID, C.CAR_NAME, C.CAR_MODEL, SUM(R.RENTAL_FEE) AS RENTAL_FEE
-FROM RENTAL_RECORDS R
-JOIN CARS C ON R.CAR_ID = C.CAR_ID
-WHERE R.RENTAL_START_DAY <= '2023-04-25' AND R.RENTAL_END_DAY >= '2023-04-25'
-GROUP BY R.CAR_ID
-HAVING COUNT(R.CAR_ID) = (SELECT COUNT(DISTINCT R2.USER_ID)
-                          FROM RENTAL_RECORDS R2
-                          WHERE R2.CAR_ID = R.CAR_ID)
+SELECT a.CAR_ID,a.CAR_TYPE,
+ROUND(a.DAILY_FEE * 30 * (100 - b.DISCOUNT_RATE)/100) AS FEE
+FROM CAR_RENTAL_COMPANY_CAR AS a
+inner JOIN CAR_RENTAL_COMPANY_DISCOUNT_PLAN AS b
+    ON a.CAR_TYPE = b.CAR_TYPE AND b.DURATION_TYPE = '30일 이상'
+WHERE a.CAR_TYPE IN ('세단', 'SUV')
+AND a.CAR_ID NOT IN (
+    SELECT CAR_ID
+    FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+    WHERE END_DATE >= '2022-11-01' AND START_DATE <= '2022-11-30'
+)
+HAVING FEE >= 500000 AND FEE < 2000000
+ORDER BY FEE DESC, a.CAR_TYPE ASC, a.CAR_ID DESC;
 
 <5월 식품들의 총매출 조회하기>
 SELECT SUM(price) AS total_sales
@@ -75,3 +82,16 @@ FROM animal_ins
 WHERE sex_upon_intake LIKE '%Intact%'
   AND (animal_type = 'Dog' OR animal_type = 'Cat')
 ORDER BY animal_id;
+<
+SELECT YEAR(sale.SALES_DATE) AS year, 
+        MONTH(sale.SALES_DATE) AS month, 
+        COUNT(DISTINCT info.USER_ID) AS PUCHASED_USERS, 
+        ROUND((COUNT(DISTINCT info.USER_ID) 
+        / (SELECT count(user_id) FROM user_info WHERE YEAR(joined) = 2021)), 1) 
+        AS PUCHASED_RATIO
+FROM user_info AS info
+INNER JOIN online_sale AS sale 
+ON info.user_id = sale.user_id
+WHERE YEAR(info.joined) = 2021
+GROUP BY YEAR(sale.sales_date), MONTH(sale.sales_date)
+ORDER BY YEAR(sale.sales_date), MONTH(sale.sales_date)

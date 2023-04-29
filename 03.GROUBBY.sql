@@ -6,11 +6,12 @@ GROUP BY car_type
 HAVING SUM(option_name = 'ABS') > 0;
 
 <성분으로 구분한 아이스크림 총 주문량>
-SELECT I.INGREDIENT_TYPE, SUM(F.TOTAL_ORDER) AS TOTAL_ORDER
-FROM FIRST_HALF F
-inner join ICECREAM_INFO I
-on F.FLAVOR = I.FLAVOR
-GROUP BY I.INGREDIENT_TYPE
+select b.INGREDIENT_TYPE, sum(a.TOTAL_ORDER) as TOTAL_ORDER
+from FIRST_HALF a
+inner join ICECREAM_INFO b
+on a.FLAVOR = b.FLAVOR
+group by b.INGREDIENT_TYPE
+order by TOTAL_ORDER
 
 <진료과별 총 예약 횟수 출력하기>
 SELECT department, COUNT(*) AS reservation_count
@@ -30,11 +31,11 @@ GROUP BY NAME
 ORDER BY NAME;
 
 <입양 시각 구하기(1)>
-SELECT HOUR(datetime) AS HOUR, COUNT(*) AS COUNT
-FROM ANIMAL_OUTS
-WHERE DATE(datetime) = '2019-01-01'
-GROUP BY HOUR
-ORDER BY HOUR;
+select hour(DATETIME) as HOUR, count(ANIMAL_ID) as COUNT
+from ANIMAL_OUTS
+where hour(DATETIME) between 9 and 19
+group by HOUR
+order by HOUR
 
 <가격대 별 상품 개수 구하기>
 SELECT 
