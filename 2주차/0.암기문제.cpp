@@ -83,9 +83,9 @@ BFS(G, u)
   만들어주어야 하는데 다음과 같은 수도코드를 사용합니다. 
 
 BFS(G, u)
-    u.visited = 1
-    q.push(u);
-    while(q.size()) 
+    u.visited = 1 //방문처리
+    q.push(u); // 자료구조 큐에 푸쉬
+    while(q.size())  // q.size만큼 반복문 돌리기
         u = q.front() 
         q.pop()
         for each v ∈ G.Adj[u]
