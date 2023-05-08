@@ -18,3 +18,8 @@ int main(){
     cout << ret << '\n';
     return 0;
 }
+
+/*
+1. cnt배열을 이용하여 
+2. 
+*/
