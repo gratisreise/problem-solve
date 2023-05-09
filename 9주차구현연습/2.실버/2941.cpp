@@ -1,3 +1,5 @@
+// 큰돌의 풀이
+// 짝짓기의 조건을 벡터에 집어넣고 순회하면서 맞으면 대체하는 아이디어
 #include <bits/stdc++.h>
 using namespace std;
 vector<string> cro = {"c=","c-","dz=","d-","lj","nj","s=","z="};
@@ -15,6 +17,9 @@ int main(){
     cout << s.length() << "\n";
 }
 
+// 내풀이
+// 문자열 자체를 순회하면서 다른 문자열에 넣어주고 그 문자열이 조건이 맞을 때마다
+// 대체해주는 아이디어
 #include<bits/stdc++.h>
 using namespace std;
 string s, ret;
