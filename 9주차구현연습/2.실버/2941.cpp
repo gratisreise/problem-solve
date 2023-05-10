@@ -25,6 +25,7 @@ using namespace std;
 string s, ret;
 bool check1(string s){
     if(s.substr(s.size() - 2) == "c=") return 1;
+
     else if(s.substr(s.size() - 2) == "c-") return 1;
     else if(s.substr(s.size() - 2) == "d-") return 1;
     else if(s.substr(s.size() - 2) == "lj") return 1;
