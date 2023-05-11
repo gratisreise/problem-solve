@@ -6,7 +6,7 @@ int a[104][104], ret = INF, n = 10;
 map<int, int> mp; //색종이 얼마나 썻는지 카운트
 
 bool check(int y, int x, int cnt){ //색종이가 칠해질 수 있는지 탐색하며 체크
-    if(y + cnt > n || x + cnt > n) return false; //배열의 인덱스 범위르 넘는지 체크하는 로직
+    if(y + cnt > n || x + cnt > n) return false; //배열의 인덱스 범위에서 ...
     for(int i = y; i < y + cnt; i++){ 
         for(int j = x; j < x + cnt; j++){
             if(a[i][j] == 0) return false;
