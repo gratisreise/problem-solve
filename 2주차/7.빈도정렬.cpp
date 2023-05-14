@@ -1,29 +1,34 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, c, a[1004];
-vector<pair<int, int>> v;   //첫번째에는 갯수 두번째에는 숫자
-map<int, int> mp, mp_first; // mp에는 숫자, 갯수 /mp first는 순서
-bool cmp(pair<int, int> a, pair<int, int> b){ 
-    if(a.first == b.first){ //갯수가 같으면 
-        return mp_first[a.second] < mp_first[b.second]; //순서 일찍나온걸로 
+int n, c, temp;
+map<int, int> mp1, mp2;
+vector<pair<int, int>> v;
+// 빈도 내림차 if(빈도==순서) 순서오름차
+bool cmp(pair<int, int> a, pair<int, int> b){
+    if(a.second == b.second){ 
+        return mp2[a.first] < mp2[b.first];
     }
-    return a.first > b.first; // 갯수의 내림차순으로 정렬
+    return a.second > b.second; 
 }
 int main(){
-    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-    cin >> n >> c; // 입력 받기
+    ios::sync_with_stdio(0);cin.tie(0);
+    cin >> n >> c;
     for(int i = 0; i < n; i++){
-        cin >> a[i]; mp[a[i]]++; //배열 a[i]에 숫자저장하고  mp맵에 숫자-갯수
-        if(mp_first[a[i]] == 0) mp_first[a[i]] = i + 1; // mp_first맵에 순서 저장
+        cin >> temp; // 임시저장
+        mp1[temp]++;
+        if(mp2[temp] == 0) mp2[temp] = i + 1;
     }
-    for(auto it : mp){ //순회 하면서 pair벡터에 넣기
-        v.push_back({it.second, it.first}); // 갯수 기준으로 정렬하기 위해
-    }
-    sort(v.begin(), v.end(), cmp); // cmp함수 기준으로 정렬
-    for(auto i : v){ // v벡터 순회
-        for(int j = 0; j < i.first; j++){ //숫자를 얼마나 반복해서 뽑아줄지 정함
-            cout << i.second << ' ';
+    for(auto i : mp1) v.push_back({i.first, i.second});
+    sort(v.begin(), v.end(), cmp);
+    for(auto i : v){
+        for(int j = 0 ; j < i.second; j++){
+            cout << i.first << ' ';
         }
     }
-    return 0;
+    cout << '\n';
 }
+/*
+map을 이용해 빈도와 순서를 저장한다.
+빈도는 ++로 순서는 참조성질을 이용해서 저장
+정렬에서 커스텀함수는 ()호출을 안한다.
+*/
