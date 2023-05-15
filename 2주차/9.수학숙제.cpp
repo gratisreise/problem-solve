@@ -33,3 +33,26 @@ int main(){
     for(string i : v) cout << i << '\n';
     return 0;
 }
+//이거 왜 안돼지??
+#include<bits/stdc++.h>
+using namespace std;
+string s, ret;
+int n;
+vector<int> v;
+int main(){
+    cin >> n;
+    while(n--){
+        cin >> s;
+        string ret = "";
+        for(int i = 0; i < s.size(); i++){
+            if(s[i] < 65) ret += s[i];
+            else if(ret.size() && s[i] >= 65){
+                    v.push_back(atoi(ret.c_str()));
+                    ret = "";
+                }
+        }
+        if(ret.size()) v.push_back(atoi(ret.c_str()));
+    }
+    sort(v.begin(), v.end());
+    for(int i : v) cout << i << '\n';
+}
