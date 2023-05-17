@@ -35,3 +35,25 @@ int main(){
     } 
     return 0;
 }
+
+#include<bits/stdc++.h>
+using namespace std;
+string s;
+bool chk(string s){
+    stack<char> stk;
+    for(char c : s){
+        if(c == '(' || c == '[') stk.push(c);
+        if(c == ')' && stk.size() && stk.top() == '(') stk.pop();
+        if(c == ']' && stk.size() && stk.top() == '[') stk.pop();
+    }
+    return stk.empty();
+}
+int main(){
+    while(true){
+        getline(cin, s);
+        if(s == ".") break;
+        if(chk(s)) cout << "yes\n";
+        else cout << "no\n";
+    }
+}
+//tc는 통과했는데 뭐지??

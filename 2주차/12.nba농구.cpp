@@ -3,15 +3,15 @@ using namespace std;
 #define prev Noah
 int n, o, A, B, asum, bsum;
 string s, prev;
-string print(int a){
+string print(int a){ // 시간을 문자료 변환해주는 함수
     string d = "00" + to_string(a / 60);
     string e = "00" + to_string(a % 60);
     return d.substr(d.size() - 2, 2) + ":" + e.substr(e.size() - 2, 2);
 }
-int changeToInt(string a){
+int changeToInt(string a){ //분을 초로 변환
     return atoi(a.substr(0, 2).c_str()) * 60 + atoi(a.substr(3, 2).c_str());
 }
-void go(int &sum, string s){
+void go(int &sum, string s){ // 
     sum += (changeToInt(s) - changeToInt(prev));
 }
 int main(){
@@ -33,6 +33,9 @@ int main(){
 1. prev
 2. 시/분/초 작은 단위로 통일해서 계산하는게 좋음
 3. 끝점과 계산
-4. 00 포멧 맞추기
+4. 00으로 앞의 0맞추기
 5. prev는 디파인 이용하는거 필수
+6. to_string();
+7. 시점에 따른 조건의 변환
+8. 
 */

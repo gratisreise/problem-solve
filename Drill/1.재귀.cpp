@@ -5,7 +5,6 @@ void makePermutation(int n, int r, int depth){
         printV(v);
         return;
     }
-    cout << n << " : " << r << " : " << depth << '\n';
     for(int i = depth; i < n; i++){
         swap(v[i], v[depth]); // 교체 
         makePermutation(n, r, depth + 1); //다르게 들어갈 매개변수
@@ -27,6 +26,8 @@ void combi(int start, vector<int> b){
     }
     return;
 }
+vector<int> b;
+combi(-1, b);
 
 //팩토리얼
 int fact(int n){
