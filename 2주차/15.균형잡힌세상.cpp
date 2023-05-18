@@ -5,7 +5,6 @@ string s;
 int main(){
     ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     while(true){ 
-        string s; 
         getline(cin, s); // 띄어쓰기가 있으므로 getline 사용
         if(s == ".") break; // 온점이 종료 조건
         stack<int> stk; // 테스트 케이스마다 스택 새로 만듬 중요!!
@@ -45,14 +44,16 @@ int main(){
         getline(cin, s);
         if(s == ".") break;
         stack<char> stk;
+        bool flag = 1;
         for(char a : s){
-            if(a == '(' || a == '[') stk.push(a);
-            else if(a == ')' && stk.size() && stk.top() == '(') stk.pop();
-            else if(a == ']' && stk.size() && stk.top() == '[') stk.pop();
-            else if(a == ')' || a == ']') stk.push(a);
-            
+            if(a == ')' || a == ']'){
+                if(a == ')' && stk.size() && stk.top() == '(') stk.pop();
+                if(a == ']' && stk.size() && stk.top() == '[') stk.pop();
+                else {flag = 0; break;}
+            }
+            else if(a == '(' || a == '[') stk.push(a);
         }
-        if(stk.empty()) cout << "yes\n";
+        if(flag && stk.empty()) cout << "yes\n";
         else cout << "no\n";
     }
 }

@@ -17,16 +17,14 @@ void dfs(int y, int x){ //바이러스 퍼져나가기
 }
 int solve(){ //정수형 함수를 쓰고 
     //바이러스 퍼뜨리기
-    fill(&visited[0][0], &visited[0][0] + 10 * 10, 0);
-    for(auto b : virusList){
-        visited[b.first][b.second] = 1;
-        dfs(b.first, b.second);
-    }
+    memset(visited, 0, sizeof(visited));
+    //fill(&visited[0][0], &visited[0][0] + 10 * 10, 0);
+    for(auto b : virusList) dfs(b.first, b.second);
     //안전영역 카운팅
     int cnt = 0; // 조합뽑는 반복에 들어가기 때문에
-    for(int i = 0; i < n; i++){ //
+    for(int i = 0; i < n; i++){ 
         for(int j = 0; j < m; j++){
-            if(a[i][j] == 0 && !visited[i][j]) cnt++;
+            if(a[i][j] == 0 && !visited[i][j]) cnt++; // 상남자 dfs 방문 빈거 확인 필요!!
         }
     }
     return cnt;
