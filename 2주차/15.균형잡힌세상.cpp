@@ -39,21 +39,23 @@ int main(){
 #include<bits/stdc++.h>
 using namespace std;
 string s;
-bool chk(string s){
-    stack<char> stk;
-    for(char c : s){
-        if(c == '(' || c == '[') stk.push(c);
-        if(c == ')' && stk.size() && stk.top() == '(') stk.pop();
-        if(c == ']' && stk.size() && stk.top() == '[') stk.pop();
-    }
-    return stk.empty();
-}
 int main(){
-    while(true){
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    while(1){
         getline(cin, s);
         if(s == ".") break;
-        if(chk(s)) cout << "yes\n";
+        stack<char> stk;
+        for(char a : s){
+            if(a == '(' || a == '[') stk.push(a);
+            else if(a == ')' && stk.size() && stk.top() == '(') stk.pop();
+            else if(a == ']' && stk.size() && stk.top() == '[') stk.pop();
+            else if(a == ')' || a == ']') stk.push(a);
+            
+        }
+        if(stk.empty()) cout << "yes\n";
         else cout << "no\n";
     }
 }
-//tc는 통과했는데 뭐지??
+
+
+//tc는 통과했는데 뭐지?? 반례가 존재 한다.
