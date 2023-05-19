@@ -8,7 +8,7 @@ int dfs(int here){
     for(int there : adj[here]){
         if(there == r) continue;
         ret += dfs(there);
-        child++;
+        child++; // 자식 노드 세기
     }
     if(child == 0) return 1;
     return ret;
@@ -28,3 +28,7 @@ int main(){
     cout << dfs(root) << '\n';
     return 0;
 }
+/* 
+ 계층을 나타내주기 위해 단방향으로 해주고 
+    
+*/
