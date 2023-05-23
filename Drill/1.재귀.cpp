@@ -1,3 +1,4 @@
+<쿼드트리>
 string quard(int y, int x, int n){
     if(n == 1) return string(1, a[y][x]); //기저사례 + 캐릭터를 스트링으로 바꾸는 함수
     char b = a[y][x]; // char 
@@ -17,3 +18,4 @@ string quard(int y, int x, int n){
     }
     return string(1, a[y][x]); // 모두다 같은 문자일 때
 }
+

@@ -13,13 +13,16 @@ vector<int> era(int mx_n){
     vector<int> v;
     for(int i = 2; i <= mx_n; i++){
         if(che[i]) continue;
-        for(int j = 2 * i; j <= mx_n; j += i){
+        // 최대보다 작은 i의 배수를 배열에서 1로 해줌
+        for(int j = 2 * i; j <= mx_n; j += i){ 
             che[j] = 1;
         }
     }
-    for(int = 2; i <= mx_n; i++) if(che[i] == 0) v.push_back(i);
+    //배열에서 체크되지 않은 것 벡터에 푸쉬
+    for(int i = 2; i <= mx_n; i++) if(che[i] == 0) v.push_back(i);
     return v;
 }
+
 <논리형 소수체크>
 bool check(int n){
     if(n <= 1) return 0;

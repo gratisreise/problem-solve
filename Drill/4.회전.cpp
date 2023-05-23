@@ -1,3 +1,5 @@
+
+<이차원 배열이 정사각일 때>
 //왼쪽으로 90도
 void rotate(vector<vector<int>> &key){
     int m = key.size();
@@ -10,6 +12,7 @@ void rotate(vector<vector<int>> &key){
     key = temp;
     return;
 }
+
 //오른쪽으로 90도
 void rotate(vector<vector<int>> &key){
     int m = key.size();

@@ -25,16 +25,19 @@ int main(){
         ret = ""; // ret 초기화 -> 빼먹었었음
         for(int j = 0; j < s.size(); j++){ // 
             if(s[j] < 65) ret += s[j];
-            else if(ret.size()) go(); // 문자이면서 ret크기가 있을 때
+            else if(ret.size()) go(); // else로만 하면 ret사이즈 없어도 집어 넣어 버림
         }
-        if(ret.size()) go(); //문자 다음 맨뒤에 숫자만 올걸 대비??
+        if(ret.size()) go(); //숫자로 끝나면 ret이 남아있기 때문에 필요하다.
     }
     sort(v.begin(), v.end(), cmp);
     for(string i : v) cout << i << '\n';
     return 0;
 }
+/*
+front(), go() 함수로 제어
+*/
 
-//이거 왜 안돼지??
+//이거 왜 안돼지?? -> 최대 100글자 최대 100자리 숫자
 #include<bits/stdc++.h>
 using namespace std;
 string s, ret;

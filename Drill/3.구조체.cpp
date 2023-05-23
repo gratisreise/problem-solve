@@ -1,3 +1,4 @@
+<구조체 기반 정렬연산 필요>
 struct Point{ //구조체를 기반으로 정렬하는 연산이 필요할 때
     int y, x;
     Point(int y, int x) : y(y), x(x){}
@@ -7,6 +8,8 @@ struct Point{ //구조체를 기반으로 정렬하는 연산이 필요할 때
         return x < a.x;
     }
 }
+
+<3개>
 struct Point{ //세개로 했을 때
     int y, x, z;
     point(int y, int x, int z) : y(y), x(x), z(z){}
@@ -19,9 +22,11 @@ struct Point{ //세개로 했을 때
         return x < a.x;
     }
 }
+
 struct Point{
     int y, x;
 }
+
 bool cmp(const Point &a, const Point &b){
     return a.x > b.x;
 }

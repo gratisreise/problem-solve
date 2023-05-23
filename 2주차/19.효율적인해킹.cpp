@@ -30,3 +30,8 @@ int main(){
     for(int i = 1; i <= n; i++) if(mx == dp[i]) coout << i << " ";
     return 0;
 }
+
+/*
+단방향 간선을 가지는 트리구조를 이용하여
+dfs로 탐색을 해주면 된다.
+*/)

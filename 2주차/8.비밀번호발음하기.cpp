@@ -29,3 +29,32 @@ int main(){
     }
     return 0;
 }
+//질문
+#include<bits/stdc++.h>
+using namespace std;
+#define prev Noah
+int prev, lcnt, vcnt, cnt;
+string s;
+bool _mo(int idx){
+    return (idx == 'a' || idx == 'e' || idx == 'i' || idx == 'o' || idx == 'u');
+}
+int main(){
+    while(true){
+        cin >> s;
+        if(s == "end") break;
+        bool flag = 0; // 모음 체크
+        cnt = lcnt = vcnt = 0;
+        for(char a : s){
+            int idx = a;
+            if(_mo(idx)) lcnt++, cnt = 1, vcnt = 0;
+            else vcnt++, lcnt = 0;
+            if(vcnt == 3 || lcnt == 3) flag = 1;
+            if(prev != 0 && prev == idx && (idx != 'e' && idx != 'o')) flag = 1;
+            cout << prev << '\n';
+            prev = idx; // 처음에 오는 경우를 0이 아니다로 제한이 왜 안돼지??
+        }
+        if(!cnt) flag = 1;
+        if(flag) cout << "<" << s <<"> is not acceptable.\n";
+        else cout << "<" << s <<"> is acceptable.\n";
+    }
+}
