@@ -31,6 +31,34 @@ int main(){
     return 0;
 }
 
+
+#include<bits/stdc++.h>
+using namespace std;
+int cnt, ret, a, b, n , m;
+vector<int> v[10004];
+map<int, vector<int>> mp;
+void dfs(int here){
+    for(int there : v[here]){ 
+        dfs(there); 
+        cnt++;
+    }
+    return;
+}
+int main(){
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    cin >> n >> m;
+    while(m--){
+        cin >> a >> b;
+        v[b].push_back(a);
+    }
+    for(int i = 1; i <= n; i++){
+        cnt = 0; dfs(i);
+        mp[cnt].push_back(i);
+        ret = max(ret, cnt);
+    }
+    for(int i : mp[ret]) cout << i << ' ';
+}
+
 /*
 단방향 간선을 가지는 트리구조를 이용하여
 dfs로 탐색을 해주면 된다.

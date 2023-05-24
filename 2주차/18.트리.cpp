@@ -3,8 +3,7 @@ using namespace std;
 int n, r, temp, root;
 vector<int> adj[54];
 int dfs(int here){
-    int ret = 0; 
-    int child = 0;
+    int ret = 0, child = 0;
     for(int there : adj[here]){
         if(there == r) continue;
         ret += dfs(there);
@@ -22,13 +21,11 @@ int main(){
         else adj[temp].push_back(i);
     }
     cin >> r;
-    if(r == root){
-        cout << 0 << '\n'; return 0;
-    }
-    cout << dfs(root) << '\n';
+    if(r == root) cout << 0 << '\n';
+    else cout << dfs(root) << '\n';
     return 0;
 }
 /* 
- 계층을 나타내주기 위해 단방향으로 해주고 
-    
+단방향 간선 -> 재방문을 막는다.
+
 */

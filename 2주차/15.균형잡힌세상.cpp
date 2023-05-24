@@ -56,7 +56,27 @@ int main(){
         if(flag && stk.empty()) cout << "yes\n";
         else cout << "no\n";
     }
+}//tc는 통과했는데 뭐지?? 반례가 존재 한다.
+#include<bits/stdc++.h>
+using namespace std;
+string s;
+int main(){
+    while(1){
+        getline(cin, s);
+        if(s == ".") break;
+        stack<char> stk;
+        for(char a : s){
+            if(a == '[' || a == '(') stk.push(a);
+            if(a == ')'){
+                if(stk.size() && stk.top() == '(') stk.pop();
+                else stk.push(a);
+            }
+            if(a == ']'){
+                if(stk.size() && stk.top() == '[') stk.pop();
+                else stk.push(a);
+            }
+        }
+        if(stk.empty()) cout << "yes\n";
+        else cout << "no\n";
+    }   
 }
-
-
-//tc는 통과했는데 뭐지?? 반례가 존재 한다.

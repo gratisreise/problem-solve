@@ -22,6 +22,20 @@ int main(){
     }
     return 0;
 }
+// 다른 풀이
+int main(){
+    cin >> t;
+    while(t--){
+        cin >> s;
+        stack<char> stk;
+        for(char a : s){
+            if(stk.size() && stk.top() == '(' && a == ')') stk.pop();
+            else stk.push(a);
+        }
+        if(stk.empty()) cout << "YES\n";
+        else cout << "NO\n";
+    }
+}
 /*
 stk.empty()는 stack이 비어있으면 true 아니면 false를 반환
 !stk.empty()는 stack이 비어있지 않다는 것을 나타냄
