@@ -58,3 +58,4 @@ int main(){
         else cout << "<" << s <<"> is acceptable.\n";
     }
 }
+// 왜 pre에 i를 넣고 s[]형태로 반복을 돌리면 틀렸다고 나오지??
