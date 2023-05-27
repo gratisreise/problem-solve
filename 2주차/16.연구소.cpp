@@ -46,7 +46,6 @@ int main(){
                 a[wallList[j].first][wallList[j].second] = 1;
                 a[wallList[k].first][wallList[k].second] = 1;
                 ret = max(ret, solve()); //안전영역최대값
-                //반복하여 뽑아서 다시 1로 채워줘야하기 때문에 0으로 초기화
                 a[wallList[i].first][wallList[i].second] = 0;
                 a[wallList[j].first][wallList[j].second] = 0;
                 a[wallList[k].first][wallList[k].second] = 0;
