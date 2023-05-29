@@ -28,9 +28,9 @@ int main(){
     vector<int> v; //좌표의 모음이 저장될 곳
     combi(-1, v); //조합
     for(vector<int> cList : chickenList){ // 안닫은 치킨집의 번호 먼저뽑기
-        // int ret = 0; // 도시치킨거리 초기화
+        // int ret = 0; // 좌표의 조합에따라 도시치킨거리의 합을 비교해야하기때문에
         for(pair<int, int> home : _home){ // 집 탐색하며 거리 구할려고
-            int _min = 1e9; //최솟값 구하기위해 최대한 큰 값 넣기
+            int _min = 1e9; //집의 좌표에 따라 최솟값 구하기위해 최대한 큰 값 넣기
             for(int ch : cList){ // 좌표 모음에서 각 좌표의 번호 넣고 뽑기
                 int _dist = abs(home.first - chicken[ch].first) + abs(home.second - chicken[ch].second); //거리구하기
                 _min = min(_min, _dist); // 치킨거리 구하기위해 최솟값 구하기
@@ -43,6 +43,6 @@ int main(){
     return 0;
 }
 /*
-1. 재귀를 통한 조합이해 및  외우기
+최솟값 구할 때 블럭에 대한 초기화 주의
 
 */

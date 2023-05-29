@@ -31,7 +31,7 @@ int main(){
             cin >> a[i][j]; 
         }
     }
-    // for(pair<int, int> L : Land) bfs(L.first, L.second);
+    for(pair<int, int> L : Land) bfs(L.first, L.second);
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
             if(a[i][j] == 'L') bfs(i, j); 
@@ -39,7 +39,7 @@ int main(){
     } 
     cout << ret - 1 << "\n"; //거리를 구하는거니깐 -1 해주면 됨
 }
-/*
+
 bfs 탐색을 변형시켜서 최대값 찾기
 시간을 구하는 거니깐 -1을 해줘야 함
-*/
+육지의 각 좌표마다 방문배열을 만들면서 대소비교 하는 것이기 때문에 초기화 필요!!

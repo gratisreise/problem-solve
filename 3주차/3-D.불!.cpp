@@ -29,12 +29,11 @@ int main(){
             int ny = y + dy[i];
             int nx = x + dx[i];
             if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-            if(v_f[ny][nx] != INF || a[ny][nx] == '#') continue; // !이해
+            if(v_f[ny][nx] != INF || a[ny][nx] == '#') continue;
             v_f[ny][nx] = v_f[y][x] + 1; // 최단거리 배열 생성
             q.push({ny, nx});
         }
     }
-
     v_j[sy][sx] = 1; //들어가기 전에 1로 색칠
     q.push({sy, sx});
     while(q.size()){ //j의 최단거리를 이용하여 불과 비교해서 최단거리 배열을 이용함!!!
@@ -64,3 +63,6 @@ int main(){
 불이 먼저 도달하는지 사람이 먼저 도달하는걸 어떻게 구현하지?? -> 방문배열 2개 써서 비교하면됨
 bfs
 */
+불이 여러개 처리 -> 그냥 입력받을 때 푸쉬를 해주면 된다.
+강의 한 번 들어봐야겠다.
+INF로 초기화시켜준 이유가 뭐냐?

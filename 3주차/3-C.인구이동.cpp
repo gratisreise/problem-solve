@@ -31,13 +31,11 @@ int main(){
         fill(&visited[0][0], &visited[0][0] + 54 * 54, 0); //다시 방문되야할 필요성이 있으니깐
         for(int i = 0; i < n; i++){ 
             for(int j = 0; j < n; j++){ 
-                    if(!visited[i][j]){ // dfs로 칠해진곳을 스킵하면서 효율성극대화
+                    if(!visited[i][j]){ // 
                     vector<pair<int,int>> v; //나중에 계산할 좌표들 저장하는 vector
                     sum = 0; // 여기서 더하기 초기화
-                    dfs(i,j,v); // 
-
+                    dfs(i,j,v); 
                     if(v.size() == 1) continue; // 연합 크기가 1인 경우는 계산할 필요 없음
-
                     for(pair<int,int> b : v){ // 연합 내 모든 좌표에 대해
                         a[b.first][b.second] = sum / v.size(); // 인구 이동
                         flag = 1; // 인구 이동이 일어났다는 표시
@@ -52,9 +50,8 @@ int main(){
     return 0;
 }
 
-/*
-인구 합 -> 안에 sum을 넣고 +
+
+인구 합 -> dfs 안에 sum을 넣고 + 들어가기 전에 초기화
 인구 분배 -> 벡터에 좌표저장 -> 순회 하면서 뿌려주기
 날짜처리 -> 순회에서 인구이동 안에 -> bool flag를 처리
-
-*/
+여러개의 연결컴포넌트 처리 -> 벡터사이즈로 구분
