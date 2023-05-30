@@ -17,7 +17,7 @@ void go(int here, int _num){ // 계산순서 변경해주는 작업
         ret = max(ret, _num); 
         return;
     }  
-    go(here + 1, oper(oper_str[here], _num, num[here + 1]));// 연산
+    go(here + 1, oper(oper_str[here], _num, num[here + 1]));// 재귀
 
     if(here + 2 <= num.size() - 1){ // 오버플로우 체크
         int temp = oper(oper_str[here + 1], num[here + 1], num[here + 2]); 
@@ -30,7 +30,7 @@ int main(){
     ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >> n >> s; 
     for(int i = 0; i < n; i++){
-        if(i % 2 == 0) num.push_back(s[i] - '0'); //연산자 자리
+        if(i % 2 == 0) num.push_back(s[i] - '0'); 
         else oper_str.push_back(s[i]);
     } 
     go(0, num[0]);  

@@ -17,7 +17,9 @@ int solve(int a, int b, int c){
     visited[a][b][c] = 1;
     q.push({a, b, c});
     while(q.size()){
-        tie(a, b, c) = q.front();
+        int a = q.front().a;
+        int b = q.front().b;
+        int c = q.front().c;
         q.pop();
         if(visited[0][0][0]) break;// 시작부터 반복문 시작 필요성 없음
         for(int i = 0; i < 6; i++){ // 각 경우에 따라 반복
@@ -39,9 +41,13 @@ int main(){
     cout << solve(a[0], a[1], a[2]) << '\n'; // 함수호출해서 씀
     return 0;
 }
-/*
-3명 동시공격 , 6가지 경우의 수 -> 6가지 방향의 bfs??
 
+3명 동시공격 , 6가지 경우의 수 -> 6가지 방향의 bfs??
 int 형 함수로 bfs표현 함
 
-*/
+2차원 배열 선언 1차원으로 했다.
+bfs 어떤 변수로 받아야 하는지 몰랐다.
+break 조건 설정 못함
+visited배열 이용하여 출력하는 것 못함
+구조체 멤버변수 받아오는 방법 못함
+
