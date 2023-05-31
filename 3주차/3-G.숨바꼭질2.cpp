@@ -1,40 +1,36 @@
 #include<bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 const int mx = 200000;
-int visited[mx + 4];
-long long cnt[mx + 4];
-int n, m;
+int n, k, visited[mx + 4];
+ll cnt[mx + 4];
 int main(){
-    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-    cin >> n >> m;
-    if(n == m){ // 반례 찾기 : 있거나 없거나 최대,최소 같거나 다르거나!!!
-        puts("0"); puts("1"); //puts 문자열 출력함수
+    cin >> n >> k;
+    if(n == k){ // 반례 찾기 : 
+        puts("0"); puts("1");
         return 0;
     }
-    visited[n] = 1;
-    cnt[n] = 1;
     queue<int> q;
+    visited[n] = 1; cnt[n] = 1;
     q.push(n);
-    while(!q.empty()){ //큐가 비어있진 않으면
-        int now = q.front(); //now = 앞에있는 큐
-        q.pop(); // 큐내보내기
-        for(int next : {now - 1, now + 1, now * 2}){ //연산선언
-            if(0 <= next && next <= mx){ // 언,옵플로우제한
-                if(!visited[next]){ //최소로 해줘야 하니깐
-                    q.push(next);  // empty
-                    visited[next] = visited[now] + 1; //최소의 시간
-                    cnt[next] += cnt[now]; // 경우의 수 
-                }else if(visited[next] == visited[now] + 1){ // 최단경우 아닌 경우 제외
-                    cnt[next] += cnt[now];
-                }
+    while(q.size()){
+        int now = q.front(); q.pop();
+        for(int next : {now + 1, now - 1, now * 2}){ //배열 요소중 하나 골라서 연산
+            if(next < 0 || next > mx) continue;
+            if(!visited[next]){ // 최단시간이므로 방문배열 -> 최소시간배열
+                q.push(next);
+                visited[next] = visited[now] + 1; // 최소시간
+                cnt[next] += cnt[now]; // 경우의 수
+            }else if(visited[next] == visited[now] + 1){ //최단 시간인 다른 경우의 수
+                cnt[next] += cnt[now];
             }
         }
     }
-    cout << visited[m] - 1 << '\n'; //시간이니깐 - 1해줌
-    cout << cnt[m] << '\n'; // 경우의 수
+    cout << visited[k] - 1 << '\n'; // 자기자신 제외 -1
+    cout << cnt[k] << '\n'; // 경우의 수
 }
 /*
 수빈이링 동생 사이의 가중치가 같네, 최소의 시간과 경우의 수네 -> bfs
 직선 상이니깐 배열이용, 반례는 있거나 없거나 최대 최소
-경우의 수는 각 노드에서 정해진 숫자의 더하기
+경우의 수는 각 노드에서 정해진 숫자의 더하기 why?? 뻗어나가는 경우마다 하나의 가지이기 때문에
 */
