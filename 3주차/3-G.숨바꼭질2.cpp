@@ -1,8 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-const int mx = 200000;
-int n, k, visited[mx + 4];
+const int mx = 200000; //제한 범위 20만 
+int n, k, visited[mx + 4]; 
 ll cnt[mx + 4];
 int main(){
     cin >> n >> k;
@@ -30,6 +30,8 @@ int main(){
     cout << cnt[k] << '\n'; // 경우의 수
 }
 /*
+강의들어야 겠다.
+내가 궁금한 것 어떤 아이디어? else if 두의 조건
 수빈이링 동생 사이의 가중치가 같네, 최소의 시간과 경우의 수네 -> bfs
 직선 상이니깐 배열이용, 반례는 있거나 없거나 최대 최소
 경우의 수는 각 노드에서 정해진 숫자의 더하기 why?? 뻗어나가는 경우마다 하나의 가지이기 때문에
