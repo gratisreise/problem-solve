@@ -1,27 +1,26 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n, p, d, ret;
+int n, d, p, ret;
 vector<pair<int, int>> v;
-priority_queue<int, vector<int>, greater<int>> pq;
+priority_queue<int, vector<int>, greater<int> > pq;
 int main(){
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >> n;
+    for(int i = 0; i < n; i++){ 
+        cin >> p >> d; v.push_ba ck({d, p});
+    }
+    sort(v.begin(), v.end());
     for(int i = 0; i < n; i++){
-        cin >> p >> d; v.push_back({d, p}); // 마감일 firrst, 강연료 second저장
-    }
-    sort(v.begin(), v.end()); // 마감일 기준 오름차 정렬
-    // for(int i = 0; i < n; i++){
-    //     pq.push(v[i].second); // 강연료를 우선순위 큐에 오름차로 저장
-    //     // 같은 마감일의 적은 가격 빼주기 위해 사이즈로 비교하면서 
-    //     if(pq.size() > v[i].first){ // 오름차순으로 
-    //         pq.pop();
-    //     }
-    // }
-    //남아있는 강연료를 더함
-    while(pq.size()){
-        ret += pq.top(); pq.pop();
-    }
+        ret += v[i].second;
+        pq.push(v[i].second);
+        while(pq.size() > v[i].first){ // pq사이즈가 날짜기준이 된다.
+            ret -= pq.top(); pq.pop(); // 각 날짜의 최고의 임금만 남기기
+        }
+    }  
     cout << ret << '\n';
-} 
+}
 /*
-돈에 대한 내림차의 로직을 구현못함!!
+1. 날짜에 대해 오름차순으로 정렬
+2. 돈에 대해 오름차정렬하고 
+3. pq사이즈 기준으로 합을 구해준다.
 */
