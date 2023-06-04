@@ -16,12 +16,12 @@ int main(){
     sort(vv.begin(), vv.end()); // 오름차 정렬
     priority_queue<ll> pq; // 우선순위 큐선언 -> 기본이 내림차라 가치 큰 것부터
 
-    int j = 0; //
-    // for(int i = 0; i < k; i++){
-    //     // 보석가치 큰 것부터 차례로 우선순위큐에 넣기
-    //     while(j < n &&  v[j].first <= vv[i]) pq.push(v[j++].second);
-    //     if(pq.size()){
-    //         ret += pq.top(); pq.pop();
+    int j = 0; //다음 가방으로 옮겨주기위한 변수
+    for(int i = 0; i < k; i++){
+        // 보석가치 큰 것부터 차례로 우선순위큐에 넣기
+        while(j < n &&  v[j].first <= vv[i]) pq.push(v[j++].second);
+        if(pq.size()){
+            ret += pq.top(); pq.pop();
         }
     }
     cout << ret << '\n';
@@ -31,6 +31,7 @@ int main(){
 보석과 가방을 무게순으로 정렬
 가방 무게가 작은 것부터 시작하여 담을 수 있는 보석들 중 가장
 가치가 높은 보석을 선택
-시간복받도 크지 않나??
+시간복잡도 크지 않나??
+while 안 j < n 조건 가방을 다 채운 조건이 없는데??
 
 */

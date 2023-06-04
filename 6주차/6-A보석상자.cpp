@@ -2,41 +2,45 @@
 using namespace std;
 typedef long long ll;
 
-// 보석 개수, 가게 수, 각 가게별 보석 개수 저장 배열, 최솟값 초기화
+// 보석 개수, 가게 수,
 ll n, m, a[300004], ret = 1e18;
 
-// mid 값을 기준으로 조건을 만족하는지 검사하는 함수
-bool check(ll mid){
-    ll num = 0;
-    // 모든 가게에서 mid 값으로 나눈 몫과 나머지를 이용해 필요한 상자 개수 계산
-    for(int i = 0; i < m; i++){
-        num += a[i] / mid; // mid 값으로 나눈 몫
-        if(a[i] % mid) num++; // mid 값으로 나눈 나머지가 있는 경우 1 추가
+// 수가 커져야할때랑 작아져야할 때 나눔
+bool check(ll mid){ //mid가 나눠지는 보석의 
+    ll num = 0; // 나눠지는 보석 수 체크
+    for(int i = 0; i < m; i++){ // 나눠가지는 학생 수를 체크할려고
+        num += a[i] / mid;
+        if(a[i] % mid) num++; // 같은 색상만 가능하니깐 덜 받아도 ++
     }
-    //보석없는 학생 있어도 되니깐
-    return n >= num;
+    return n >= num; // 학생이 보석 없어도 된다.
 }
-
 int main(){
-    // 입력
-    cin >> n >> m;  
+    cin >> n >> m;
     for(int i = 0; i < m; i++) cin >> a[i];
     
-    // 이분탐색을 위한 lo, hi 값 설정
+    //이분탐색 lo, hi 값 설정
     ll lo = 1, hi = 0;
-    for(int i = 0; i < m; i++) hi = max(hi, a[i]); // 가장 많은 보석을 보유한 가게의 보석 개수를 hi 값으로 설정
-    
+    for(int i =0; i < m; i++) hi = max(hi, a[i]);
+
     // 이분탐색
-    while(lo <= hi){
-        mid = (lo + hi) / 2; // 중간값 설정
-        if(check(mid)){ // mid 값을 기준으로 조건을 만족하는 경우
-            ret = min(ret, mid); // 최솟값 갱신
-            hi = mid - 1; // 오른쪽 범위를 중간값 mid - 1로 이동
-        }else{ // mid 값을 기준으로 조건을 만족하지 않는 경우
-            lo = mid + 1; // 왼쪽 범위를 중간값 mid + 1로 이동
+    while(lo <= hi){ // 최소의 질투심을 향해가는 여정
+        ll mid = (lo + hi) / 2; // 이분탐색 중간값 설정
+        if(check(mid)){ // 왜 조건을 만족하면 -1이지 -> 왜냐하면 학생수가 num보다 많다는 것은 기준은 맞지만 질투심이 크다
+            ret = min(ret, mid); // 이거 대소비교 왜하지?? 그냥 ret = mid 안되나??
+            hi = mid - 1; 
+        }else{ // 왜 아니면 + 1이지?? -> 왜냐하면 num이 학생수보다 많다는 것은 질투심이 기준에 안맞게작다
+            lo = mid + 1;
         }
     }
-    // 결과 출력
+
     cout << ret << '\n';
     return 0;
 }
+/*
+여기서 질투심은 나눠가질 수 있는 보석의 최대값
+입력(보석 수 배열)
+    |
+질투심 이분탐색 -> 조건: 학생 수 >= 보석수 / 질투심
+    |
+출력!!
+*/
