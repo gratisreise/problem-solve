@@ -1,31 +1,30 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define prev Noah
-int n, o, A, B, asum, bsum;
+#define prev noah
+int A, B, asum, bsum, t, n;
 string s, prev;
-string print(int a){ // 시간을 문자료 변환해주는 함수
+string print(int a){
     string d = "00" + to_string(a / 60);
     string e = "00" + to_string(a % 60);
-    return d.substr(d.size() - 2, 2) + ":" + e.substr(e.size() - 2, 2);
+    return d.substr(d.size() - 2, d.size()) + ":" + e.substr(e.size() - 2, e.size());
 }
-int changeToInt(string a){ //분을 초로 변환
-    return atoi(a.substr(0, 2).c_str()) * 60 + atoi(a.substr(3, 2).c_str());
+int change(string s){
+    return atoi(s.substr(0, 2).c_str()) * 60 + atoi(s.substr(3, 2).c_str());
 }
-void go(int &sum, string s){ // 
-    sum += (changeToInt(s) - changeToInt(prev));
+void go(int &sum, string s){
+    sum += change(s) - change(prev);
 }
 int main(){
-    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >> n;
     for(int i = 0; i < n; i++){
-        cin >> o >> s;
+        cin >> t >> s;
         if(A > B) go(asum, s);
-        else if(B > A) go(bsum, s);
-        o == 1 ? A++ : B++;
+        if(B > A) go(bsum, s);
+        t == 1 ? A++ : B++;
         prev = s;
     }
     if(A > B) go(asum, "48:00");
-    else if(B > A) go(bsum, "48:00");
+    if(B > A) go(bsum, "48:00");
     cout << print(asum) << '\n';
     cout << print(bsum) << '\n';
 }
