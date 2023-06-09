@@ -12,7 +12,7 @@ int main(){
     }
     queue<int> q;
     visited[n] = 1; cnt[n] = 1;
-    q.push(n);
+    q.push(n); 
     while(q.size()){
         int now = q.front(); q.pop();
         for(int next : {now + 1, now - 1, now * 2}){ //배열 요소중 하나 골라서 연산

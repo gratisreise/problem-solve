@@ -12,13 +12,13 @@ int oper(char a, int b, int c){ // 진짜 연산자로 바꿔주는 작업
     if(a == '*') return b * c;  
 } 
 
-void go(int here, int _num){ // 계산순서 변경해주는 작업
+void go(int here, int _num){ // here가 인덱스로 인덱스 기준 계산
     if(here == num.size() - 1){  // 기저사례 마지막 도달
         ret = max(ret, _num); 
         return;
-    }  
-    go(here + 1, oper(oper_str[here], _num, num[here + 1]));// 재귀
+    } 
 
+    go(here + 1, oper(oper_str[here], _num, num[here + 1]));// 재귀
     if(here + 2 <= num.size() - 1){ // 오버플로우 체크
         int temp = oper(oper_str[here + 1], num[here + 1], num[here + 2]); 
         go(here + 2, oper(oper_str[here], _num, temp));  
