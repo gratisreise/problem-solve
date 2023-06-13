@@ -11,6 +11,7 @@ void go(int y, int x, int num, int cnt){
         int nx = x + dx[i];
         if(ny < 0 || nx < 0 || ny >= R  || nx >= C) continue;
         int _next = (1 << (int)(a[ny][nx] - 'A'));
+        // and 연산자로 방문했냐 안했냐 처리, 합연산자 집어 넣으면서 처리
         if((num & _next) == 0) go(ny, nx, num | _next, cnt + 1);
     }
     return;

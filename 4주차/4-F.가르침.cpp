@@ -23,7 +23,7 @@ int main(){
     for(int i = 0; i < n; i++){
         cin >> s;
         for(char str : s){
-            words[i];
+            words[i] |= (1 << (str - 'a'));
         }
     }
     cout << go(0, m, 0) << '\n';

@@ -5,7 +5,7 @@ int visited[51][51], a[51][51], compSize[2504];
 const int dy[] = {0, -1, 0, 1};
 const int dx[] = {-1, 0, 1, 0};
 int dfs(int y, int x, int cnt){ 
-    if(visited[y][x]) return 0; 
+    if(visited[y][x]) return 0; // 상남자답게 건너고 나서 체크
     visited[y][x] = cnt;
     int ret = 1;
     for(int i = 0; i < 4; i++){
@@ -29,14 +29,15 @@ int main(){
         for(int j = 0; j < n; j++){
             if(!visited[i][j]){
                 cnt++;
-                compSize[cnt] = dfs(i, j, cnt);
+                compSize[cnt] = dfs(i, j, cnt); // 벽없앨 때를 대비해 저장
                 mx = max(mx, compSize[cnt]);
             }
         }
     }
+    // 벽뿌수면서 더하기
     for(int i = 0; i < m; i++){ 
         for(int j = 0; j < n; j++){
-            if(i + 1 < m){ 
+            if(i + 1 < m){  // 오버플로우 체크, 방어코드
                 int a = visited[i + 1][j];
                 if(a != b){
                     big = max(big, compSize[a] + compSize[b]);

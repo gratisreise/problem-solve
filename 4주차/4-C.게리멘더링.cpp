@@ -6,7 +6,7 @@ int n, m, temp, ret = INF;
 // a[i] : i번 정점의 인구수, comp: i번 정점이 속한 선거구 번호, 
 int a[11], comp[11], visited[11];
 vector<int> adj[11]; // 연결리스트 벡터로 표현
-pair<int, int> dfs(int here, int value){
+pair<int, int> dfs(int here, int value){// 두 가지 값이 필요해서 pair설정
     visited[here] = 1; // 색칠 
     pair<int, int> ret = {1, a[here]}; // {노드수체크, 인구수}
     for(int there : adj[here]){ 
@@ -34,7 +34,7 @@ int main(){
         fill(comp, comp + 11, 0);
         fill(visited, visited + 11, 0);
         //각 선거구에 구성된 정점의 번호를 저장하는 변수
-        // int idx1 = -1, idx2 = -1; 
+        int idx1 = -1, idx2 = -1;  // 각 색깔의 스타트 지점 
         for(int j = 0; j < n; j++){ // 1,으로 선거구 유형 저장
             if(i & (1 << j)) comp[j + 1] = 1, idx1 = j + 1;
             else idx2 = j + 1;
@@ -42,7 +42,7 @@ int main(){
         // 정점의 개수와 인구수의 합을 저장하는 pair, dfs 두번들어가서 컴포넌트수 세기
         pair<int, int> comp1 = dfs(idx1, 1);
         pair<int, int> comp2 = dfs(idx2, 0);
-        // 각 노드의 숫자가 같아야 함
+        // 노드의 합이 n이여야 조건 충족
         if(comp1.first + comp2.first == n) ret = min(ret, abs(comp1.second - comp2.second));
     }
     cout << (ret == INF ? -1 : ret) << "\n";

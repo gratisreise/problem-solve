@@ -10,13 +10,13 @@ void go(int y, int x, int cnt){
         int ny = y + dy[i];
         int nx = x + dx[i];
         if(ny < 0 || ny >= R || nx < 0 || nx >= C) continue;
-        // int next = (int)(a[ny][nx] - 'A'); // 다음에 어떤 알파벳이 나오는지 볼려보 next로 간편하게 해줌
-    //     if(visited[next] == 0){ //방문되지 않았다면 
-    //         visited[next] = 1; // 칠해주기
-    //         go(ny, nx, cnt + 1); // cnt++을 해주면서 칸수세기
-    //         visited[next] = 0; //재귀 올라가서 다시호출될 때를 위해서 초기화
-    //     }
-    // }
+        int next = (int)(a[ny][nx] - 'A'); // 다음에 어떤 알파벳이 나오는지 탐색 next로 간편하게 해줌
+        if(visited[next] == 0){ //방문되지 않았다면 
+            visited[next] = 1; // 칠해주기
+            go(ny, nx, cnt + 1); // cnt++을 해주면서 칸수세기
+            visited[next] = 0; //원복 
+        }
+    }
     return;
 }
 int main(){

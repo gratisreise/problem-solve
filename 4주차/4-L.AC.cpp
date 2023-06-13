@@ -16,7 +16,7 @@ int main(){
                 x = 0; 
             }
 		} 
-		if(x > 0) D.push_back(x); 
+		if(x > 0) D.push_back(x);
         bool error = false, rev = false;
  		for(char a : P){
  			if(a == 'R') rev = !rev; 
@@ -28,8 +28,6 @@ int main(){
                 if(rev) D.pop_back();
                 else D.pop_front(); 
 			}
-		
-        
         if(error) cout << "error" << '\n'; 
         else{ 
         	cout << "[";  

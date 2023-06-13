@@ -2,7 +2,7 @@
 using namespace std;
 int n, ret=987654321;  // n: 격자판의 크기, ret: 최소 비용을 저장할 변수, v: 꽃을 심은 위치를 표시할 변수, 
 int v[20][20], p[20][20]; // p: 격자판의 각 위치에 대한 비용을 저장할 변수, dy, dx: 상하좌우 이동을 위한 변수
-int dy[4] = { -1,1,0,0}; 
+int dy[4] = {-1,1,0,0}; 
 int dx[4] = {0,0,-1,1};
 
 bool check(int y, int x) { // 꽃을 심을 수 있는 지 확인하는 함수
@@ -16,7 +16,7 @@ bool check(int y, int x) { // 꽃을 심을 수 있는 지 확인하는 함수
     return 1; // 꽃을 심을 수 있는 경우 true 반환
 }
 
-int setFlower(int y, int x){  // 꽃을 심는 함수
+int setFlower(int y, int x){  // 꽃을 심으면서 체크
     v[y][x] = 1; // 꽃임과 꽃술 충돌방지
     int s = p[y][x]; // 현재 위치의 비용으로 초기화
     for (int i = 0; i < 4; i++) { // 현재 위치에서 상하좌우로 이동
@@ -37,19 +37,21 @@ void eraseFlower(int y, int x) { //꽃을 지우는 함수
     }
 }
 
-void flower(int cnt, int hap){ //
-    if (cnt == 3) {
-        ret = min(ret, hap); //
+void flower(int cnt, int hap){ // cnt는 심어진 꽃수, 
+    if (cnt == 3) { // 3개 심어지면 기저사례
+        ret = min(ret, hap); 
         return;
     }
-    for (int i = 0; i < n; i++) { //
-        for (int j = 0; j < n; j++) { //
-            if (check(i, j)) {   //
-                flower(cnt + 1, hap + setFlower(i, j));  //
-                eraseFlower(i, j); //
+    for (int i = 0; i < n; i++) { 
+        for (int j = 0; j < n; j++) { 
+            if (check(i, j)) {   
+                // 꽃심어지면서 각 지점 합 소환
+                flower(cnt + 1, hap + setFlower(i, j));
+                eraseFlower(i, j); // 원복
             }
         }
-    } 
+    }
+    return; 
 }
 
 int main(){

@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 상수 정의
+// 최대값 선언 종류
 const int INF = 987654321;
 const int INF2 = 1e9;
 const long long INF3 = 1e18;
@@ -15,7 +15,7 @@ int n, m, h, a, b, ret = INF, visited[34][34];
 // 현재 상태가 올바른 사다리인지 체크하는 함수
 bool check(){ //visited가 받는게 11부터 받는다고 생각했으니깐
     for(int i = 1; i <= n; i++){ // 모든 세로선에 대해서
-        int start = i; // 나중에 i랑 비교할려고
+        int start = i; // 자기자신 오는지 확인
         for(int j = 1; j <= h; j++){ // 모든 가로선에 대해서
             if(visited[j][start]) start++; // 오른쪽으로 이동
             else if(visited[j][start - 1]) start--; // 왼쪽으로 이동
@@ -25,7 +25,7 @@ bool check(){ //visited가 받는게 11부터 받는다고 생각했으니깐
     return true; // 모든 시작점과 도착점이 일치하면 true 반환
 }
 
-// dfs 함수 -> 3보다 큰지 체크하면서 최속
+// dfs 함수 -> 3보다 큰지 체크하면서 최소값 찾기, 사다리 다리 놓아보면서 체크
 void go(int here, int cnt){ // cnt는 추가되는 가로선 갯수
     if(cnt > 3 || cnt >= ret) return; // cnt가 3보다 크거나 현재 최소값보다 크면 리턴
     if(check()){ // i출발해서 i로 도착햇으면
@@ -34,9 +34,10 @@ void go(int here, int cnt){ // cnt는 추가되는 가로선 갯수
     }
     for(int i = here; i <= h; i++){ // 가로선 추가
         for(int j = 1; j <= n; j++){ //입력받는 숫자가 1부터 시작하니깐
+            // 이전, 이후 사다리 연속하난 체크
             if(visited[i][j] || visited[i][j - 1] || visited[i][j + 1]) continue; // 이미 가로선이 있거나 양쪽에 가로선이 있으면 스킵
             visited[i][j] = 1; // 가로선 추가
-            go(i, cnt + 1); // dfs 탐색
+            go(i, cnt + 1); // 완탐
             visited[i][j] = 0; // 가로선 제거
         }
     }

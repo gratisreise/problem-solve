@@ -7,10 +7,11 @@ int R, C, day, swanY, swanX, y, x;
 int v_swan[max_n][max_n], visited[max_n][max_n]; char a[max_n][max_n];
 queue<pair<int, int>> wQ, w_tempQ, sQ, s_tempQ;
 string s;
-void Qclear(queue<pair<int, int>> &q){
+void Qclear(queue<pair<int, int>> &q){ //q의 값 초기화, 더 빠름
    queue<pair<int, int>> empty;
-   swap(q,empty);
+   swap(q, empty);
 }  
+while(q.size()) q.pop(); // 이게 더 느림
 void water_melting(){
     while(wQ.size()){
 		tie(y, x) = wQ.front();  
@@ -36,12 +37,13 @@ bool move_swan(){
             int nx = x + dx[i];
             if(ny < 0 || ny >= R || nx < 0 || nx >= C || v_swan[ny][nx])continue;
             v_swan[ny][nx] = 1;
-            if(a[ny][nx] == '.')sQ.push({ny, nx});
-            else if(a[ny][nx] == 'X') s_tempQ.push({ny, nx});
-            else if(a[ny][nx] == 'L') return true;
+            // 핵심 -> 
+            if(a[ny][nx] == '.')sQ.push({ny, nx}); // 물이면 푸쉬해서 이동
+            else if(a[ny][nx] == 'X') s_tempQ.push({ny, nx}); // 물X 다음 시작 지점 저장
+            else if(a[ny][nx] == 'L') return true; //백조가 만남 
         }
     }
-	return false;
+	return false;// 못 만남 
 }
 int main() {
     ios_base::sync_with_stdio(false);cin.tie();cout.tie(0);
@@ -52,7 +54,7 @@ int main() {
             a[i][j] = s[j];
             if(a[i][j] == 'L'){swanY = i; swanX = j;}
             if(a[i][j] == '.' || a[i][j] == 'L')visited[i][j] = 1, 
-            wQ.push({i, j});
+            wQ.push({i, j}); // 백조가 있는 곳은 물 위에 있으므로 체크
         }
     } 
     sQ.push({swanY, swanX}); 

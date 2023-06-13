@@ -18,7 +18,7 @@ int main(){
             break;
         }
         int qSize = q.size(); // floodfill 입니다.
-        for(int i = 0; i < qSize; i++){
+        for(int i = 0; i < qSize; i++){ // 단계별로 색칠해주기
             int x = q.front(); q.pop();
             for(int nx : {x + 1, x - 1, x * 2}){
                 if(nx < 0 || nx > mx || visited[turn % 2][nx]) continue;

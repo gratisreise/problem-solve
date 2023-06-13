@@ -8,14 +8,15 @@ int main() {
         for (int j = 0; j < m; j++) {
             scanf("%1d", &a[i][j]); 
         }
-    } 
-    for (int s = 0; s < (1 << (n * m)); s++) {
+    }
+    // 0은 가로 1은 세로
+    for (int s = 0; s < (1 << (n * m)); s++) { // 비트마스킹 경우의 수 나타냄
         int sum = 0; 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {// 세로
             int cur = 0;
-            for(int j = 0; j < m; j++) {
+            for(int j = 0; j < m; j++) { // 가로
                 int k = i * m + j;
-                if ((s & (1 << k)) == 0) { // 
+                if ((s & (1 << k)) == 0) { 
                     cur = cur * 10 + a[i][j];
                 } else {
                     sum += cur;
@@ -24,7 +25,7 @@ int main() {
             }
             sum += cur;
         }
-        for (int j = 0; j < m; j++) {
+        for (int j = 0; j < m; j++) { //
             int cur = 0;
             for (int i = 0; i < n; i++) {
                 int k = i * m + j;
