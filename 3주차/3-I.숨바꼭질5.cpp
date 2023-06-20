@@ -17,8 +17,8 @@ int main(){
             ok = true; //만났는지 안 만났는지 체크하는 불리언
             break;
         }
-        int qSize = q.size(); // floodfill 입니다.
-        for(int i = 0; i < qSize; i++){ // 단계별로 색칠해주기
+        int qSize = q.size(); //floodfill 입니다.
+        for(int i = 0; i < qSize; i++){ //단계별로 색칠해주기
             int x = q.front(); q.pop();
             for(int nx : {x + 1, x - 1, x * 2}){
                 if(nx < 0 || nx > mx || visited[turn % 2][nx]) continue;
@@ -42,6 +42,6 @@ int main(){
 2. fluidflill 로직
 시간은 어떻게 표현했지?? 둘은 가다가 
 왜 2차원 배열을 선언했지?? 
-turn은 뭐지??
-전체적인 아이디어가 뭐지??
+turn은 등차의 합을 나타내주고 시간을 표현하기위한 변수
+시간은 turn으로 표현 계산은 q.size()에 묶어서 표현
 */

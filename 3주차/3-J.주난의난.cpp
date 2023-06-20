@@ -1,43 +1,44 @@
 #include<bits/stdc++.h>
-using namespace std; 
-#define y1 aaaa
+using namespace std;
+#define y1 noah
 int n, m, x1, y1, x2, y2;
 int visited[301][301]; char a[301][301];
-int dy[4] = {-1, 0, 1, 0}; 
-int dx[4] = {0, 1, 0, -1};
+const int dy[] = {-1, 0, 1, 0}, dx[] = {0, 1, 0, -1};
 queue<int> q;
 int main(){
-    scanf("%d %d", &n, &m);
+    // 입력
+    scanf("%d %d", &n, &m); 
     scanf("%d %d %d %d", &y1, &x1, &y2, &x2);
-    y1--, x1--, y2--, x2--; // x,y범위가 1부터 시작하니깐 0부터 시작으로 맞출려고
-    for(int i = 0; i < n; i++){ 
-        scanf("%s", a[i]); 
-    }  
-    q.push(1000 * y1 + x1); // 2차원을 1차원으로 표현해주는 방법
+    // 0부터 시작하게 처리
+    y1--, x1--, y2--, x2--;
+    //string으로 배열 받기
+    for(int i = 0; i < n; i++) scanf("%s", a[i]);
+    // 숫자로 간단하게 처리
+    q.push(1000 * y1 + x1);
     visited[y1][x1] = 1; 
-    int cnt = 0; 
-    while(a[y2][x2] != '0'){
-        cnt++; //두번째 while 반복문이 끝나고 다시 시작하니깐
-        queue<int> temp; // a의 값이 1인 곳이 잠깐 머무는 곳
+    int cnt = 0; // cnt는 뭘위해 선언??
+    while(a[y2][x2] != '0'){ // 범인이 주난의 난을 당하면 0으로 만들기
+        cnt++; //점프횟수
+        queue<int> temp; // 다음에 돌릴 q를 임시저장
         while(q.size()){
-            int y = q.front() / 1000; //주의할 점은 큰값으로 해야한다.
-            int x = q.front() % 1000;  
-            q.pop();  
+            int y = q.front() / 1000; 
+            int x = q.front() % 1000;
+            q.pop();
             for(int i = 0; i < 4; i++){
-                int ny = y + dy[i]; 
+                int ny = y + dy[i];
                 int nx = x + dx[i];
-                if(ny < 0 || ny >= n || nx < 0 || nx >= m || visited[ny][nx]) continue; 
-                visited[ny][nx]  = cnt;  
-                if(a[ny][nx] != '0'){
-                    a[ny][nx] = '0'; 
-                    temp.push(1000 * ny + nx); // 다음에 탐색해줄 포인트
+                if(ny < 0 || ny >= n || nx < 0 || nx >=m || visited[ny][nx]) continue;
+                visited[ny][nx] = cnt; // 난이 끼친 곳은 방문배열 cnt로 점프횟수 표현
+                if(a[ny][nx] != '0'){ // 1을 만나 멈춘지점이 다음 점프에서 다시 시작
+                    a[ny][nx] = '0';
+                    temp.push(1000 * ny + nx);
                 }
-                else q.push(1000 * ny + nx); 
+                else q.push(1000 * ny + nx); // 태생이 0인 애들은 통과
             }
         }
-        q = temp;  
+        q = temp; // 점프가 일어난 곳을 다시 q에 저장
     }
-    printf("%d\n", visited[y2][x2]); 
+    printf("%d\n", visited[y2][x2]);
 }
 /*
 1. bfs
