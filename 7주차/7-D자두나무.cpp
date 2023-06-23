@@ -3,7 +3,8 @@ using namespace std;
 iint dp[1004][2][34], n, m, b[1004];
 int go(int idx, int tree, int cnt){
 //기저사례
-    if(cnt < 0) return -1e9; // 
+    if(cnt < 0) return -1e9; 
+    // if(idx == n) return 0
     if(idx == n) return cnt == 0 ? 0 : -1e9;
 // 메모이제이션
     int &ret = dp[idx][tree][cnt];
