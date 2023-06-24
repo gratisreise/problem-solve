@@ -1,14 +1,8 @@
 #include<bits/stdc++.h> 
-using namespace std;
-
-void fast(){
-	ios_base::sync_with_stdio(0); 
-	cin.tie(NULL); 
-	cout.tie(NULL);
-}          
-const int INF = 987654321;
+using namespace std;       
+const int INF = 1e9;
 int a[104][104], ret = INF, n = 10; 
-map<int,int> mp;  
+map<int,int> mp; 
 bool check(int y, int x, int cnt){ 
     if(y + cnt > n || x + cnt > n) return false;  
     for(int i = y; i < y + cnt; i++){
@@ -17,14 +11,16 @@ bool check(int y, int x, int cnt){
         }
     }
     return true; 
-}   
+}
+
 void draw(int y, int x, int cnt, int value){  
     for(int i = y; i < y + cnt; i++){
         for(int j = x; j < x + cnt; j++){
             a[i][j] = value; 
         }
     }    
-} 
+}
+
 void dfs(int y, int x, int cnt){ 
 	if(cnt >= ret) return;   
     if(x == n){
@@ -50,8 +46,9 @@ void dfs(int y, int x, int cnt){
     }
     return; 
 }
+
 int main(){
-	fast();  
+	ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
             cin >> a[i][j]; 
