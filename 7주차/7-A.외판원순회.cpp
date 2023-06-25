@@ -15,9 +15,9 @@ int tsp(int here, int visited){
     if(ret != -1) return ret; // dp 자체를 -1로 했으니깐 -> 여기가 이해가 안되네
     ret = INF; // 최소값 비교를 위해 설정
     for(int i = 0; i < n; i++){ // 
-        if(visited & (1 << i)) continue; // 방문했다면 컨티뉴
+        if(visited & (1 << i)) continue; // &연산자로 노드 방문체크
         if(dist[here][i] == 0) continue; // 경로가 없으면 컨티뉴
-        //합연산의 이유는 각 지점의 방문을 표현
+        //합연산의 이유는 각 지점의 방문을 표현, 합연산자로 칠하면서 들어가기
         ret = min(ret, dist[here][i] + tsp(i, visited | (1 << i)));
     }
     return ret; // 첫 번째 return과 두 번째 return의 차이??
@@ -42,4 +42,9 @@ goal: N과 비용행렬이 주어졌을 때, 가장 적은 비용을 들이는 �
 1. 어떻게 각 상황의 결과값을 저장하지??
 2. 행렬이고 가중치가 다른 상황에서 어떻게 입력을 받지??
 3. dp로 어떻게 표현하지??
+
+mx랑 visited의 tsp 설정방법 이해가 되지 않는다.
+visited자체가 방문을 나타내는 수 
+16차원을 -> 비트처리 -> 하나의 숫자로 표현했다.
+
 */

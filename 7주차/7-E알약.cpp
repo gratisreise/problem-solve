@@ -10,7 +10,7 @@ ll go(int whole, int half){
     // 메모이제이션
     ll &ret = dp[whole][half]; 
 
-    //로직
+    //로직 한조각일 때 반조각일 때
     if(whole > 0) ret += go(whole - 1, half + 1); 
     if(half > 0) ret += go(whole, half - 1);
     return ret;   

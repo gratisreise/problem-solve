@@ -10,7 +10,7 @@ bool in(int aa, int bb){
 int down(int y, int x){
     // 보드 바깥 || 홀, 기저사례
     if(!in(y, x) || b[y][x] == 'H') return 0;
-    if(check[y][x]){ // 자기 자신으로 오는 경로 있으면 무한반복
+    if(check[y][x]){ // 사이클이 생기면 -1
         cout << - 1 << '\n';
         exit(0);
     }

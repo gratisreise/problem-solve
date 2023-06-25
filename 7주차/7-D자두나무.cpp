@@ -4,7 +4,7 @@ int dp[1004][2][34], n, m, b[1004];
 // 자두 떨어지는 위치, 현재위치, 남은 이동횟수
 int go(int idx, int tree, int cnt){
     if(cnt < 0) return -1e9; // 불가능한 경우에 max후보 제외
-    if(idx == n) return 0; // 최대 w 이동
+    if(idx == n) return 0; // 0 ~ n-1이니깐 n일 때 리턴 0
     // 밑에거는 반드시 w번 이동해야 return
     // if(idx == n) return cnt == 0 ? 0 : -1e9;
 
@@ -14,7 +14,7 @@ int go(int idx, int tree, int cnt){
 
     // 0 ^ 1 -> 토글 가능
     // ^로 트리이동, 움직이는 경우 안 움직이는 경우
-    // 마지막 tree에 자두가 떨어지는지 아닌지 체크
+    // 마지막으로 현재 인덱스에서 자두가 떨어지는지 체크해서 더하기
     return ret = max(go(idx + 1, tee^1, cnt - 1), go(idx + 1, tree, cnt)) + (tree == b[idx] - 1);
 }
 int main(){

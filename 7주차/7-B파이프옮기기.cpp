@@ -3,6 +3,7 @@ using namespace std;
 int n, a[24][24], dp[24][24][3], ret;
 bool check(int y, int x, int d){
     if(d == 0 || d == 2){ 
+        // 벽없어?? 그럼 ㄱㄱ
         if(!a[y][x]) return true; 
     }else if(d == 1){  
         if(a[y][x] == 0 && a[y - 1][x] == 0 && a[y][x - 1] == 0) return true;
@@ -39,6 +40,7 @@ int main(){
     return 0;
 }
 /*
+체크함수랑 계산 방법 -> 마지막지점의 경우의수를 다 더해주면 된다.
 기저사례가 뭐야?
 메모이제이션으로 뭘했어?
 로직이 뭐야??
