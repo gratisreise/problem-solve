@@ -1,8 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 struct game{
     int x, y, c; 
 };
+
 vector<game> a;
 int n, dp[1001][1001];
 bool visited[101]; 

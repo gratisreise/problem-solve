@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#define max_n 75004
 typedef long long ll;
 using namespace std;
 int n, x, y, t;
@@ -14,6 +13,7 @@ int sum (int idx){
     }
     return ret;
 }
+
 void update(int pos, int value){
     int idx = pos;
     while(idx <= n){
@@ -22,6 +22,7 @@ void update(int pos, int value){
     }
     return;
 }
+
 int find_index(const vector<int> & _y, int value){
     int lo = 0, hi = _y.size() - 1;
     while(lo <= hi){
@@ -31,6 +32,7 @@ int find_index(const vector<int> & _y, int value){
         else hi = mid - 1;
     }
 }
+
 int main() {
 	ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     cin >>t;

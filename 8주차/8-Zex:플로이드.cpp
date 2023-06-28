@@ -1,6 +1,4 @@
-#include <cstdio>
-#include <algorithm>
-#include <iostream>
+#include<bits/stdc++.h>
 int n, m, a, b, c, dist[104][104];
 const int INF = 987654321;
 using namespace std;
