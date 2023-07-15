@@ -18,8 +18,8 @@ void go(int here, int _num){ // here가 인덱스로 인덱스 기준 계산
         return;
     } 
 
-    go(here + 1, oper(oper_str[here], _num, num[here + 1]));// 재귀
-    if(here + 2 <= num.size() - 1){ // 오버플로우 체크
+    go(here + 1, oper(oper_str[here], _num, num[here + 1])); // 완전탐색
+    if(here + 2 <= num.size() - 1){ // 괄호 안에 들어가는 연산처리
         int temp = oper(oper_str[here + 1], num[here + 1], num[here + 2]); 
         go(here + 2, oper(oper_str[here], _num, temp));  
     }
