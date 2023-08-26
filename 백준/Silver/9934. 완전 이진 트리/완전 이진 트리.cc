@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-vector<int> ret[14];
 int n, a[1030];
+vector<int> ret[14];
 void go(int s, int e, int level){
     if(s > e) return;
     if(s == e){
