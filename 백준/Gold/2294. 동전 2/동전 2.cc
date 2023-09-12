@@ -9,7 +9,7 @@ int main(){
     dp[0] = 0;
     for(int i = 0; i < n; i++){
         cin >> coin;
-        if(coin >= 10001) continue;
+        
         for(int j = coin; j <= k; j++){
             dp[j] = min(dp[j], dp[j - coin] + 1);
         }
