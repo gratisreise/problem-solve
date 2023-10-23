@@ -13,16 +13,10 @@ public class Main {
             Stack<Character> stack = new Stack<>();
 
             for (char c : s.toCharArray()) {
-                if (!stack.isEmpty() && stack.peek() == c) {
-                    stack.pop();
-                } else {
-                    stack.push(c);
-                }
+                if (!stack.isEmpty() && stack.peek() == c) stack.pop();
+                else stack.push(c);
             }
-            
-            if (stack.isEmpty()) {
-                ret++;
-            }
+            if (stack.isEmpty()) ret++;
         }
 
         System.out.println(ret);
