@@ -1,15 +1,15 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
-    static int n, k, temp, ret = Integer.MIN_VALUE;
-    static int[] psum = new int[100005];
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        k = sc.nextInt();
-        
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int k = scanner.nextInt();
+        int[] psum = new int[100005];
+        int ret = Integer.MIN_VALUE;
+
         for (int i = 1; i <= n; i++) {
-            temp = sc.nextInt();
+            int temp = scanner.nextInt();
             psum[i] = psum[i - 1] + temp;
         }
 
@@ -19,5 +19,4 @@ public class Main {
 
         System.out.println(ret);
     }
-    
 }
