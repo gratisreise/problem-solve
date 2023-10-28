@@ -4,11 +4,15 @@
 
 ### 성능 요약
 
-메모리: 2024 KB, 시간: 4 ms
+메모리: 16980 KB, 시간: 172 ms
 
 ### 분류
 
 브루트포스 알고리즘
+
+### 제출 일자
+
+2023년 10월 28일 16:12:57
 
 ### 문제 설명
 
@@ -20,11 +24,11 @@
 
 <p>꽃밭은 N*N의 격자 모양이고 진아는 씨앗을 (1,1)~(N,N)의 지점 중 한곳에 심을 수 있다. 꽃의 씨앗은 그림 (a)처럼 심어지며 1년 후 꽃이 피면 그림 (b)모양이 된다.</p>
 
-<p style="text-align: center;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14620/1.png" style="height:175px; width:290px"></p>
+<p style="text-align: center;"><img alt="" src="" style="height:175px; width:290px"></p>
 
 <p>꽃을 심을 때는 주의할 점이있다. 어떤 씨앗이 꽃이 핀 뒤 다른 꽃잎(혹은 꽃술)과 닿게 될 경우 두 꽃 모두 죽어버린다. 또 화단 밖으로 꽃잎이 나가게 된다면 그 꽃은 죽어버리고 만다.</p>
 
-<p style="text-align: center;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14620/2.png" style="height:172px; width:296px"></p>
+<p style="text-align: center;"><img alt="" src="" style="height:172px; width:296px"></p>
 
 <p dir="ltr">그림(c)는 세 꽃이 정상적으로 핀 모양이고 그림(d)는 두 꽃이 죽어버린 모양이다.</p>
 
