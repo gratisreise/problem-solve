@@ -1,11 +1,11 @@
 import java.util.*;
 
 public class Main {
-    static int m, n, k, y, x, y1, x1, y2, x2;
+    static int n, m, k, y1, x1, y2, x2;
     static int[][] a = new int[104][104];
     static int[][] visited = new int[104][104];
-    static final int[] dy = {0, 1, 0, -1};
-    static final int[] dx = {-1, 0, 1, 0};
+    static final int[] dy = { 0, 1, 0, -1 };
+    static final int[] dx = { -1, 0, 1, 0 };
     static List<Integer> ret = new ArrayList<>();
 
     static int dfs(int y, int x) {
@@ -42,16 +42,13 @@ public class Main {
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (a[i][j] == 1 || visited[i][j] == 1) continue;
+                if (a[i][j] == 1 || visited[i][j] != 0)continue;
                 ret.add(dfs(i, j));
             }
         }
 
         Collections.sort(ret);
         System.out.println(ret.size());
-
-        for (int i : ret) {
-            System.out.print(i + " ");
-        }
+        for (int i : ret) System.out.print(i + " ");
     }
 }
