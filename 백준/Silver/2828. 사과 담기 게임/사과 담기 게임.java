@@ -1,22 +1,19 @@
-import java.util.Scanner;
+import java.util.*;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main{
+    
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
         int j = sc.nextInt();
-        int l = 1;
-        int r = l + m - 1;
-        int ret = 0;
+        int r, l = 1, ret = 0;
 
-        for (int i = 0; i < j; i++) {
-            r = l + m - 1;
+        for(int i = 0; i < j; i++){
+            r = l + m - 1; 
             int temp = sc.nextInt();
-            
-            if (l <= temp && temp <= r) continue;
-            
-            if (temp < l) {
+            if(l <= temp && temp <= r) continue;
+            if(temp < l){
                 ret += l - temp;
                 l = temp;
             } else {
@@ -24,7 +21,6 @@ public class Main {
                 l += temp - r;
             }
         }
-
         System.out.println(ret);
     }
 }
