@@ -1,12 +1,12 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Main {
-    static int n, m, Time, cheese;
-    static int[][] a;
-    static int[][] visited;
-    static ArrayList<Pair> v;
+    static int n, m, time, cheese;
+    static int[][] a = new int[104][104];
+    static int[][] visited = new int[104][104];
+    static ArrayList<Pair> l = new ArrayList<>();
+    static int[] dy = {-1, 0, 1, 0};
+    static int[] dx = {0, 1, 0, -1};
 
     static class Pair {
         int first, second;
@@ -17,22 +17,31 @@ public class Main {
         }
     }
 
-    static int[] dy = {-1, 0, 1, 0};
-    static int[] dx = {0, 1, 0, -1};
+    public static void dfs(int y, int x) {
+        visited[y][x] = 1;
+        if (a[y][x] == 1) {
+            l.add(new Pair(y, x));
+            return;
+        }
+        for (int i = 0; i < 4; i++) {
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+            if (ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
+            if (visited[ny][nx] != 0) continue;
+            dfs(ny, nx);
+        }
+    }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        n = scanner.nextInt();
-        m = scanner.nextInt();
-        a = new int[n][m];
-        visited = new int[n][m];
-        Time = 0;
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        m = sc.nextInt();
+        time = 0;
         cheese = 0;
-        v = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                a[i][j] = scanner.nextInt();
+                a[i][j] = sc.nextInt();
             }
         }
 
@@ -40,32 +49,17 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 Arrays.fill(visited[i], 0);
             }
-            v.clear();
+            l.clear();
             dfs(0, 0);
-            if (v.size() == 0) break;
-            for (Pair pair : v) {
-                a[pair.first][pair.second] = 0;
+            if (l.size() == 0) break;
+            for (Pair p : l) {
+                a[p.first][p.second] = 0;
             }
-            cheese = v.size();
-            Time++;
+            cheese = l.size();
+            time++;
         }
 
-        System.out.println(Time);
+        System.out.println(time);
         System.out.println(cheese);
-    }
-
-    public static void dfs(int y, int x) {
-        visited[y][x] = 1;
-        if (a[y][x] == 1) {
-            v.add(new Pair(y, x));
-            return;
-        }
-        for (int i = 0; i < 4; i++) {
-            int ny = y + dy[i];
-            int nx = x + dx[i];
-            if (ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-            if (visited[ny][nx] == 1) continue;
-            dfs(ny, nx);
-        }
     }
 }
