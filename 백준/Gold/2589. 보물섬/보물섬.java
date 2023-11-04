@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Main {
-    static int n, m, ret;
+    static int n, m, ret = 0;
     static int[][] visited;
     static char[][] a;
     static List<Pair> L;
@@ -56,7 +56,7 @@ public class Main {
         a = new char[n + 1][m + 1];
         visited = new int[n + 1][m + 1];
         L = new ArrayList<>();
-        ret = 0;
+
 
         for (int i = 0; i < n; i++) {
             String s = sc.next();
