@@ -1,6 +1,4 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     static final int mx = 200000;
@@ -9,20 +7,17 @@ public class Main {
     static int[] cnt = new int[mx + 4];
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        n = scanner.nextInt();
-        k = scanner.nextInt();
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        k = sc.nextInt();
         Queue<Integer> q = new LinkedList<>();
-
         visited[n] = 1;
         q.add(n);
         cnt[n] = 1;
-
         while (!q.isEmpty()) {
             int now = q.poll();
             for (int next : new int[] { now - 1, now + 1, now * 2 }) {
-                if (next < 0 || next > mx)
-                    continue;
+                if (next < 0 || next > mx) continue;
                 if (visited[next] == 0) {
                     visited[next] = visited[now] + 1;
                     cnt[next] += cnt[now];
