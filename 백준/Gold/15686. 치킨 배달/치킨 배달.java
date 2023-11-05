@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     static int n, m, ret;
@@ -9,11 +7,11 @@ public class Main {
     static List<List<Integer>> Chi;
 
     static class Pair {
-        int first, second;
+        int f, s;
 
-        Pair(int first, int second) {
-            this.first = first;
-            this.second = second;
+        Pair(int f, int s) {
+            this.f = f;
+            this.s = s;
         }
     }
 
@@ -30,9 +28,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        n = scanner.nextInt();
-        m = scanner.nextInt();
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        m = sc.nextInt();
         a = new int[n][n];
         chi = new ArrayList<>();
         home = new ArrayList<>();
@@ -41,7 +39,7 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                a[i][j] = scanner.nextInt();
+                a[i][j] = sc.nextInt();
                 if (a[i][j] == 1) {
                     home.add(new Pair(i, j));
                 }
@@ -54,19 +52,18 @@ public class Main {
         List<Integer> v = new ArrayList<>();
         combi(-1, v);
 
-        for (List<Integer> C : Chi) { // 도시치킨거리
+        for (List<Integer> C : Chi) {
             int result = 0;
-            for (Pair h : home) { // 치킨거리
+            for (Pair h : home) { 
                 int _min = Integer.MAX_VALUE;
                 for (int c : C) {
-                    int _dist = Math.abs(h.first - chi.get(c).first) + Math.abs(h.second - chi.get(c).second);
+                    int _dist = Math.abs(h.f - chi.get(c).f) + Math.abs(h.s - chi.get(c).s);
                     _min = Math.min(_dist, _min);
                 }
                 result += _min;
             }
             ret = Math.min(ret, result);
         }
-
         System.out.println(ret);
     }
 }
