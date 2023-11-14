@@ -1,31 +1,28 @@
-import java.util.Scanner;
+import java.util.*;
 
-public class Main {
-    static boolean check(char a) {
-        return (a == 'a' || a == 'e' || a == 'i' || a == 'o' || a == 'u');
+public class Main{
+    static boolean check(char c){
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
     }
-    public static void main(String[] args) {
+
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        while (true) {
+        while(true){
             String s = sc.next();
-            if (s.equals("end")) break;
-
+            if(s.equals("end")) break;
+            int jcnt = 0, mcnt = 0, cnt = 0;
             boolean flag = false;
-            int cnt = 0, mcnt = 0, jcnt = 0;
             char prev = '1';
-
-            for (char a : s.toCharArray()) {
-                if (check(a)){cnt++; mcnt++; jcnt = 0;}
-                else {jcnt++; mcnt = 0;}
-                if (mcnt == 3 || jcnt == 3) flag = true;
-                if (prev != '1' && a == prev && a != 'e' && a != 'o') {
-                    flag = true;
-                }
-                prev = a;
+            for(char c : s.toCharArray()){
+                if(check(c)){ jcnt = 0; mcnt++; cnt = 1;}
+                else{jcnt++; mcnt = 0;}
+                if(jcnt == 3 || mcnt == 3) flag = true;
+                if(prev != '1' && c == prev && (c != 'e' && c!= 'o')) flag = true;
+                prev = c;
             }
-            if (cnt == 0) flag = true;
-            if (flag) System.out.println("<" + s + "> is not acceptable.");
-            else  System.out.println("<" + s + "> is acceptable.");
+            if(cnt == 0) flag = true;
+            if(flag) System.out.println("<" + s + "> is not acceptable.");
+            else System.out.println("<" + s + "> is acceptable.");
         }
-    }    
+    }
 }
