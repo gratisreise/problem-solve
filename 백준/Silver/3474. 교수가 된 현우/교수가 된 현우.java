@@ -1,21 +1,20 @@
-import java.util.Scanner;
+import java.util.*;
 
-public class Main{
-    public static void main(String[] args){
+public class Main {
+    static int t, n, ret2, ret5;
+
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-
-        for(int i = 0; i < t; i++){
-            int ret2 = 0, ret5 = 0;
-            int n = sc.nextInt();
-
-            for(int j = 5; j <= n; j *= 5){
-                ret5 += n / j;
+        t = sc.nextInt();
+        while (t-- > 0) {
+            n = sc.nextInt();
+            ret2 = ret5 = 0;
+            for (int i = 2; i <= n; i *= 2) {
+                ret2 += n / i;
             }
-            for(int j = 2; j <= n; j *= 2){
-                ret2 += n / j;
+            for (int i = 5; i <= n; i *= 5) {
+                ret5 += n / i;
             }
-            
             System.out.println(Math.min(ret2, ret5));
         }
     }
