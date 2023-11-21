@@ -1,8 +1,9 @@
 import java.util.*;
 
 public class Main {
-    static int[][] a = new int[104][104];
     static int n, m;
+    static int[][] a = new int[104][104];
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
@@ -10,15 +11,15 @@ public class Main {
         for (int i = 0; i < n; i++) {
             String s = sc.next();
             for (int j = 0; j < m; j++) {
+                if (s.charAt(j) == 'C') a[i][j] = 0;
                 if (s.charAt(j) == '.') a[i][j] = -1;
-                else  a[i][j] = 0;
             }
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (a[i][j] == 0) {
                     int cnt = 1;
-                    while (j + 1 < m && a[i][j + 1] == -1) {
+                    while (a[i][j + 1] == -1) {
                         a[i][j + 1] = cnt++;
                         j++;
                     }
