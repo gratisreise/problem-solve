@@ -1,14 +1,18 @@
-import java.util.*;
 class Solution {
     public String solution(String s) {
         String answer = "";
         String[] ss = s.split(" ");
-        List<Integer> l = new ArrayList<>();
+        int mx = Integer.MIN_VALUE;
+        int mn = Integer.MAX_VALUE;
         for(String sss : ss){
-            l.add(Integer.parseInt(sss));
+            int temp = Integer.parseInt(sss);
+            if(temp > mx){
+                mx = temp;
+            } else if(temp < mn){
+                mn = temp;
+            }
         }
-        Collections.sort(l);
-        answer = l.get(0) + " " + l.get(l.size()-1);
+        answer = mn + " "+ mx;
         return answer;
     }
 }
