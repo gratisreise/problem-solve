@@ -6,11 +6,8 @@ class Solution {
         int mn = Integer.MAX_VALUE;
         for(String sss : ss){
             int temp = Integer.parseInt(sss);
-            if(temp > mx){
-                mx = temp;
-            } else if(temp < mn){
-                mn = temp;
-            }
+            mx = Math.max(temp, mx);
+            mn = Math.min(temp, mn);
         }
         answer = mn + " "+ mx;
         return answer;
