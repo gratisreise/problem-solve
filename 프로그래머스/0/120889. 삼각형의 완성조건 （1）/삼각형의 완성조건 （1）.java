@@ -1,24 +1,15 @@
+import java.util.*;
 class Solution {
     public int solution(int[] sides) {
-        int answer = 0;
-        int mx = -1;
-        int index = 0;
-        int sum = 0;
-        
-        for(int i = 0; i < 3; i++){
-            if(sides[i] > mx){
-                mx = sides[i];
-                index = i;
-            }
+        int ret = 0;
+        List<Integer> l = new ArrayList<>();
+        for(int i = 0; i < sides.length; i++){
+            l.add(sides[i]);
         }
-        for(int i = 0; i < 3; i++){
-            if(i == index) continue;
-            sum += sides[i];
-        }
-        
-        if(sum > mx) answer = 1;
-        else answer = 2;
-        
-        return answer;
+        Collections.sort(l);
+        int sum = l.get(0) + l.get(1);
+        if(sum > l.get(2)) ret = 1;
+        else ret = 2;
+        return ret;
     }
 }
