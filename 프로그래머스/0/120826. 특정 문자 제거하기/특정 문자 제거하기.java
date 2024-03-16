@@ -1,9 +1,10 @@
 class Solution {
     public String solution(String my_string, String letter) {
         String ret = "";
-        for(int i = 0; i < my_string.length(); i++){
-            if((my_string.charAt(i) + "").equals(letter)) continue;
-            ret += my_string.charAt(i);
+        String[] temp = my_string.split("");
+        for(String s : temp){
+            if(s.equals(letter)) continue;
+            ret += s;
         }
         return ret;
     }
