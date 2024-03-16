@@ -1,9 +1,9 @@
 class Solution {
     public int solution(int n) {
         int ret = 0;
-        while(n > 0){
-            ret += n % 10;
-            n /= 10;
+        String s = "" + n;
+        for(char c : s.toCharArray()){
+            ret += (c - '0');
         }
         return ret;
     }
