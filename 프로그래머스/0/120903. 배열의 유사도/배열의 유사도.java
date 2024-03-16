@@ -6,7 +6,6 @@ class Solution {
                 if(s.equals(ss)) ret++;
             }
         }
-        
         return ret;
     }
 }
