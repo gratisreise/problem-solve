@@ -4,7 +4,6 @@ class Solution {
         for(int i = 0; i < t; i++){
             ret *= 2;
         }
-        
         return ret;
     }
 }
