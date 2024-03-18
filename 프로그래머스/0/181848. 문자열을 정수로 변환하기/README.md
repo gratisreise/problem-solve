@@ -1,10 +1,10 @@
 # [level 0] 문자열을 정수로 변환하기 - 181848 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181848?language=java) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181848) 
 
 ### 성능 요약
 
-메모리: 72.1 MB, 시간: 0.02 ms
+메모리: 73 MB, 시간: 0.02 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 03월 15일 13:56:04
+2024년 03월 18일 09:10:29
 
 ### 문제 설명
 
