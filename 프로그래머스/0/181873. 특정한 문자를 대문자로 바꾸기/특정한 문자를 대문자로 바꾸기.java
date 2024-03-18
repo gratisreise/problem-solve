@@ -1,13 +1,11 @@
-import java.util.*;
 class Solution {
     public String solution(String my_string, String alp) {
-        String answer = "";
-        for(int i = 0; i < my_string.length(); i++){
-            if((my_string.charAt(i)+"").equals(alp)){
-                String temp = alp;
-                answer += temp.toUpperCase();   
-            } else answer += my_string.charAt(i);
+        String ret = "";
+        for(char c : my_string.toCharArray()){
+            if(alp.equals((c+""))) ret += (char)(c - 32);
+            else ret += c;
         }
-        return answer;
+        
+        return ret;
     }
 }
