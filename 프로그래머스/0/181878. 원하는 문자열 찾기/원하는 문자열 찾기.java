@@ -1,10 +1,11 @@
 class Solution {
     public int solution(String myString, String pat) {
-        int answer = 0;
+        int ret = 0;
         myString = myString.toLowerCase();
         pat = pat.toLowerCase();
-        if(myString.contains(pat)) answer = 1;
-        else answer = 0;
-        return answer;
+        if(myString.length() >= pat.length()){
+            if(myString.contains(pat)) ret = 1;
+        }
+        return ret;
     }
 }
