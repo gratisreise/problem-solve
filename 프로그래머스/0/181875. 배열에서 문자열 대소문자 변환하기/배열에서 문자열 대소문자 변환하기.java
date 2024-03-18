@@ -1,14 +1,11 @@
 import java.util.*;
 class Solution {
-    public String[] solution(String[] strArr) {
-        
+    public List<String> solution(String[] strArr) {
+         List<String> ret = new ArrayList<>();
         for(int i = 0; i < strArr.length; i++){
-            if(i % 2 == 0){
-                strArr[i] = strArr[i].toLowerCase();
-            } else {
-                strArr[i] = strArr[i].toUppercase();
-            }
+            if(i % 2 == 0) ret.add(strArr[i].toLowerCase());
+            else ret.add(strArr[i].toUpperCase());
         }
-        return strArr;
+        return ret;
     }
 }
