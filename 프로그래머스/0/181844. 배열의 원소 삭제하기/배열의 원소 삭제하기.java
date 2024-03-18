@@ -12,5 +12,3 @@ class Solution {
         return ret;
     }
 }
-
-//arr 순회 -> 각각 delete순회하면서 체크 -> 
