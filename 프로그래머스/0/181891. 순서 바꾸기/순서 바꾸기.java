@@ -8,6 +8,8 @@ class Solution {
         for(int i = 0; i < n; i++){
             ret.add(num_list[i]);
         }
+        
         return ret;
+        
     }
 }
