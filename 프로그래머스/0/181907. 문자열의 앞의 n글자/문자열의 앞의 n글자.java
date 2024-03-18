@@ -1,9 +1,9 @@
 class Solution {
     public String solution(String my_string, int n) {
         String ret = "";
-        
-        ret = my_string.substring(0, n);
-        
+        for(int i = 0; i < n; i++){
+            ret += my_string.charAt(i);
+        }
         return ret;
     }
 }
