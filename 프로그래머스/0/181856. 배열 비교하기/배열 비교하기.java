@@ -1,17 +1,16 @@
 class Solution {
     public int solution(int[] arr1, int[] arr2) {
-        int answer = 0;
+        int ret = 0;
         if(arr1.length == arr2.length){
-            int sum1 = 0;
-            int sum2 = 0;
-            for(int i : arr1) sum1 += i;
-            for(int i : arr2) sum2 += i;
-            answer = sum1 > sum2 ? 1 : -1;
-            if(sum1 == sum2) answer = 0;
-        } else {
-            if(arr1.length > arr2.length) answer = 1;
-            else answer = -1;
-        }
-        return answer;
+            int temp1 = 0;
+            int temp2 = 0;
+            for(int i : arr1) temp1 += i;
+            for(int i : arr2) temp2 += i;
+            if(temp1 == temp2) ret = 0;
+            else if(temp1 < temp2) ret = -1;
+            else ret = 1;
+        } else if(arr1.length > arr2.length) ret = 1;
+        else ret = -1;
+        return ret;
     }
 }
