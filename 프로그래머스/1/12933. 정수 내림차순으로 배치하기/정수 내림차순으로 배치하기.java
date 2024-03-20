@@ -1,19 +1,21 @@
 import java.util.*;
 class Solution {
     public long solution(long n) {
-        String temp = String.valueOf(n);
-        String ret = "";
-        StringBuilder temp1;
-        List<Integer> l = new ArrayList<>();
-        Stack<Integer> stk = new Stack<>();
-        for(char c : temp.toCharArray()){
-            l.add(c - '0');
+        String s = "" + n;
+        int[] arr = new int[s.length()];
+        String temp = "";
+        for(int i = 0; i < s.length(); i++){
+            arr[i] = s.charAt(i) - '0';
         }
-        Collections.sort(l);
-        for(int i : l) stk.push(i);
-        while(!stk.isEmpty()){
-            ret += (char)(stk.pop() + '0');
+        Arrays.sort(arr);
+        s = "";
+        for(int i = arr.length-1; i >= 0; i--){
+                s += ("" + arr[i]);
         }
-        return Long.parseLong(ret);
+        long ret = Long.parseLong(s);
+        
+        
+        
+        return ret;
     }
 }
