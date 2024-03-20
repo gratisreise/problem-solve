@@ -1,16 +1,13 @@
 class Solution {
-    public long solution(long a, long b) {
-        long sum = 0;
-        if(a > b){
-            for(long i = b; i <= a; i++){
-                sum += i;
-            }
-        } else if(b > a){
-            for(long i = a; i <= b; i++){
-                sum += i;
-            }
-        } else sum = a;
+    public long solution(int a, int b) {
+        long ret = 0;
+        int l, r;
+        if(a < b) {l = a; r = b;}
+        else {l = b; r = a;}
+        for(int i = l; i <= r; i++){
+            ret += i;
+        }
         
-        return sum;
+        return ret;
     }
 }
