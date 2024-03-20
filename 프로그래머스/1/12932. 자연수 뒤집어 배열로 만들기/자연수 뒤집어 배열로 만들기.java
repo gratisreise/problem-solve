@@ -1,10 +1,10 @@
 import java.util.*;
 class Solution {
-    public Stack<Integer> solution(long n) {
-        String temp = String.valueOf(n);
-        Stack<Integer> ret = new Stack<>();
-        for(int i = temp.length() - 1; i >= 0; i--){
-            ret.add(temp.charAt(i) - '0');
+    public List<Integer> solution(long n) {
+        List<Integer> ret = new ArrayList<>();
+        String s = "" + n;
+        for(int i = s.length() - 1; i >= 0; i--){
+            ret.add((s.charAt(i) - '0'));
         }
         return ret;
     }
