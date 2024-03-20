@@ -1,15 +1,15 @@
 class Solution {
     boolean solution(String s) {
-        boolean answer = true;
-        int p = 0;
-        int y = 0;
+        boolean ret = true;
+        s = s.toLowerCase();
+        int cntp = 0;
+        int cnty = 0;
         for(char c : s.toCharArray()){
-            if(c == 'p' || c == 'P') p++;
-            else if(c == 'y' || c == 'Y') y++;
+            if(c == 'p') cntp++;
+            else if(c == 'y') cnty++;
         }
-        if(p == 0 && y == 0) return true;
-        if(p == y) answer = true;
-        else answer = false;
-        return answer;
+        if(cntp != cnty) ret = false;
+        
+        return ret;
     }
 }
