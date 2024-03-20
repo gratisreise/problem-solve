@@ -1,12 +1,13 @@
 class Solution {
     public boolean solution(int x) {
-        boolean answer = true;
-        int sum = 0;
-        String s = String.valueOf(x);
+        boolean ret = false;
+        String s = "" + x;
+        int n = 0;
         for(char c : s.toCharArray()){
-            sum += (c - '0');
+            n += (c - '0');
         }
-        if(x % sum != 0) answer = false;
-        return answer;
+        if(x % n == 0) ret = true;
+        
+        return ret;
     }
 }
