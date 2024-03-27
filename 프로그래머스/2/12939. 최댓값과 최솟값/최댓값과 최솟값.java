@@ -1,15 +1,16 @@
+import java.util.*;
 class Solution {
     public String solution(String s) {
-        String answer = "";
-        String[] ss = s.split(" ");
-        int mx = Integer.MIN_VALUE;
-        int mn = Integer.MAX_VALUE;
-        for(String sss : ss){
-            int temp = Integer.parseInt(sss);
-            mx = Math.max(temp, mx);
-            mn = Math.min(temp, mn);
+        String ret = "";
+        String[] temp = s.split(" ");
+        int[] temp1 = new int[temp.length];
+        for(int i = 0; i < temp.length; i++){
+            temp1[i] = Integer.parseInt(temp[i]);
         }
-        answer = mn + " "+ mx;
-        return answer;
+        Arrays.sort(temp1);
+        ret += "" + temp1[0];
+        ret += " ";
+        ret += "" + temp1[temp1.length - 1];
+        return ret;
     }
 }
