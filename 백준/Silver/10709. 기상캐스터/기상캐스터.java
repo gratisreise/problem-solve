@@ -1,13 +1,14 @@
 import java.util.*;
 
-public class Main{
+public class Main {
     static int n, m;
     static int[][] a = new int[104][104];
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
         m = sc.nextInt();
-        for(int i = 0; i < n; i++){
+
+        for(int i = 0; i  < n; i++){
             String s = sc.next();
             for(int j = 0; j < m; j++){
                 char c = s.charAt(j);
@@ -20,7 +21,7 @@ public class Main{
                 if(a[i][j] == 0){
                     int cnt = 1;
                     while(a[i][j + 1] == -1){
-                        a[i][j + 1] = cnt++;
+                        a[i][j+1] = cnt++;
                         j++;
                     }
                 }
