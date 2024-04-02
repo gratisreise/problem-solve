@@ -1,9 +1,14 @@
 import java.util.*;
 
-public class Main{
+public class Main {
     static int n;
     static int[] a = new int[3];
-    static int[][][] visited = new int[65][65][65];
+    static int[][][] visited = new int[64][64][64];
+    static int[][] _a ={
+            {9, 3, 1}, {9, 1, 3},
+            {3, 1, 9}, {3, 9, 1},
+            {1, 3, 9}, {1, 9, 3}
+    };
     static class A{
         int a, b, c;
         A(int a, int b, int c){
@@ -12,18 +17,13 @@ public class Main{
             this.c = c;
         }
     }
-    static int[][] _a = new int[][]{
-            {9, 3, 1}, {9, 1, 3},
-            {3, 1, 9}, {3, 9, 1},
-            {1, 3, 9}, {1, 9, 3}
-    };
     static Queue<A> q = new LinkedList<>();
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
         for(int i = 0; i < n; i++) a[i] = sc.nextInt();
-        q.add(new A(a[0], a[1], a[2]));
         visited[a[0]][a[1]][a[2]] = 1;
+        q.add(new A(a[0], a[1], a[2]));
         while(!q.isEmpty()){
             A p = q.poll();
             int a = p.a;
