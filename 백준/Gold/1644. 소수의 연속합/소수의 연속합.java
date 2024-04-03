@@ -1,17 +1,15 @@
 import java.util.Scanner;
 
 public class Main {
+    static int n, p, lo, hi, ret, sum;
+    static boolean[] che;
+    static int[] a;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        boolean[] che = new boolean[4000001];
-        int[] a = new int[2000001];
-        int p = 0;
-        int lo = 0;
-        int hi = 0;
-        int ret = 0;
-        int sum = 0;
-
+        n = scanner.nextInt();
+        che = new boolean[n + 1];
+        a = new int[n + 1];
+        
         for (int i = 2; i <= n; i++) {
             if (che[i]) continue;
             for (int j = 2 * i; j <= n; j += i) {
@@ -20,24 +18,16 @@ public class Main {
         }
 
         for (int i = 2; i <= n; i++) {
-            if (!che[i]) {
-                a[p++] = i;
-            }
+            if (!che[i]) a[p++] = i;
         }
 
         while (true) {
-            if (sum >= n) {
-                sum -= a[lo++];
-            } else if (hi == p) {
-                break;
-            } else {
-                sum += a[hi++];
-            }
-            if (sum == n) {
-                ret++;
-            }
+            if (sum >= n)  sum -= a[lo++];
+            else if (hi == p) break;
+            else sum += a[hi++];
+            
+            if (sum == n) ret++;
         }
-
         System.out.println(ret);
     }
 }
