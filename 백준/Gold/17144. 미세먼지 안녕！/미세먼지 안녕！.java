@@ -18,6 +18,7 @@ public class Main {
         temp = new int[n + 1][m + 1];
         Queue<Pair> q = new LinkedList<>();
 
+        //미세먼지 넣어줌
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (a[i][j] != -1 && a[i][j] > 0) {
@@ -26,6 +27,7 @@ public class Main {
             }
         }
 
+        //먼지 확산
         while (!q.isEmpty()) {
             Pair pair = q.poll();
             int y = pair.f;
@@ -42,6 +44,7 @@ public class Main {
             }
         }
 
+        //확산된거 적용
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 a[i][j] += temp[i][j];
