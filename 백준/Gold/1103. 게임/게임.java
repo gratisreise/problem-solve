@@ -1,28 +1,30 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static char[][] a;
-    static boolean[][] check;
+    static char[][] a = new char[54][54];
+    static boolean[][] check = new boolean[54][54];
+    static int[][] dp = new int[54][54];
     static int n, m;
-    static int[][] dp;
-    static final int[] dy = {-1, 0, 1, 0};
-    static final int[] dx = {0, 1, 0, -1};
+    static int[] dy = {-1, 0, 1, 0}, dx = {0, 1, 0, -1};
 
     static boolean in(int aa, int bb) {
-        return (0 <= aa && aa <= n - 1 && 0 <= bb && bb <= m - 1);
+        return (0 <= aa && aa < n && 0 <= bb && bb < m);
     }
 
     static int go(int y, int x) {
         if (!in(y, x) || a[y][x] == 'H') return 0;
+
         if (check[y][x]) {
             System.out.println(-1);
             System.exit(0);
         }
 
         int ret = dp[y][x];
-        if (ret > 0) return ret;
+        if (ret != 0) return ret;
 
         check[y][x] = true;
+
         int value = a[y][x] - '0';
         for (int i = 0; i < 4; i++) {
             int ny = y + dy[i] * value;
@@ -35,18 +37,16 @@ public class Main {
         return ret;
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        m = sc.nextInt();
-        a = new char[n][m];
-        dp = new int[n][m];
-        check = new boolean[n][m];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
         for (int i = 0; i < n; i++) {
-            String row = sc.next();
+            String line = br.readLine();
             for (int j = 0; j < m; j++) {
-                a[i][j] = row.charAt(j);
+                a[i][j] = line.charAt(j);
             }
         }
 
