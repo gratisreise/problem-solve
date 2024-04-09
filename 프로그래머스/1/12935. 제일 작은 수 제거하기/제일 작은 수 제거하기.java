@@ -1,18 +1,17 @@
 import java.util.*;
 class Solution {
     public List<Integer> solution(int[] arr) {
-        List<Integer> ret = new ArrayList<>();
-        for(int i : arr) ret.add(i);
-        int mn = Integer.MAX_VALUE;
-        int mnIdx = -1;
+        List<Integer> l = new ArrayList<>();
+        int mn = (int)1e9;
+        int mnIdx = 0;
         for(int i = 0; i < arr.length; i++){
-            if(mn > arr[i]){
+            l.add(arr[i]);
+            if(arr[i] < mn){
                 mn = arr[i];
                 mnIdx = i;
             }
         }
-        ret.remove(mnIdx);
-        if(ret.size() == 0) ret.add(-1);
-        return ret;
+        l.remove(mnIdx);
+        return l;
     }
 }
