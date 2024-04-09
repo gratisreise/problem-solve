@@ -1,14 +1,11 @@
 class Solution {
     public String solution(String s) {
         String ret = "";
-        int size = s.length();
-        
-        if(size % 2 == 0){
-            size /= 2;
-            ret = s.substring(size - 1, size + 1);
+        int n = s.length()/2;
+        if(s.length() % 2 == 0){
+            ret = s.substring(n - 1, n + 1);
         } else {
-            size /= 2;
-            ret = s.substring(size, size + 1);
+            ret = s.substring(n, n + 1);
         }
         return ret;
     }
