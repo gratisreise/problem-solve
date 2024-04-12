@@ -2,25 +2,16 @@ import java.util.*;
 class Solution {
     public int solution(int[] array, int n) {
         int ret = 0;
-        int[] temp1 = new int[array.length];
+        int min = (int)1e9;
         Arrays.sort(array);
-        for(int i = 0; i < array.length; i++){
-            temp1[i] = Math.abs(n - array[i]);
+        for(int i : array){
+            int cha = Math.abs(n - i);
+            min = Math.min(cha, min);
         }
-        int min = 100000000;
-        int min_idx = 0;
-        for(int i : temp1){
-            min = Math.min(min, i);
+        for(int i : array){
+            int cha = Math.abs(n - i);
+            if(cha == min) return i;
         }
-        for(int i = 0; i < temp1.length; i++){
-            if(temp1[i] == min) {
-                min_idx = i;
-                break;
-            }
-        }
-        ret = array[min_idx];
-        
-        
         return ret;
     }
 }
