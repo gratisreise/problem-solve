@@ -3,10 +3,13 @@ class Solution {
     public int solution(int[] sides) {
         int ret = 0;
         Arrays.sort(sides);
-        int small = sides[1] - sides[0];
-        int big = sides[1] + sides[0];
-        
-        ret = big - small - 1;
+        int a = sides[0];
+        int b = sides[1];
+        int s = b - a;
+        int e = a + b;
+        for(int i = s + 1; i < e; i++){
+            ret++;
+        }
         return ret;
     }
 }
