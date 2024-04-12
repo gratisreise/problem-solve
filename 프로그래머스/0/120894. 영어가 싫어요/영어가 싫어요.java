@@ -1,25 +1,23 @@
-import java.util.*;
-
 class Solution {
     public long solution(String numbers) {
-        String ret = "";
-        List<String> S = new ArrayList<>();
-        String[] cnt = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+        long ret = 0;
+        String[] num = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
         String temp = "";
+        String temp1 = "";
         for(char c : numbers.toCharArray()){
             temp += c;
             if(temp.length() >= 3){
-                boolean flag = false;
-                for(int i = 0; i < cnt.length; i++){
-                    if(temp.equals(cnt[i])){
-                        ret += (char)(i + '0');
-                        flag = true;
+                for(int i = 0; i <= 9; i++){
+                    if(temp.equals(num[i])){
+                        temp1 += i;
+                        temp = "";
                     }
                 }
-                if(flag) temp = "";
             }
         }
+        ret = Long.parseLong(temp1);
         
-        return Long.parseLong(ret);
+        
+        return ret;
     }
 }
