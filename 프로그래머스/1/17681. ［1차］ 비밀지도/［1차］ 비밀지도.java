@@ -1,30 +1,35 @@
 class Solution {
-    static String intToBinary(int n, int a){
-        String ans = "";
-        while(n > 0){
-            ans = "" + n % 2 + ans;
-            n /= 2;
+    static String binary(int n, int size){
+        String ret = "";
+        int temp = n;
+        while(temp > 0){
+            ret = "" + temp % 2 + ret;
+            temp /= 2;
         }
-        while(ans.length() - a < 0){
-            ans = "0" + ans;
+        while(ret.length() < size){
+            ret = "0" + ret;
         }
-        return ans;
+        return ret;
     }
     public String[] solution(int n, int[] arr1, int[] arr2) {
-        String[] ret = new String[arr1.length];
-        for(int i = 0; i < arr1.length; i++){
-            String temp1 = intToBinary(arr1[i], n);
-            String temp2 = intToBinary(arr2[i], n);
-            String temp3 = "";
-            System.out.println(i + " :: " + temp1 + " :: " + temp2);
-            for(int j = 0; j < temp1.length(); j++){
-                char c1 = temp1.charAt(j);
-                char c2 = temp2.charAt(j);
-                if(c1 == '0' && c2 == '0') temp3 += " ";
-                else temp3 += "#";
-            }
-            ret[i] = temp3;
+        String[] ret = new String[n];
+        String[] temp1 = new String[n];
+        String[] temp2 = new String[n];
+        for(int i = 0; i < n; i++){
+            temp1[i] = binary(arr1[i], n);
+            temp2[i] = binary(arr2[i], n);
+            // System.out.println(temp1[i] + "::" + temp2[i]);
         }
+        for(int i = 0; i < n; i++){
+            String temp = "";
+            for(int j = 0; j < n; j++){
+                if(temp1[i].charAt(j) == '1' || temp2[i].charAt(j) == '1'){
+                    temp += "#";
+                } else temp += " ";
+            }
+            ret[i] = temp;
+        }
+        
         
         return ret;
     }
