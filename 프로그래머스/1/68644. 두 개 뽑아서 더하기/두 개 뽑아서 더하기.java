@@ -1,15 +1,15 @@
 import java.util.*;
 class Solution {
-    public List<Integer> solution(int[] numbers) {
-        List<Integer> l = new ArrayList<>();
-        for(int i = 0; i < numbers.length; i++){
-            for(int j = i + 1 ; j < numbers.length; j++){
-                int sum = numbers[i] + numbers[j];
-                if(l.contains(sum)) continue;
-                l.add(sum);
+    static List<Integer> ret = new ArrayList<>();
+    static Set<Integer> temp = new HashSet<>();
+    public List<Integer> solution(int[] num) {
+        for(int i = 0; i < num.length; i++){
+            for(int j = 0; j < i; j++){
+                temp.add(num[i] + num[j]);
             }
         }
-        Collections.sort(l);
-        return l;
+        for(int i : temp) ret.add(i);
+        Collections.sort(ret);
+        return ret;   
     }
 }
