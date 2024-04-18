@@ -1,33 +1,29 @@
 class Solution {
+    static int[] dy = {-1, 0, 1, 0, -1, -1, 1, 1};
+    static int[] dx = {0, 1, 0, -1, -1, 1, 1, -1};
     public int solution(int[][] board) {
         int ret = 0;
-        int[] dy = {-1, -1,  1, 1, 1, 0, 0, -1};
-        int[] dx = {-1, 1, 1, -1, 0, 1, -1, 0};
-        int yl = board.length;
-        int xl = board[0].length;
-        
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0 ; j < board[i].length; j++){
-                if(board[i][j] == 1){
-                    int y = i;
-                    int x = j;
-                    for(int k = 0; k < 8; k++){
-                        int ny = y + dy[k];
-                        int nx = x + dx[k];
-                        if(ny < 0 || nx < 0 || ny >= yl || nx >= xl) continue;
-                        if(board[ny][nx] != 1) board[ny][nx] = 2;
-                    }
-                    
+        int n = board.length;
+        int[][] vis = new int[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(board[i][j] == 0) continue;
+                int y = i;
+                int x = j;
+                vis[y][x] = 1;
+                for(int k = 0; k < 8; k++){
+                    int ny = y + dy[k];
+                    int nx = x + dx[k];
+                    if(ny < 0 || nx < 0 || ny >= n || nx >= n) continue;
+                    vis[ny][nx] = 1; 
                 }
             }
         }
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0 ; j < board[i].length; j++){
-                if(board[i][j] == 0) ret++;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(vis[i][j] != 1) ret++;
             }
         }
-         
-        
         return ret;
     }
 }
