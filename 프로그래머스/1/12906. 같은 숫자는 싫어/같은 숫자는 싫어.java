@@ -2,13 +2,12 @@ import java.util.*;
 public class Solution {
     public List<Integer> solution(int []arr) {
         List<Integer> ret = new ArrayList<>();
-        int prev = -1;
+        int prev = 10000000;
         for(int i : arr){
-            if(i == prev) continue;
+            if(prev == i) continue;
             ret.add(i);
             prev = i;
         }
-        
         return ret;
     }
 }
