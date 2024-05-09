@@ -1,26 +1,27 @@
+import java.io.*;
 import java.util.*;
 
 public class Main{
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String rs;
+        StringTokenizer st; // 개행으로 받을 때 유용
 
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        String s = sc.nextLine();
-        StringBuilder ret = new StringBuilder();
-        for(int i = 0; i < s.length(); i++){
-            if('a' <= s.charAt(i) && s.charAt(i) <= 'z'){
-                if(s.charAt(i) + 13 > 'z'){
-                    ret.append((char)(s.charAt(i) - 13));
-                } else {
-                    ret.append((char)(s.charAt(i) + 13));
-                }
-            } else if('A' <= s.charAt(i) && s.charAt(i) <= 'Z'){
-                if(s.charAt(i) + 13 > 'Z'){
-                    ret.append((char)(s.charAt(i) - 13));
-                } else {
-                    ret.append((char)(s.charAt(i) + 13));
-                }
-            } else ret.append(s.charAt(i));
+        rs = br.readLine();
+        String ret = "";
+
+        for(char c : rs.toCharArray()){
+            if('a' <= c && c <= 'z'){
+                if(c + 13 > 'z') ret += (char)(c - 13);
+                else ret += (char)(c + 13);
+            } else if('A' <= c && c <= 'Z'){
+                if(c + 13 > 'Z') ret += (char)(c - 13);
+                else ret += (char)(c + 13);
+            } else ret += c;
         }
-        System.out.println(ret);
+
+        bw.write(ret+'\n');
+        bw.flush();
     }
 }
