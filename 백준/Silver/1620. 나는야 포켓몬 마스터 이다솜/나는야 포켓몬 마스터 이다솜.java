@@ -6,19 +6,21 @@ public class Main{
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String rs;
         StringTokenizer st;
 
         st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
+        
         Map<String, Integer> mp1 = new HashMap<>();
         String[] arr = new String[n+ 4];
+        
         for(int i = 0; i < n; i++){
             String s = br.readLine();
             mp1.put(s, i + 1);
             arr[i + 1] = s;
         }
+        
         for(int i = 0; i < m; i++){
             String s = br.readLine();
             char c = s.charAt(0);
