@@ -1,18 +1,13 @@
-import java.util.*;
+import java.io.*;
 
 public class Main{
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        String s = sc.next();
-        StringBuilder temp = new StringBuilder(s);
-        String ss = temp.reverse().toString();
-        if(s.equals(ss)) System.out.println(1);
-        else System.out.println(0);
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String rs = br.readLine();
+        String temp = new StringBuilder(rs).reverse().toString();
+        if(rs.equals(temp)) bw.write("1\n");
+        else bw.write("0\n");
+        bw.flush();
     }
 }
-/**
- * 문자열 뒤집기
- * String Buffer 또는 StringBuilder
- 객체로 선언하고 reverse() 다음 toString()으로 변환해서 
- String에 집어 넣으면 된다.
- */
