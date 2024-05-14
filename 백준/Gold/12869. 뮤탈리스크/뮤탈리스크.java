@@ -1,31 +1,43 @@
+import java.io.*;
 import java.util.*;
 
-public class Main {
-    static int n;
-    static int[] a = new int[3];
-    static int[][][] visited = new int[64][64][64];
-    static int[][] _a ={
-            {9, 3, 1}, {9, 1, 3},
-            {3, 1, 9}, {3, 9, 1},
-            {1, 3, 9}, {1, 9, 3}
+public class Main{
+    static int[][] _a = {
+            {9, 3, 1},
+            {9, 1, 3},
+            {3, 1, 9},
+            {3, 9, 1},
+            {1, 3, 9},
+            {1, 9, 3}
     };
-    static class A{
+    static int n;
+    static int[][][] visited = new int[65][65][65];
+    static int[] hp = new int[3];
+    static class Pair{
         int a, b, c;
-        A(int a, int b, int c){
+        Pair(int a, int b, int c){
             this.a = a;
             this.b = b;
             this.c = c;
         }
     }
-    static Queue<A> q = new LinkedList<>();
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        for(int i = 0; i < n; i++) a[i] = sc.nextInt();
-        visited[a[0]][a[1]][a[2]] = 1;
-        q.add(new A(a[0], a[1], a[2]));
+
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String rs;
+        StringTokenizer st;
+        st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < n; i++){
+            hp[i] =  Integer.parseInt(st.nextToken());
+        }
+        Queue<Pair> q = new LinkedList<>();
+        visited[hp[0]][hp[1]][hp[2]] = 1;
+        q.add(new Pair(hp[0], hp[1], hp[2]));
         while(!q.isEmpty()){
-            A p = q.poll();
+            Pair p = q.poll();
             int a = p.a;
             int b = p.b;
             int c = p.c;
@@ -36,9 +48,14 @@ public class Main {
                 int nc = Math.max(0, c - _a[i][2]);
                 if(visited[na][nb][nc] != 0) continue;
                 visited[na][nb][nc] = visited[a][b][c] + 1;
-                q.add(new A(na, nb, nc));
+                q.add(new Pair(na, nb, nc));
             }
         }
-        System.out.println(visited[0][0][0] - 1);
+        bw.write(String.valueOf(visited[0][0][0]-1)+'\n');
+        bw.flush();
     }
 }
+/*
+1. 공격에 따라 깍이는 hp를 배열로
+2. 경우에 따라 방문배열 채워주기
+ */
