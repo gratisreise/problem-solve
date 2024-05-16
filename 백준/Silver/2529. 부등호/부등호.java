@@ -1,3 +1,5 @@
+import com.sun.nio.zipfs.ZipFileAttributes;
+
 import java.io.*;
 import java.util.*;
 
@@ -18,9 +20,9 @@ public class Main{
         }
         for(int i = 0; i < 10; i++){
             if(cnt[i] != 0) continue;
-            if((idx == 0) || good(num.charAt(idx - 1), (char)(i + '0'), oper[idx - 1])){
+            if (idx == 0 || good(num.charAt(idx - 1), (char) (i + '0'), oper[idx - 1])) {
                 cnt[i] = 1;
-                go(idx + 1, num + (""+i));
+                go(idx + 1, num +("" + i));
                 cnt[i] = 0;
             }
         }
@@ -33,7 +35,7 @@ public class Main{
         n = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
         for(int i = 0; i < n; i++){
-            oper[i] = st.nextToken().charAt(0);
+            oper[i] =st.nextToken().charAt(0);
         }
         go(0, "");
         bw.write(String.valueOf(ret.get(ret.size() - 1))+'\n');
