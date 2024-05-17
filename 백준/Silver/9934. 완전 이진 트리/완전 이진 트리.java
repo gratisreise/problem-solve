@@ -1,33 +1,39 @@
+import java.io.*;
 import java.util.*;
 
-public class Main {
-    static int n;
-    static int[] a = new int[1030];
-    static List<Integer>[] ret = new ArrayList[14];
-
-    static void go(int s, int e, int level) {
-        if (s > e) return;
-        if (s == e) {
-            ret[level].add(a[s]);
-            return;
-        }
-
-        int mid = (s + e) / 2;
-        ret[level].add(a[mid]);
-        go(s, mid - 1, level + 1);
-        go(mid + 1, e, level + 1);
+public class Main{
+    static int k;
+    static int[] cnt;
+    static List<Integer>[] tree;
+    static void input(int l, int r, int n){
+        if(n == k) return;
+        int mid = (l + r) / 2;
+        tree[n].add(cnt[mid]);
+        input(l, mid - 1, n + 1);
+        input(mid + 1, r, n + 1);
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        int end = (int) Math.pow(2, n) - 1;
-        for (int i = 0; i < 14; i++) ret[i] = new ArrayList<>();
-        for (int i = 0; i < end; i++) a[i] = sc.nextInt();
-        go(0, end, 1);
-        for (int i = 1; i <= n; i++) {
-            for (int j : ret[i]) System.out.print(j + " ");
-            System.out.println();
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
+        st = new StringTokenizer(br.readLine());
+        k = Integer.parseInt(st.nextToken());
+        int end = (int)Math.pow(2, k) - 1;
+        tree = new List[k + 1];
+        for(int i = 0; i < k; i++) tree[i] = new ArrayList<>();
+        cnt = new int[end];
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < end; i++){
+            cnt[i] = Integer.parseInt(st.nextToken());
         }
+
+        input(0, end, 0);;
+        for(int i = 0; i < k; i++){
+            for(int j : tree[i]) bw.write(String.valueOf(j)+' ');
+            bw.write('\n');
+        }
+        bw.flush();
     }
 }
