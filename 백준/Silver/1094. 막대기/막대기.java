@@ -1,24 +1,19 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int x = scanner.nextInt();
-        int cnt = 0;
-        ArrayList<Integer> v = new ArrayList<>();
-
-        while (x != 0) {
-            v.add(x % 2);
-            x /= 2;
+public class Main{
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
+        st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int ret = 0;
+        while(n > 0) {
+            if (n % 2 == 1) ret++;
+            n /= 2;
         }
-
-        for (int i : v) {
-            if (i == 1) {
-                cnt++;
-            }
-        }
-
-        System.out.println(cnt);
+        bw.write(String.valueOf(ret)+'\n');
+        bw.flush();
     }
 }
