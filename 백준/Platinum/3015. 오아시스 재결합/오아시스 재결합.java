@@ -1,42 +1,41 @@
-import java.util.Scanner;
-import java.util.Stack;
-
+import java.io.*;
+import java.util.*;
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
+    static class Pair {
+        long f;
+        long s;
+
+        public Pair(long f, long s) {
+            this.f = f;
+            this.s = s;
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
+        st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());;
         long ret = 0;
         Stack<Pair> s = new Stack<>();
 
         for (int i = 0; i < n; i++) {
-            long temp = scanner.nextLong();
-            int cnt = 1;
+            long temp = Long.parseLong(br.readLine());
+            long cnt = 1;
 
-            while (!s.isEmpty() && s.peek().first <= temp) {
-                ret += s.peek().second;
-                if (s.peek().first == temp) {
-                    cnt = s.peek().second + 1;
-                } else {
-                    cnt = 1;
-                }
+            while (!s.isEmpty() && s.peek().f <= temp) {
+                ret += s.peek().s;
+                if (s.peek().f == temp)
+                    cnt = s.peek().s + 1;
+                else cnt = 1;
                 s.pop();
             }
-            if (!s.isEmpty()) {
-                ret++;
-            }
+            if (!s.isEmpty()) ret++;
             s.push(new Pair(temp, cnt));
         }
-
-        System.out.println(ret);
-    }
-
-    static class Pair {
-        long first;
-        int second;
-
-        public Pair(long first, int second) {
-            this.first = first;
-            this.second = second;
-        }
+        bw.write(String.valueOf(ret)+'\n');
+        bw.flush();
+        br.close();
+        bw.close();
     }
 }
