@@ -1,32 +1,40 @@
+import java.io.*;
 import java.util.*;
 
-public class Main {
-    static int n, ret, cnt = 1;
-    static List<Pair> l = new ArrayList<>();
+public class Main{
+    static int n, s, e, ret, time;
     static class Pair{
-        int f, s;
-        Pair(int f, int s){
-            this.f = f;
+        int s, e;
+        Pair(int s, int e){
             this.s = s;
+            this.e = e;
         }
     }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
+        n = Integer.parseInt(br.readLine());
+        List<Pair> l = new ArrayList<>();
         for(int i = 0; i < n; i++){
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            l.add(new Pair(a, b));
+            st = new StringTokenizer(br.readLine());
+            s = Integer.parseInt(st.nextToken());
+            e = Integer.parseInt(st.nextToken());
+            l.add(new Pair(s, e));
         }
-        Collections.sort(l, (a,b)->{
-            if(a.s == b.s)return a.f - b.f;
-            return a.s - b.s;
+        Collections.sort(l, (a, b)-> {
+            if(a.e == b.e) return Integer.compare(a.s, b.s);
+            return Integer.compare(a.e, b.e);
         });
-        ret = l.get(0).s;
-        for(int i = 1; i < n; i++){
-            if(l.get(i).f < ret) continue;
-            ret = l.get(i).s; cnt++;
+
+        for(Pair p : l){
+            if(time > p.s) continue;
+            ret++;
+            time = p.e;
         }
-        System.out.println(cnt);
+        bw.write(String.valueOf(ret)+'\n');
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
