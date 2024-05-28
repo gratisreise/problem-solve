@@ -1,32 +1,41 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
+        int n = Integer.parseInt(br.readLine());
         int[] a = new int[n];
 
-        // 입력 받은 n개의 정수를 배열 a에 저장
-        for (int i = 0; i < n; i++)  a[i] = sc.nextInt();
-
-        int x = sc.nextInt();
-
-        // 배열 a를 오름차순으로 정렬
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            a[i] = Integer.parseInt(st.nextToken());
+        }
+        int x = Integer.parseInt(br.readLine());
         Arrays.sort(a);
-
         int ret = 0;
         int l = 0, r = n - 1;
-
-        // 두 포인터를 사용하여 a[left] + a[right] == x인 경우를 찾음
         while (l < r) {
-            int sum = a[l] + a[r];
-            if (sum == x) {
+            if (a[l] + a[r] < x) l++;
+            else if (a[l] + a[r] > x) r--;
+            else {
                 r--;
                 ret++;
-            } else if (sum < x) l++;
-            else  r--;
+            }
         }
-
-        System.out.println(ret);
+        bw.write(String.valueOf(ret) + '\n');
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
+
+/*
+두수의 합이 조건에 맞는지 구하는법
+아이디어: 양 끝점을 포인터로 잡고 조건에 따라 이동시키면서 확인한다.
+1. 두 수의 합이 작으면 시작점을 올린다.
+2. 두 수의 합이 크면 끝점을 내린다.
+3. 두 수의 합이 x이면 ret++;하고 끝점을 내린다. 
+*/
