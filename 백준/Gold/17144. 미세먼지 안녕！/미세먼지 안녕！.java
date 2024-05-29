@@ -20,9 +20,8 @@ public class Main {
 
     public static void mise_go(int[] dy, int[] dx) {
         temp = new int[n + 1][m + 1];
-        Queue<Pair> q = new LinkedList<>();
 
-        //미세먼지 넣어줌
+        //미세먼지 확산
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (a[i][j] >= 5) {
@@ -37,21 +36,6 @@ public class Main {
                 }
             }
         }
-
-        //먼지 확산
-//        while (!q.isEmpty()) {
-//            Pair pair = q.poll();
-//            int y = pair.f;
-//            int x = pair.s;
-//            int spread = a[y][x] / 5;
-//            for (int i = 0; i < 4; i++) {
-//                int ny = y + dy[i];
-//                int nx = x + dx[i];
-//                if (ny < 0 || ny >= n || nx < 0 || nx >= m || a[ny][nx] == -1) continue;
-//                temp[ny][nx] += spread;
-//                a[y][x] -= spread;
-//            }
-//        }
 
         //확산된거 적용
         for (int i = 0; i < n; i++) {
@@ -121,6 +105,7 @@ public class Main {
             for (int j = 0; j < m; j++) {
                 a[i][j] = Integer.parseInt(st.nextToken());
                 if (a[i][j] == -1) {
+                    //공청기의 이동방향을 순차적으로 저장
                     if (flag) {
                         v1 = chung(i, j, dy1, dx1);
                         flag = false;
@@ -149,10 +134,10 @@ public class Main {
 }
 /*
 1. 미세먼지 확산
-  1-1. queue에 좌표를 담는다.
-  1-2.
-
+  1-1. 확산할 미세먼지의 양을 임시배열에 저장한다.
+  1-2. 확산할 미세먼지의 양만큼 미세먼지를 빼준다.
+  1-3. 임시배열에 저장된 먼지양을 더해준다.
 2. 공청기 작동
-
-
- */
+  2-1. 공청기의 이동할 좌표를 list에 저장한다.
+  2-2. t번 만큼 공청기의 이동방향으로 먼지를 이동시켜준다.
+*/
