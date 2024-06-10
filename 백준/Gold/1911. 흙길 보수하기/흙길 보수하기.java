@@ -1,5 +1,5 @@
+import java.io.*;
 import java.util.*;
-
 public class Main {
     static int b, n, l, idx, ret;
     static List<Pair> a = new ArrayList<>();
@@ -11,16 +11,20 @@ public class Main {
             this.s = s;
         }
     }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        l = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
+        st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        l = Integer.parseInt(st.nextToken());
 
 
         for (int i = 0; i < n; i++) {
-            int start = sc.nextInt();
-            int end = sc.nextInt();
-            a.add(new Pair(start, end));
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            a.add(new Pair(s, e));
         }
 
         Collections.sort(a, Comparator.comparingInt(a -> a.f));
@@ -37,8 +41,11 @@ public class Main {
             }
             ret += b;
         }
-
-        System.out.println(ret);
+        
+        bw.write(String.valueOf(ret)+'\n');
+        bw.flush();
+        bw.close();
+        br.close();
     }
 
 }
