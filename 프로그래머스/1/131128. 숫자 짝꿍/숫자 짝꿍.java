@@ -1,6 +1,7 @@
 class Solution {
     
     public String solution(String X, String Y) {
+        
         String answer = "";
         int[] cntx = new int[10];
         int[] cnty = new int[10];
@@ -18,7 +19,7 @@ class Solution {
         }
         
         if(temp.length() == 0) answer = "-1";
-        else answer = "" + temp;
+        else answer = temp.toString();
         return answer;
     }
 }
