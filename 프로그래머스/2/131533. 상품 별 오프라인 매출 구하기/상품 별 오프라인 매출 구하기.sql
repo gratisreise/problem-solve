@@ -1,0 +1,12 @@
+/*
+1. 상품코드별 - grop by
+2. 매출액(판매가 * 판매량) 합계 - 계산
+3. 매출액 기준 내림차순 DESC
+4. 상품코드 오름차순 ASC
+5. join
+*/
+SELECT P.PRODUCT_CODE, SUM(SALES_AMOUNT) * P.price as SALES
+FROM PRODUCT P JOIN OFFLINE_SALE O 
+ON P.PRODUCT_ID = O.PRODUCT_ID
+GROUP BY P.PRODUCT_ID
+ORDER BY SALES DESC, P.PRODUCT_CODE
