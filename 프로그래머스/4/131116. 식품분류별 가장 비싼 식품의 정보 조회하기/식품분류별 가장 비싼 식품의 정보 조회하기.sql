@@ -1,0 +1,14 @@
+/*
+- 식품분류별 가격 MAX - 서브쿼리
+- 식품의 분류, 가격, 이름
+- 식품분류 = '과자', '국', '김치', '식용유' 경우 출력
+- 식품가격 DESC
+*/
+SELECT F1.CATEGORY, MAX_PRICE, PRODUCT_NAME
+FROM FOOD_PRODUCT F1 JOIN (
+    SELECT CATEGORY, MAX(PRiCE) AS MAX_PRICE
+    FROM FOOD_PRODUCT
+    GROUP BY CATEGORY) F2
+ON F1.CATEGORY = F2.CATEGORY
+WHERE F1.PRICE = MAX_PRICE AND F1.CATEGORY IN ('과자', '국', '김치', '식용유')
+ORDER BY MAX_PRICE DESC
