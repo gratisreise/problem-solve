@@ -1,0 +1,14 @@
+/*
+-들어올 당시 중성화X
+-나갈 때 중성화O
+-아이디 ASC
+1. JOIN해서 나간동물 구하기
+2. 정규식으로 중성화 조건 설정
+3. ORDER BY 아이디 오름차
+*/
+SELECT I.ANIMAL_ID, I.ANIMAL_TYPE, I.NAME
+FROM ANIMAL_INS I JOIN ANIMAL_OUTS O
+ON I.ANIMAL_ID = O.ANIMAL_ID
+WHERE I.SEX_UPON_INTAKE REGEXP ('^Intact') 
+AND O.SEX_UPON_OUTCOME REGEXP('^Spayed|^Neutered')
+ORDER BY I.ANIMAL_ID
