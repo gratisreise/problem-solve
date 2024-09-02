@@ -1,0 +1,14 @@
+/*
+- 동일한 회원 동일한 상품 재구매 데이터
+- 재구매 회원 ID, 제품 ID 출력
+- 회원 ID 오름차, 상품 ID 내림차 정렬
+1. 
+*/
+SELECT DISTINCT o1.USER_ID, o1.PRODUCT_ID
+FROM ONLINE_SALE o1, ONLINE_SALE o2
+WHERE o1.USER_ID = o2.USER_ID AND o1.PRODUCT_ID = o2.PRODUCT_ID AND o1.SALES_DATE != o2.SALES_DATE
+ORDER BY o1.USER_ID, o1.PRODUCT_ID DESC
+# select * from ONLINE_SALE
+# order by USER_ID, PRODUCT_ID, SALES_DATE
+
+
