@@ -1,0 +1,8 @@
+/*
+- 2021년도
+- 잡은 물기기 수
+*/
+
+SELECT COUNT(*) AS FISH_COUNT
+FROM FISH_INFO
+WHERE YEAR(TIME) = 2021
