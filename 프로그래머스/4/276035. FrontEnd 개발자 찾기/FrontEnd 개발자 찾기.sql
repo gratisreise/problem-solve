@@ -4,12 +4,11 @@
 - ID 오름차 정렬
 
 */
-select id, email, FIRST_NAME, LAST_NAME
+select distinct id, email, FIRST_NAME, LAST_NAME
 from DEVELOPERS a
     join (select * from SKILLCODES
         where CATEGORY = 'Front End') b
         on  a.SKILL_CODE & b.CODE = b.CODE
-GROUP BY id, email, first_name, last_name
 order by 1
 
 # SELECT
