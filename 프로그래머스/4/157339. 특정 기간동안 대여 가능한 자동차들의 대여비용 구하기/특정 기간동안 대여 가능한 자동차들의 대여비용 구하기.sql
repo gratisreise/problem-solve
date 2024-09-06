@@ -7,27 +7,25 @@
 1. 해당기간에 대여 가능한 차 id 구하는 서브쿼리 조인 자동차 테이블
 2. 대여금액 
 */
-SELECT
-        a.CAR_ID, a.CAR_TYPE,
-        ROUND((daily_fee * 30 * (100 -CAST(REPLACE(discount_rate, '%', '') AS UNSIGNED))) / 100, 0) as FEE
+SELECT a.car_id,
+       a.car_type,
+       round((daily_fee * 30 * (100 - CAST(replace(discount_rate, '%', '') AS unsigned))) / 100,
+             0) AS fee
 FROM car_rental_company_car a
          JOIN (SELECT car_id,
                       COUNT(
                               CASE
-                                  WHEN start_date > '2022-11-30' OR end_date < '2022-11-01' THEN NUll
+                                  WHEN start_date > '2022-11-30' OR end_date < '2022-11-01'
+                                      THEN NULL
                                   ELSE 1
                                   END) AS temp
                FROM car_rental_company_rental_history
                GROUP BY car_id
                HAVING temp = 0) b ON a.car_id = b.car_id
-        join  (
-            select *
-            from CAR_RENTAL_COMPANY_DISCOUNT_PLAN
-            where DURATION_TYPE like '30%'
-            ) c on a.car_type = c.car_type
-where 500000 <= ROUND((daily_fee * 30 * (100 -CAST(REPLACE(discount_rate, '%', '') AS UNSIGNED))) / 100, 0) 
-and ROUND((daily_fee * 30 * (100 -CAST(REPLACE(discount_rate, '%', '') AS UNSIGNED))) / 100, 0) <= 2000000
-order by 3 desc, 2, 1 desc
-# select * from CAR_RENTAL_COMPANY_CAR
-# select * from CAR_RENTAL_COMPANY_RENTAL_HISTORY
-        
+         JOIN (SELECT *
+               FROM car_rental_company_discount_plan
+               WHERE duration_type LIKE '30%') c ON a.car_type = c.car_type
+having 500000 <= FEE AND  FEE <= 2000000
+ORDER BY 3 DESC, 2, 1 DESC
+
+
