@@ -1,61 +1,66 @@
-public class Solution {
-    private static final int dx[] = {0, -1, 1, 0};
-    private static final int dy[] = {-1, 0, 0, 1};
-
-    private boolean isNextToVolunteer(char[][] room, int x, int y, int exclude) {
-        for (int d = 0; d < 4; d++) {
-            if (d == exclude) continue;
-
-            int nx = x + dx[d];
-            int ny = y + dy[d];
-            if (ny < 0 || ny >= room.length || nx < 0 || nx >= room[ny].length)
-                continue;
-            if (room[ny][nx] == 'P') return true;
-        }
-        return false;
-    }
-
-    private boolean isDistanced(char[][] room, int x, int y) {
-        for (int d = 0; d < 4; d++) {
-            int nx = x + dx[d];
-            int ny = y + dy[d];
-            if (ny < 0 || ny >= room.length || nx < 0 || nx >= room[ny].length)
-                continue;
-
-            switch (room[ny][nx]) {
-                case 'P': return false;
-                case 'O':
-                    if (isNextToVolunteer(room, nx, ny, 3- d)) return false;
-                    break;
+import java.util.*;
+class Solution {
+    static int[][] visited;
+    static int[] dy = {-1, 0, 1, 0};
+    static int[] dx = {0, 1, 0, -1};
+    static boolean check;
+    static char[][] temp;
+    public List<Integer> solution(String[][] places) {
+        List<Integer> ret = new ArrayList<>();
+        for(String[] sArr : places){
+            int row = sArr.length;
+            int col = sArr[0].length();
+            temp = new char[row][col];
+            
+            for(int i = 0; i < row; i++){
+                temp[i] = sArr[i].toCharArray();
             }
-        }
-        return true;
-    }
-
-    private boolean isDistanced(char[][] room) {
-        for (int y = 0; y < room.length; y++) {
-            for (int x = 0; x < room[y].length; x++) {
-                if (room[y][x] != 'P') continue;
-                if (!isDistanced(room, x, y)) return false;
+            
+            //--------
+            
+            // 초기화 
+            check = false;
+            visited = new int[row][col];
+            
+            for(int i = 0; i < row; i++){
+                for(int j = 0; j < col; j++){
+                    if(temp[i][j] == 'P') {
+                        go(i, j, 2, row, col);
+                    }
+                    if(check) break;
+                }
             }
-        }
-        return true;
+            if(check) ret.add(0);
+            else ret.add(1);
+            
+        }    
+        return ret;
     }
-
-    public int[] solution(String[][] places) {
-        int[] answer = new int[places.length];
-        for (int i = 0; i < answer.length; i++) {
-            String[] place = places[i];
-            char[][] room = new char[place.length][];
-            for (int j = 0; j < room.length; j++) {
-                room[j] = place[j].toCharArray();
-            }
-            if (isDistanced(room)) {
-                answer[i] = 1;
-            } else {
-                answer[i] = 0;
-            }
+    private void go(int y, int x, int cnt, int n, int m){
+        if(cnt == 0) return;
+        if(check) return;
+        //방문처리
+        visited[y][x] = 1;
+        for(int i = 0; i < 4; i++){
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+            // 경계값 처리
+            if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
+            if(visited[ny][nx] != 0) continue;
+            // 파티션 있으면 더이상 못간다
+            if(temp[ny][nx] == 'X') continue;
+            // 범위 안에 사람 있으면 true
+            if(temp[ny][nx] == 'P') check = true;
+            go(ny, nx, cnt - 1, n, m);
         }
-        return answer;
+        visited[y][x] = 0;
     }
+    
 }
+
+/*
+- 대기실 5개, 5*5 크기
+- 맨해튼 거리(|y1-y2| + |x1-x2|) > 2
+- 파티션 있으면 허용
+크기2의 dfs 탐색을 할 동안 
+*/
