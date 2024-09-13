@@ -1,30 +1,22 @@
 class Solution {
     public int[] solution(String s) {
-        int[] ret = new int[2];
-        String temp = s;
-        int cnt = 0;
-        while(true){
-            //x의 모든 0제거
-            int cnt1 = 0; // 0제거개수
-            int n = 0; //문자열길이
-            for(char c : temp.toCharArray()){
-                if(c == '1') n++;
-                else cnt1++;
-            }
-            ret[1] += cnt1; // 제거된 0의 갯수 +
-            temp = ""; // temp 빈문자열해주기
-            //x의길이를 -> 2진수문자열로변환 -> temp에 넣기
-            while(n > 0){
-                temp = "" + n % 2 + temp;
-                n /= 2;
-            }
-            ret[0]++;
-            System.out.println(temp + " :: "+ ret[1]);
-            if(temp.equals("1")) break;
+        int cntDel = 0; 
+        int cntCvt = 0;
+        
+        while(!s.equals("1")){
+            StringBuilder builder = new StringBuilder();
+            for(char c : s.toCharArray()) if(c == '1') builder.append(c);
+            cntDel += s.length() - builder.length();
+            cntCvt ++;
+            s = Integer.toString(builder.length(), 2);
         }
-        return ret;
+        return new int[]{cntCvt, cntDel};
     }
+        
 }
-
-
-//x의 길이를 -> 2진수문자열
+/*
+1. s의 모든 0을 제거
+2. 길이를 2진법 문자열로 변환
+3. 1-2 과정을 "1"이 될 때까지 반복
+4. 변환 횟수와 제거된 0의 갯수 반환
+*/
