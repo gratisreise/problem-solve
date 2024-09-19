@@ -7,9 +7,15 @@
 3. 해당 멤버 아이디와 같은 멤버아이디의 리뷰글을 구하기
 4. REVIEW_DATE asc, MEMBER_PROFILE asc
 */
-SELECT C.MEMBER_NAME, A.REVIEW_TEXT, DATE_FORMAT(A.REVIEW_DATE,'%Y-%m-%d')
-FROM REST_REVIEW  A 
-JOIN (SELECT MEMBER_ID FROM REST_REVIEW GROUP BY MEMBER_ID ORDER BY COUNT(*) DESC LIMIT 1)B 
-ON A.MEMBER_ID = B.MEMBER_ID
-LEFT JOIN MEMBER_PROFILE C ON A.MEMBER_ID = C.MEMBER_ID
-ORDER BY A.REVIEW_DATE,A.REVIEW_TEXT
+
+SELECT c.member_name
+     , a.review_text
+     , date_format(a.review_date, '%Y-%m-%d')
+FROM rest_review a
+         INNER JOIN (SELECT member_id
+                     FROM rest_review
+                     GROUP BY member_id
+                     ORDER BY COUNT(*) DESC LIMIT 1) b
+                    ON a.member_id = b.member_id
+         LEFT JOIN member_profile c ON a.member_id = c.member_id
+ORDER BY a.review_date, a.review_text
