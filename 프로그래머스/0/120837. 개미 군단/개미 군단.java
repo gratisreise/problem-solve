@@ -1,19 +1,12 @@
 class Solution {
     public int solution(int hp) {
-        int ret = 0;
-        for(int i = 5; i > 0; i -= 2){
-            ret += (hp / i);
-            hp = (hp % i);
-        }
-        return ret;
+        int answer = 0;
+        answer += hp / 5;
+        hp = hp % 5;
+        answer += hp / 3;
+        hp = hp % 3;
+        answer += hp;
+        return answer;
     }
 }
-
-
-/*
-사냥감의 체력에 맞게
-장군 5
-병장 3
- 일 1
- */
- 
+// 5 3 1
