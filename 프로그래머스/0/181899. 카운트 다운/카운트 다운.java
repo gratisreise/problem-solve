@@ -1,10 +1,10 @@
-import java.util.*;
 class Solution {
-    public List<Integer> solution(int start, int end_num) {
-        List<Integer> ret = new ArrayList<>();
-        for(int i = start; i >= end_num; i--){
-            ret.add(i);
+    public int[] solution(int start_num, int end_num) {
+        int[] answer = new int[start_num - end_num + 1];
+        int temp = start_num;
+        for(int i = 0; i < start_num - end_num + 1; i++){
+            answer[i] = temp--;
         }
-        return ret;
+        return answer;
     }
 }
