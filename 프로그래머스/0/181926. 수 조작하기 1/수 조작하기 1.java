@@ -1,17 +1,15 @@
 class Solution {
-    static int check(char c){
-        int ret = 0;
-        if(c == 'w') ret = 1;
-        else if(c == 's') ret = -1;
-        else if(c == 'd') ret = 10;
-        else if(c == 'a') ret = -10;
-        return ret;
-    }
     public int solution(int n, String control) {
-        int ret = n;
+        int answer = n;
         for(char c : control.toCharArray()){
-            ret += check(c);
+            answer += switch(c){
+                    case 'w' -> 1;
+                    case 's' -> -1;
+                    case 'd' -> 10;
+                    case 'a' -> -10;
+                    default -> 0;
+            };
         }
-        return ret;
+        return answer;
     }
 }
