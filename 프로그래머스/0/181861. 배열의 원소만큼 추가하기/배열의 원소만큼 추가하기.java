@@ -1,12 +1,13 @@
 import java.util.*;
+import java.util.stream.*;
 class Solution {
-    public List<Integer> solution(int[] arr) {
-        List<Integer> ret = new ArrayList<>();
+    public int[] solution(int[] arr) {
+        List<Integer> l = new ArrayList<>();
         for(int i : arr){
             for(int j = 0; j < i; j++){
-                ret.add(i);
+                l.add(i);
             }
         }
-        return ret;
+        return l.stream().mapToInt(Integer::intValue).toArray();
     }
 }
