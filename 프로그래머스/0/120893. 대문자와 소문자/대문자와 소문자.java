@@ -1,10 +1,10 @@
 class Solution {
     public String solution(String my_string) {
-        String ret = "";
+        StringBuilder sb = new StringBuilder();
         for(char c : my_string.toCharArray()){
-            if(c >= 97) ret += (char)(c - 32);
-            else ret += (char)(c + 32);
+            if(Character.isLowerCase(c)) sb.append(Character.toUpperCase(c));
+            else sb.append(Character.toLowerCase(c));
         }
-        return ret;
+        return sb.toString();
     }
 }
