@@ -1,11 +1,11 @@
+import java.util.*;
+import java.util.stream.*;
+
 class Solution {
     public int solution(int[] num_list, int n) {
-        int ret = 0;
-        for(int i : num_list){
-            if(i == n) ret = 1;
-        }
-        
-        
-        return ret;
+        List<Integer> l = Arrays.stream(num_list)
+                                .boxed()
+                                .collect(Collectors.toList());
+        return l.contains(n) ? 1 : 0;
     }
 }
