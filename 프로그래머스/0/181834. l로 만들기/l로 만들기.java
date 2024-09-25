@@ -1,11 +1,10 @@
 class Solution {
     public String solution(String myString) {
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         for(char c : myString.toCharArray()){
-            if(c < 'l') ret += 'l';
-            else ret += c;
+            if(c - 'l' < 0) ret.append('l');
+            else ret.append(c);
         }
-        
-        return ret;
+        return ret.toString();
     }
 }
