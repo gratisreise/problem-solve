@@ -1,10 +1,11 @@
 import java.util.*;
+import java.util.stream.*;
 class Solution {
-    public List<String> solution(String[] todo_list, boolean[] finished) {
+    public String[] solution(String[] todo_list, boolean[] finished) {
         List<String> ret = new ArrayList<>();
-        for(int i = 0; i < finished.length; i++){
+        for(int i = 0; i < todo_list.length; i++){
             if(!finished[i]) ret.add(todo_list[i]);
         }
-        return ret;
+        return ret.stream().toArray(String[]::new);
     }
 }
