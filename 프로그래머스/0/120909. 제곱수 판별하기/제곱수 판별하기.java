@@ -1,9 +1,8 @@
 class Solution {
     public int solution(int n) {
-        int ret = 2;
-        for(int i = 0; i < n/2; i++){
-            if(n == i * i) ret = 1;
+        for(int i = 1; i * i <= n; i++){
+            if(i * i == n) return 1;
         }
-        return ret;
+        return 2;
     }
 }
