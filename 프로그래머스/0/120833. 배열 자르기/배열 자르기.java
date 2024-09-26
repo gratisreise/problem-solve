@@ -1,9 +1,8 @@
-import java.util.*;
 class Solution {
-    public List<Integer> solution(int[] numbers, int num1, int num2) {
-        List<Integer> ret = new ArrayList<>();
-        for(int i = num1; i <= num2; i++){
-            ret.add(numbers[i]);
+    public int[] solution(int[] numbers, int num1, int num2) {
+        int[] ret = new int[num2 - num1 + 1];
+        for(int i = 0, temp = num1; i < num2 - num1 + 1; i++){
+            ret[i] = numbers[temp++];
         }
         return ret;
     }
