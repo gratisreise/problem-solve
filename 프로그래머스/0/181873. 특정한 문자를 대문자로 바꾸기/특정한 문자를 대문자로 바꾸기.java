@@ -1,11 +1,10 @@
 class Solution {
     public String solution(String my_string, String alp) {
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         for(char c : my_string.toCharArray()){
-            if(alp.equals((c+""))) ret += (char)(c - 32);
-            else ret += c;
+            if(String.valueOf(c).equals(alp)) ret.append(Character.toUpperCase(c));
+            else ret.append(c);
         }
-        
-        return ret;
+        return ret.toString();
     }
 }
