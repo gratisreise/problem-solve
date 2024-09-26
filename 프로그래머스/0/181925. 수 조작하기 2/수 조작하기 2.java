@@ -1,17 +1,21 @@
 class Solution {
-    static String oper(int a, int b){
-        String ret = "";
-        if(a + 1 == b) ret = "w";
-        else if(a - 1 == b) ret = "s";
-        else if(a + 10 == b) ret = "d";
-        else if(a - 10 == b) ret = "a";
-        return ret;
+    private char process(int n){
+        return switch(n){
+                case 1 -> 'w';
+                case -1 -> 's';
+                case 10 -> 'd';
+                case -10 -> 'a';
+                default -> '9';
+        };
+    }
+    private String makeRet(int[] numLog){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 1; i < numLog.length; i++){
+            sb.append(process(numLog[i] - numLog[i - 1]));   
+        }
+        return sb.toString();
     }
     public String solution(int[] numLog) {
-        String ret = "";
-        for(int i = 0; i <numLog.length - 1; i++){
-            ret += oper(numLog[i], numLog[i + 1]);
-        }   
-        return ret;
+        return makeRet(numLog);
     }
 }
