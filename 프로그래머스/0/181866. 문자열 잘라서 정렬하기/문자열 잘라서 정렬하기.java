@@ -1,20 +1,10 @@
 import java.util.*;
+import java.util.stream.*;
 class Solution {
-    public List<String> solution(String myString) {
+    public String[] solution(String myString) {
+        String[] srr = myString.split("x");
         List<String> ret = new ArrayList<>();
-        String temp = "";
-        for(char c : myString.toCharArray()){
-            if(c == 'x' && temp.length() > 0){
-                ret.add(temp);
-                temp = "";
-            } else if(c != 'x') {
-                temp += c;
-                
-            }
-        }
-        if(temp.length() > 0) ret.add(temp);
-        
-        Collections.sort(ret);
-        return ret;
+        for(String s : srr) if(!s.equals("")) ret.add(s);
+        return ret.stream().sorted().toArray(String[]::new);
     }
 }
