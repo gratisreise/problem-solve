@@ -1,10 +1,10 @@
 class Solution {
+    private boolean check(char c){
+        return c != 'a' && c != 'e' && c != 'i' && c != 'o' && c != 'u';
+    }
     public String solution(String my_string) {
-        String ret = "";
-        for(char c : my_string.toCharArray()){
-            if(c =='a' || c == 'i' || c =='o' || c == 'e' || c == 'u') continue;
-            ret += c;
-        }
-        return ret;
+        StringBuilder ret = new StringBuilder();
+        for(char c : my_string.toCharArray()) if(check(c)) ret.append(c);
+        return ret.toString();
     }
 }
