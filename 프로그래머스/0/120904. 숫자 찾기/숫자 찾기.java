@@ -1,14 +1,9 @@
 class Solution {
     public int solution(int num, int k) {
-        int ret = -1;
-        String temp = "" + num;
-        for(int i = 0; i < temp.length(); i++){
-            if(temp.charAt(i) == k + '0') {
-                ret = i + 1;
-                break;
-            }
+        char[] arr = String.valueOf(num).toCharArray();
+        for(int i = 0; i < arr.length; i++){
+            if(k == arr[i] - '0') return i + 1;
         }
-        
-        return ret;
+        return -1;
     }
 }
