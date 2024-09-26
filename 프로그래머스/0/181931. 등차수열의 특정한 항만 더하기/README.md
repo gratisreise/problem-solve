@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 69.3 MB, 시간: 0.13 ms
+메모리: 76.1 MB, 시간: 0.04 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 03월 18일 15:29:01
+2024년 09월 26일 17:06:25
 
 ### 문제 설명
 
@@ -65,78 +65,32 @@
 <p>입출력 예 #1</p>
 
 <ul>
-<li><p>예제 1번은 <code>a</code>와 <code>d</code>가 각각 3, 4이고 <code>included</code>의 길이가 5입니다. 이를 표로 나타내면 다음과 같습니다.</p>
-<table class="table">
-        <thead><tr>
-<th></th>
-<th>1항</th>
-<th>2항</th>
-<th>3항</th>
-<th>4항</th>
-<th>5항</th>
-</tr>
-</thead>
-        <tbody><tr>
-<td>등차수열</td>
-<td>3</td>
-<td>7</td>
-<td>11</td>
-<td>15</td>
-<td>19</td>
-</tr>
-<tr>
-<td>included</td>
-<td>true</td>
-<td>false</td>
-<td>false</td>
-<td>true</td>
-<td>true</td>
-</tr>
-</tbody>
-      </table>
-<p>따라서 true에 해당하는 1항, 4항, 5항을 더한 3 + 15 + 19 = 37을 return 합니다.</p></li>
+<li>예제 1번은 <code>a</code>와 <code>d</code>가 각각 3, 4이고 <code>included</code>의 길이가 5입니다. 이를 표로 나타내면 다음과 같습니다.</li>
 </ul>
 
+<p>||1항|2항|3항|4항|5항|</p>
+
+<p>|-|-|---|---|---|---|</p>
+
+<p>|등차수열|3|7|11|15|19|</p>
+
+<p>|included|true|false|false|true|true|</p>
+<div class="highlight"><pre class="codehilite"><code>따라서 true에 해당하는 1항, 4항, 5항을 더한 3 + 15 + 19 = 37을 return 합니다.
+</code></pre></div>
 <p>입출력 예 #2</p>
 
 <ul>
-<li><p>예제 2번은 <code>a</code>와 <code>d</code>가 각각 7, 1이고 <code>included</code>의 길이가 7입니다. 이를 표로 나타내면 다음과 같습니다.</p>
-<table class="table">
-        <thead><tr>
-<th></th>
-<th>1항</th>
-<th>2항</th>
-<th>3항</th>
-<th>4항</th>
-<th>5항</th>
-<th>6항</th>
-<th>7항</th>
-</tr>
-</thead>
-        <tbody><tr>
-<td>등차수열</td>
-<td>7</td>
-<td>8</td>
-<td>9</td>
-<td>10</td>
-<td>11</td>
-<td>12</td>
-<td>13</td>
-</tr>
-<tr>
-<td>included</td>
-<td>false</td>
-<td>false</td>
-<td>false</td>
-<td>true</td>
-<td>false</td>
-<td>false</td>
-<td>false</td>
-</tr>
-</tbody>
-      </table>
-<p>따라서 4항만 true이므로 10을 return 합니다.</p></li>
+<li>예제 2번은 <code>a</code>와 <code>d</code>가 각각 7, 1이고 <code>included</code>의 길이가 7입니다. 이를 표로 나타내면 다음과 같습니다.</li>
 </ul>
 
+<p>||1항|2항|3항|4항|5항|6항|7항|</p>
+
+<p>|-|-|---|---|---|---|---|---|</p>
+
+<p>|등차수열|7|8|9|10|11|12|13|</p>
+
+<p>|included|false|false|false|true|false|false|false|</p>
+<div class="highlight"><pre class="codehilite"><code>따라서 4항만 true이므로 10을 return 합니다.
+</code></pre></div>
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
