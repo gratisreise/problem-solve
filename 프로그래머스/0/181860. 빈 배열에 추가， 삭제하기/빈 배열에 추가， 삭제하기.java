@@ -1,23 +1,14 @@
 import java.util.*;
+import java.util.stream.*;
 class Solution {
-    public Stack<Integer> solution(int[] arr, boolean[] flag) {
+    public int[] solution(int[] arr, boolean[] flag) {
         Stack<Integer> stk = new Stack<>();
         for(int i = 0; i < flag.length; i++){
-            if(flag[i]){
-                for(int j = 0; j < arr[i] * 2; j ++){
-                    stk.push(arr[i]);
-                }
-            } else {
-                for(int j = 0; j < arr[i]; j++){
-                    stk.pop();
-                }
+            for(int j = 0; j < (flag[i] ? arr[i]*2 : arr[i]); j++){
+                if(flag[i]) stk.push(arr[i]);
+                else stk.pop();
             }
         }
-        return stk;
+        return stk.stream().mapToInt(Integer::intValue).toArray();
     }
 }
-
-//빈배열 x
-// 정수배열 arr, boolean 배열 flag -> 매개변수
-// true -> arr[i]를 2번 X에 추가
-// false -> arr[i]개의 원소를 제거
