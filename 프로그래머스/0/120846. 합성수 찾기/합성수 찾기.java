@@ -1,15 +1,17 @@
 class Solution {
+    private boolean check(int n){
+        int cnt = 0;
+        for(int i = 1; i*i <= n; i++){
+            if(n % i == 0) {
+                if(i * i == n) cnt++;
+                else cnt += 2;
+            }
+        }
+        return cnt >= 3;
+    }
     public int solution(int n) {
         int ret = 0;
-        for(int i = 1; i <= n; i++){
-            int check = 0;
-            for(int j = 1; j <= i; j++){
-                if(i % j == 0) check++;
-                if(check == 3) break;
-            }
-            if(check == 3) ret++;
-        }
-        
+        for(int i = 1; i <= n; i++) if(check(i)) ret++;
         return ret;
     }
 }
