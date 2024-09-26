@@ -1,12 +1,13 @@
+import java.util.*;
 class Solution {
+    
     public String solution(int age) {
-        String ret = "";
-        String temp = "" + age;
-        System.out.println(temp);
-        for(char c : temp.toCharArray()){
-            ret += (char)((c-'0') + 'a');
+        StringBuilder sb = new StringBuilder();
+        char[] idxNumber = new char[10];
+        for(int i = 0; i < 10; i++) idxNumber[i] = (char)(i + 'a');
+        for(char c : String.valueOf(age).toCharArray()){
+            for(int i = 0; i < 10; i++) if(c-'0' == i) sb.append(idxNumber[i]);
         }
-        
-        return ret;
+        return sb.toString();
     }
 }
