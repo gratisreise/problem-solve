@@ -1,13 +1,11 @@
 class Solution {
     public int solution(int[] num_list) {
-        int ret = 0;
-        if(num_list.length >= 11){
-            for(int i : num_list) ret += i;
-        } else if(num_list.length <= 10){
-            ret = 1;
-            for(int i : num_list) ret *= i;
+        int num1 = 0;
+        int num2 = 1;
+        for(int i : num_list){
+            if(num_list.length >= 11) num1 += i;
+            else num2 *= i;
         }
-        return ret;
+        return num1 == 0 ? num2 : num1;
     }
 }
-//num_list길이 11이상 -> 모든원소의 합 || 10이하이면 모든 원소의 곱
