@@ -1,18 +1,16 @@
+import java.util.*;
 class Solution {
     public String solution(String myString, String pat) {
-        String ret = "";
-        String temp = "";
-        for(int i = myString.length() - 1; i >= 0; i--){
-            temp = "" + myString.charAt(i) + temp;
-            if(temp.contains(pat)) break;
+        String[] psum = new String[myString.length() + 1];
+        char[] arr = myString.toCharArray();
+        psum[0] = "";
+        for(int i = 1; i <= myString.length(); i++){
+            psum[i] = psum[i - 1] + arr[i-1];
         }
-        ret = myString.substring(0, myString.length() - temp.length() + pat.length());
+        String ret = "";
+        for(int i = 1; i <= myString.length(); i++){
+            if(psum[i].endsWith(pat)) ret = psum[i];
+        }
         return ret;
     }
 }
-// pat으로 끝나는 가장 긴 부분문자열을 리턴
-// myString을 
-// 0 1 2 3 4 5 6
-// 뒤에서부터 추가하면서 검사
-// 원래 문자열 길이에서 임시문자열 길이에서 pat을 뺀만큼의 부분문자열 구하기
-// 
