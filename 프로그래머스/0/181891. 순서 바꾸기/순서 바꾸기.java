@@ -1,15 +1,15 @@
 import java.util.*;
+import java.util.stream.*;
 class Solution {
-    public List<Integer> solution(int[] num_list, int n) {
+    private void filling(int start, int end, int[] arr, List<Integer> l){
+        for(int i = start; i < end; i++){
+            l.add(arr[i]);
+        }
+    }
+    public int[] solution(int[] num_list, int n) {
         List<Integer> ret = new ArrayList<>();
-        for(int i = n; i < num_list.length; i++){
-            ret.add(num_list[i]);
-        }
-        for(int i = 0; i < n; i++){
-            ret.add(num_list[i]);
-        }
-        
-        return ret;
-        
+        filling(n, num_list.length, num_list, ret);
+        filling(0, n, num_list, ret);
+        return ret.stream().mapToInt(Integer::intValue).toArray();
     }
 }
