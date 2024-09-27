@@ -1,18 +1,15 @@
 import java.util.*;
+import java.util.stream.*;
+
 class Solution {
-    public List<String> solution(String myStr) {
+    public String[] solution(String myStr) {
+        String[] srr = myStr.split("a|b|c");
         List<String> ret = new ArrayList<>();
-        String temp = "";
-        for(char c : myStr.toCharArray()){
-            if(c == 'a' || c == 'b' || c == 'c'){
-                if(temp.length() > 0) 
-                    {ret.add(temp);
-                     temp = "";
-                }
-            } else temp += c;
+        for(String s : srr){
+            if(s.isEmpty()) continue;
+            ret.add(s);
         }
-        if(temp.length() > 0) ret.add(temp);   
-        else ret.add("EMPTY");
-        return ret;
+        if(ret.isEmpty()) return new String[]{"EMPTY"};
+        return ret.stream().toArray(String[]::new);
     }
 }
