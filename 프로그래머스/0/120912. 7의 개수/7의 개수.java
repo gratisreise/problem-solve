@@ -1,12 +1,12 @@
 class Solution {
+    
     public int solution(int[] array) {
-        int ret = 0;
+        int answer = 0;
         for(int i : array){
-            String s = "" + i;
-            for(char c : s.toCharArray()){
-                if(c == '7') ret++;
+            for(char c : String.valueOf(i).toCharArray()){
+                if(c == '7') answer++;
             }
         }
-        return ret;
+        return answer;
     }
 }
