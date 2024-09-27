@@ -1,12 +1,12 @@
 import java.util.*;
+import java.util.stream.*;
 class Solution {
-    public List<Integer> solution(String[] intStrs, int k, int s, int l) {
+    public int[] solution(String[] intStrs, int k, int s, int l) {
         List<Integer> ret = new ArrayList<>();
-        for(String ss : intStrs){
-            String temp1 = ss.substring(s, s + l);
-            int temp2 = Integer.parseInt(temp1);
-            if(temp2 > k) ret.add(temp2);
-        }
-        return ret;
+        for(String intStr : intStrs){
+            int num = Integer.parseInt(intStr.substring(s, s + l));
+            if(num > k) ret.add(num);
+        }   
+        return ret.stream().mapToInt(Integer::intValue).toArray();
     }
 }
