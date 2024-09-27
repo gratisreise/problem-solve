@@ -1,22 +1,15 @@
 class Solution {
-    static int nanugiNum(int n){
-        int temp = n;
-        int ret = 0;
-        while(temp != 1){
-            if(temp % 2 == 0) temp /= 2;
-            else {
-                temp -= 1;
-                temp /= 2;
-            }
-            ret++;
+    private int count(int n){
+        int cnt = 0;
+        while(n != 1){
+            n /= 2;
+            cnt++;
         }
-        return ret;
+        return cnt;
     }
     public int solution(int[] num_list) {
         int ret = 0;
-        for(int i : num_list){
-            ret += nanugiNum(i);
-        }
+        for(int i : num_list) ret += count(i);
         return ret;
     }
 }
