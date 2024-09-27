@@ -1,18 +1,16 @@
 class Solution {
-    static int facto(int n){
-        int sum = 1;
-        for(int i = 1; i <= n; i++){
-            sum *= i;
-        }
-        return sum;
+    private int facto(int n){
+        int fac = 1;
+        for(int i = 1; i <= n; i++) fac *= i;
+        return fac;
     }
     public int solution(int n) {
-        int ret = 0;
-        for(int i = 1; i <= n; i++){
-            if(facto(i) <= n) ret = i;
-            else break;
+        int ret = 1;
+        while(true){
+            int temp = facto(ret);
+            if(temp > n) break;
+            ret++;
         }
-        
-        return ret;
+        return ret-1;
     }
 }
