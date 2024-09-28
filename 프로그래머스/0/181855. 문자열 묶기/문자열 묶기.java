@@ -1,14 +1,18 @@
+import java.util.*;
 class Solution {
     public int solution(String[] strArr) {
-        int ret = 0;
-        int[] temp = new int[34];
+        Map<Integer, Integer> mp = new HashMap<>();
+        List<Integer> ret = new ArrayList<>();
         for(String s : strArr){
-            temp[s.length()]++;
+            mp.put(s.length(), mp.getOrDefault(s.length(),0) + 1);
         }
-        
-        for(int i : temp){
-            ret = Math.max(ret, i);
-        }
-        return ret;
+        for(int i : mp.values()) ret.add(i);
+        Collections.sort(ret, (a, b) -> Integer.compare(b, a));
+        return ret.get(0);
     }
 }
+/*
+맵 -> 길이: 갯수
+리스트 -> 길이
+정렬 -> 갯수내림차, 길이내림차
+*/
