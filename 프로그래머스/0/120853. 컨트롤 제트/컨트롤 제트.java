@@ -1,13 +1,17 @@
+import java.util.*;
 class Solution {
     public int solution(String s) {
         int ret = 0;
-        String[] str = s.split(" ");
-        String prev = "0";
-        for(String ss : str){
-            if(ss.equals("Z")){
-              ret -= Integer.parseInt(prev);  
-            } else  ret += Integer.parseInt(ss);
-            prev = ss;
+        int prev = 0;
+        String[] sArr = s.split(" ");
+        // System.out.println(Arrays.toString(sArr));
+        for(String ss : sArr){
+            if(ss.equals("Z")) ret -= prev;
+            else {
+                int num = Integer.parseInt(ss);
+                ret += num;
+                prev = num;
+            }
         }
         return ret;
     }
