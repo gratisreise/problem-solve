@@ -1,10 +1,9 @@
 class Solution {
     public String solution(int q, int r, String code) {
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         for(int i = 0; i < code.length(); i++){
-            if(i % q == r) ret += code.charAt(i);
+            if(i % q == r) ret.append(code.charAt(i));
         }
-        
-        return ret;
+        return ret.toString();
     }
 }
