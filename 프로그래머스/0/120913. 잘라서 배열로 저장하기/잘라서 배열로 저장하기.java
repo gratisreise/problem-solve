@@ -1,18 +1,12 @@
 import java.util.*;
+import java.util.stream.*;
 class Solution {
-    public List<String> solution(String my_str, int n) {
+    public String[] solution(String my_str, int n) {
         List<String> ret = new ArrayList<>();
-        String temp = "";
-        for(int i = 0; i < my_str.length(); i++){
-            temp += my_str.charAt(i);
-            if(temp.length() == n) {
-                ret.add(temp);
-                temp = "";
-            }
+        for(int i = 0; i < my_str.length(); i += n){
+            int end = Math.min(i + n, my_str.length());
+            ret.add(my_str.substring(i, end));
         }
-        if(temp.length() > 0) ret.add(temp);
-        
-        
-        return ret;
+        return ret.stream().toArray(String[]::new);
     }
 }
