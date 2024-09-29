@@ -1,24 +1,18 @@
 import java.util.*;
+import java.util.stream.*;
 class Solution {
-    public Stack<Integer> solution(int[] arr) {
+    public int[] solution(int[] arr) {
         Stack<Integer> stk = new Stack<>();
-        
-        int i = 0;
-        while(i < arr.length){
+        for(int i = 0; i < arr.length;){
             if(stk.isEmpty()){
-                stk.push(arr[i]);
-                i++;
-            } else if(!stk.isEmpty() && stk.peek() == arr[i]){
-                stk.pop();
-                i++;
-            } else if(!stk.isEmpty() && stk.peek() != arr[i]){
-                stk.push(arr[i]);
-                i++;
+                stk.push(arr[i]); i++;
+            } else if(stk.peek() == arr[i]){
+                stk.pop(); i++;
+            } else if(stk.peek() != arr[i]){
+                stk.push(arr[i]); i++;
             }
         }
-        
-        if(stk.isEmpty()) stk.push(-1);
-        
-        return stk;
+        if(stk.isEmpty()) return new int[]{-1};
+        return stk.stream().mapToInt(Integer::intValue).toArray();
     }
 }
