@@ -1,11 +1,18 @@
 import java.util.*;
 class Solution {
-    public List<Integer> solution(int[] arr, int k) {
-        List<Integer> ret = new ArrayList<>();
-        for(int i = 0; i < arr.length && ret.size() < k; i++){
-            if(ret.indexOf(arr[i]) == -1) ret.add(arr[i]);
+    public int[] solution(int[] arr, int k) {
+        int[] ret = new int[k];
+        Arrays.fill(ret, -1);
+        // System.out.println(Arrays.toString(arr));
+        Map<Integer, Integer> mp = new HashMap<>();
+        for(int i = 0, j = 0; i < arr.length; i++){
+            if(j == k) break;
+            if(mp.containsKey(arr[i])) continue;
+            mp.put(arr[i], 1);
+            ret[j++] = arr[i];
         }
-        while(ret.size() < k) ret.add(-1);
+        // System.out.println(Arrays.toSTrin);
+        
         return ret;
     }
 }
