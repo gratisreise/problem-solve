@@ -1,12 +1,17 @@
+import java.util.*;
 class Solution {
-    public int[] solution(int[] arr, int[][] queries) {
-        int[] ret = new int[queries.length];
+    public List<Integer> solution(int[] arr, int[][] queries) {
+        List<Integer> ret = new ArrayList<>();
         for(int i = 0; i < queries.length; i++){
-            int temp = 10000000;
+            int temp = queries[i][2];
+            int min = 1000000;
             for(int j = queries[i][0]; j <= queries[i][1]; j++){
-                if(arr[j] > queries[i][2]) temp = Math.min(temp, arr[j]);
+                if(arr[j] > temp){
+                    min = Math.min(min, arr[j]);
+                }
             }
-            ret[i] = temp == 10000000 ? -1 : temp;
+            if(min == 1000000) ret.add(-1);
+            else ret.add(min);
         }
         return ret;
     }
