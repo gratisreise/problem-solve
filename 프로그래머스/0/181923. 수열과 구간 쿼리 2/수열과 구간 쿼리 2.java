@@ -1,25 +1,12 @@
-import java.util.*;
 class Solution {
-    public List<Integer> solution(int[] arr, int[][] queries) {
-        List<Integer> ret = new ArrayList<>();
+    public int[] solution(int[] arr, int[][] queries) {
+        int[] ret = new int[queries.length];
         for(int i = 0; i < queries.length; i++){
-            int s = queries[i][0];
-            int e = queries[i][1];
-            int k = queries[i][2];
-            int min = 10000000;
-            int min_idx = -1;
-            for(int j = s; j <= e; j++){
-                if(arr[j] > k){
-                    int temp = Math.abs(arr[j] - k);
-                    if(temp < min){
-                        min = temp;
-                        min_idx = j;
-                    }
-                }
-
+            int temp = 10000000;
+            for(int j = queries[i][0]; j <= queries[i][1]; j++){
+                if(arr[j] > queries[i][2]) temp = Math.min(temp, arr[j]);
             }
-            if(min_idx != -1)ret.add(arr[min_idx]);
-            else ret.add(-1);
+            ret[i] = temp == 10000000 ? -1 : temp;
         }
         return ret;
     }
