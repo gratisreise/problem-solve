@@ -1,20 +1,17 @@
 class Solution {
+    private int[] cnt = new int[26];
     public int solution(String[] spell, String[] dic) {
-        int ret = 2;
-        int[] cnt1 = new int[26];
-        for(String s : spell) cnt1[s.charAt(0)-'a']++;
+        int ret = 0;
+        for(String s : spell) cnt[s.charAt(0) - 'a']++;
         for(String s : dic){
-            int[] cnt2 = new int[26]; // 새로선언
-            for(char c : s.toCharArray()){ // cnt2채우기
-                cnt2[c-'a']++;
-            }
-            boolean flag = false;
+            int[] temp = new int[26];
+            boolean flag = true;
+            for(char c : s.toCharArray()) temp[c- 'a']++;
             for(int i = 0; i < 26; i++){
-                if(cnt1[i] != cnt2[i]) flag = true;
+                if(cnt[i] != temp[i]) flag = false;
             }
-            if(!flag) ret = 1;    
-        }    
-            
-        return ret;
+            if(flag) return 1;
+        }
+        return 2;
     }
 }
