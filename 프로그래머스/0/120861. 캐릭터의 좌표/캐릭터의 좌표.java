@@ -1,30 +1,26 @@
-import java.util.*;
 class Solution {
-    static String[] move1 = {"up", "down", "left", "right"};
-    
-    static int[] move(int[] arr, String s, int ylimit, int xlimit){
-        int[] y = {1, -1, 0, 0};
-        int[] x = {0, 0, -1, 1};
-        int[] temp = {arr[0], arr[1]};
-        for(int i = 0; i < move1.length; i++){
-            if(s.equals(move1[i])){
-                temp[0] += x[i];
-                temp[1] += y[i];
-            }
-        }
-        if(Math.abs(temp[0]) > xlimit || Math.abs(temp[1]) > ylimit){
-            return arr;
-        } else return temp;
+    private int lr(String s){
+        if(s.equals("left")) return -1;
+        else if(s.equals("right")) return 1;
+        return 0;
+    }
+    private int ud(String s){
+        if(s.equals("down")) return -1;
+        else if(s.equals("up")) return 1;
+        return 0;
     }
     public int[] solution(String[] keyinput, int[] board) {
-        int yLimit = board[1]/2;
-        int xLimit = board[0]/2;
-        
-        int[] arr = new int[2];
+        int n = board[0]/2 == 0 ? 1 : board[0]/2;
+        int m = board[1]/2 == 0 ? 1 : board[1]/2;
+        int r = 0;
+        int u = 0;
         for(String s : keyinput){
-            arr = move(arr, s, yLimit, xLimit);
+            int nr = r + lr(s); 
+            int nu = u + ud(s);
+            if(Math.abs(nr) > n || Math.abs(nu) > m) continue;
+            r = nr;
+            u = nu;
         }
-        
-        return arr;
+        return new int[]{r, u};
     }
 }
