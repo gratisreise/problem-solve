@@ -1,27 +1,32 @@
 import java.util.*;
+
 class Solution {
-    public int solution(int[] rank, boolean[] attendance) {
-        int ret = 0;
-        int a = 0;
-        int b = 0;
-        int c = 0;
-        int[] temp = Arrays.copyOf(rank, rank.length);
-        Arrays.sort(temp);
-        int cnt = 0;
-        for(int i = 0; i < temp.length; i++){
-            int idx = 0;
-            for(int j = 0; j < rank.length; j++){
-                if(temp[i] == rank[j]) idx = j;
-            }
-            if(attendance[idx]){ 
-                cnt++;
-                if(cnt == 1) a = idx;
-                else if(cnt == 2) b = idx;
-                else if(cnt == 3) {c = idx; break;}
-            }
-            
+    class Pair{
+        int a, r; boolean b;
+        Pair(int a, int r, boolean b){
+            this.a = a;
+            this.r = r;
+            this.b = b;
         }
-        ret = 10000 * a + 100 * b + c;
-        return ret;
+    }
+    private int stuNumber(int a, int[] rank){
+        for(int i = 0; i < rank.length; i++){
+            if(a == rank[i]) return i;
+        }
+        return 0;
+    }
+    public int solution(int[] rank, boolean[] attendance) {
+        List<Pair> l = new ArrayList<>();
+        for(int i = 0; i < rank.length; i++){
+            l.add(new Pair(rank[i], i, attendance[i]));
+        }
+        Collections.sort(l, (a, b)-> Integer.compare(a.a, b.a));
+        int[] ret = new int[3];
+        int idx = 0;
+        for(Pair p : l){
+            if(ret[2] != 0) break;
+            if(p.b) ret[idx++] = p.r;
+        }
+        return (10000 * ret[0]) + (100 * ret[1]) + ret[2];
     }
 }
