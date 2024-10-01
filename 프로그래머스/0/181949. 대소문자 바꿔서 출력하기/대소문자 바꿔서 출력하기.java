@@ -4,13 +4,10 @@ public class Solution {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String a = sc.next();
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         for(char c : a.toCharArray()){
-            if('a' <= c && c <= 'z'){
-                ret += (char)(c - 32);
-            } else if('A' <= c && c <= 'Z'){
-                ret += (char)(c + 32);
-            }
+            if('a' <= c && c <= 'z') ret.append((char)(c - 'a' + 'A'));
+            else if('A' <= c && c <= 'Z') ret.append((char)(c - 'A' + 'a'));
         }
         System.out.println(ret);
     }
