@@ -1,15 +1,12 @@
 import java.util.*;
 class Solution {
-    static List<Integer> ret = new ArrayList<>();
-    static Set<Integer> temp = new HashSet<>();
-    public List<Integer> solution(int[] num) {
-        for(int i = 0; i < num.length; i++){
-            for(int j = 0; j < i; j++){
-                temp.add(num[i] + num[j]);
+    public int[] solution(int[] numbers) {
+        Set<Integer> set = new HashSet<>();
+        for(int i = 0; i < numbers.length; i++){
+            for(int j = i + 1; j < numbers.length; j++){
+                set.add(numbers[i] + numbers[j]);
             }
         }
-        for(int i : temp) ret.add(i);
-        Collections.sort(ret);
-        return ret;   
+        return set.stream().mapToInt(Integer::intValue).sorted().toArray();
     }
 }
