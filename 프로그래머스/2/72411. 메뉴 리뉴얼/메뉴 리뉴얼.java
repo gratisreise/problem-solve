@@ -1,10 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 class Solution {
@@ -17,6 +11,7 @@ class Solution {
             this.occurcences = occurcences;
         }
     }
+    //가능한 모든 문자들에 대해서 체크
     private void getCourse(
         char nextMenu,
         Set<String> selectedMenus, //현재까지 생성된 메뉴
@@ -80,10 +75,9 @@ class Solution {
             .map(c -> c.course)
             .sorted()
             .toArray(String[]::new);
-            
+
     }
 }
 /* 아이디어
-* 각문자의 조합을 완성하면서 뻗어나갈 필요없는 경우들은 제거
-*
+* 문자의 조합을 만들어 나가면서 필요없는 경우를 제거
 * */
