@@ -1,30 +1,25 @@
 def solution(record):
     answer = []
-    user_name = { }
-    for s in record:
-        arr = s.split()
-        if arr[0] == "Leave": continue
-        user_name[arr[1]] = arr[2]
-    ret = []
-    for s in record:
-        arr = s.split()
-        name = user_name[arr[1]]
-        if arr[0] == "Change": continue
-        elif arr[0] == "Leave":
-            ret.append(f"{name}님이 나갔습니다.")
+    uid = {}
+    
+    for line in record: # record의 각 줄을 하나씩 처리
+        cmd = line.split(" ")
+        
+        if cmd[0] != "Leave": # Enter 또는 Change인 경우
+            uid[cmd[1]] = cmd[2]
+    for line in record: #record의 각 줄을 하나씩 처리
+        cmd = line.split(" ")
+        # 각 상태에 맞느 메세지를 answer에 저장
+        if cmd[0] == "Enter":
+            answer.append("%s님이 들어왔습니다." %uid[cmd[1]])
+        elif cmd[0] == "Change":
+            pass
         else:
-            ret.append(f"{name}님이 들어왔습니다.")
-    return ret
-# 채팅방 입장 메세지
-# 채팅방 퇴장 메세지
-# 이름변경 -> 퇴장 후 이름 변경, 방에서 이름 변경
-# 방에서 변경시 기존에 출력된 메세지도 이름 변경
-# 모든 처리 후 최종적으로 보게 될 메세지
-
-# uid - 이름으로 저장 
-# 입장 Enter
-# 퇴장 Leave
-# 이름변경 Change
-# 모든 기록에 대하여 아이디에 대한 이름 저장
-# 모든 기록에 대하여 아이디에 해당 문자열 저장
-# 
+            answer.append("%s님이 나갔습니다." %uid[cmd[1]])
+    return answer
+    
+# 1.최종적으로 구하고자 하는 건 뭐지? -> 최종메세지
+# 2.입력값 중 수정되지 않는 건 뭐지? -> 유저 아이디
+# 3.입력값 중 수정되는 건 뭐지? -> 닉네임
+#   3-1.입력값이 수정될 때 어디가 영향받지? -> 오픈 채팅방의 내용 변경
+#   3-2.입력값은 어느 조건에서 수정되지? -> Enter와 Change인 경우
