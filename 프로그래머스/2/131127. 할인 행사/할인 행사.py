@@ -1,20 +1,21 @@
 def solution(want, number, discount):
-    dic = {want[i]: number[i] for i in range(len(want))}
-    ret = 0
-    for i in range(len(discount) - 9):
-        temp = {f:0 for f in discount[i:i+10]}
-        for f in discount[i:i+10]:
-            if temp[f]:
-                temp[f] += 1
-            else:
-                temp[f] = 1
-        if temp == dic: 
-            ret += 1
-    return ret
+    # want 리스트를 딕셔너리로 반환
+    want_dict = { }
+    for i in range(len(want)):
+        want_dict[want[i]] = number[i]
     
-# 매일 한가지 할인 하나만 구매 가능
-# 제품과 수량이 할인하는 날짜와 10일 연속 일치 하는지
-# 할인정보에 대해서 반복
-# 해당날짜 포함 10개를 묶어 이름 - 수량을 생성한다
-# want와 맞는지 확인한다.
-# 기대값 1,000,000
+    answer = 0 # 총 일수를 계산할 변수 초기화
+    
+    # 특정일 i에 회원가입 시 할인받을 수 있는 품목 체크
+    for i in range(len(discount)-9):
+        discount_10d = {} # i일 회원가입 시 할인받는 제품 및 개수를 담을 딕셔너리
+        
+        # i일 회원가입 시 할인받는 제품 및 개수로 딕셔너리 구성
+        for j in range(i, i + 10):
+            if discount[j] in want_dict:
+                discount_10d[discount[j]] = discount_10d.get(discount[j], 0) + 1
+                
+            if discount_10d == want_dict:
+                answer += 1
+                
+    return answer
