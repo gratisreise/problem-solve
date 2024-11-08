@@ -1,33 +1,34 @@
+def convert(s):
+    arr = s.split(',')
+    return set([int(num) for num in arr])
 def solution(s):
-    set_list = []
-    temp = set()
-    stack = []
+    sets, ret, temp, mid = list(), list(), list(), set()
+    flag = 0
     for c in s:
-        if c == '}' and (temp or stack):
-            if stack: 
-                temp.add(int(''.join(stack)))
-                stack = []
-            set_list.append(temp)
-            temp = set()
+        if c == '{': flag = 1
         elif c.isdigit():
-            stack.append(c);
-        elif c == ',' and stack:
-            temp.add(int(''.join(stack)))
-            stack = []
-    set_list.sort(key=lambda x: len(x))
-    ret = []
-    for st in set_list:
-        ret.extend((st - set(ret)))
+            temp.append(c)
+        elif c == ',' and flag:
+            temp.append(c)
+        elif c == '}': 
+            flag = 0
+            if temp: sets.append(convert(''.join(temp)))
+            temp = list()
+    sets.sort(key=lambda x: len(x))
+    for st in sets:
+        ret.extend(list(st - mid))
+        mid = st
     return ret
-        
-        
-
 """
-1. 원소갯수 n
-2. 중복X 
-원소 하나 원소 2개 원소 3개 .... 하나씩 
-괄호 마다 set을 만들어 주고 그 set의 크기가 작은 것 부터 순서 대로 원소 넣어주기
-리스트의 set을 만들어서 크기 순으로 오름차순 정렬하고 
-차집합의 숫자를 넣어주기
+크기가 작은 집합부터 차례대로 정렬하고 
+해당집합 - 결과집합을 결과집합에 저장
+1. 모든 문자열의 문자에 대해 다음을 반복
+ 1-1. '{'인 경우 flag = true
+ 1-2. 숫자인 경우 temp에 넣기
+ 1-3. '}'인 경우 flag = false, 집합리스트에 temp넣기, temp초기화
+ 1-4. ','는 flag = true일 때만 넣기
+2. 집합의 리스트를 크기 오름차순정렬
+3. 결과집합에 현재집합 차집합 결과집합으로 넣어주기
+
 
 """
