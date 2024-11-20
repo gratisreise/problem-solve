@@ -1,8 +1,9 @@
-#include<bits/stdc++.h>
+#include <string>
+#include <vector>
 
 using namespace std;
 
 int solution(vector<int> array) {
-    sort(array.begin(), array.end());
-    return array[array.size()/2];
+    int answer = 0;
+    return answer;
 }
