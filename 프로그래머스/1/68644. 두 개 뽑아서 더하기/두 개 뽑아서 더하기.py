@@ -1,1 +1,6 @@
-def solution(n): return sorted(list(set([n[i]+ n[j] for i in range(len(n)) for j in range(i+1, len(n))])))
+def solution(numbers):
+    ret = set()
+    for i in range(len(numbers)):
+        for j in range(i+1, len(numbers)):
+            ret.add(numbers[i] + numbers[j])
+    return sorted(list(ret))
