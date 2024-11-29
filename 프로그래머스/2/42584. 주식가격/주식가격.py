@@ -1,12 +1,15 @@
 def solution(prices):
-    ret = [0 for _ in range(len(prices))]
-    stk = []
-    for i,p in enumerate(prices):
-        while stk and prices[stk[-1]] > p:
-            ret[stk[-1]] = (i - stk[-1])
-            stk.pop()
-        stk.append(i)
-    while stk:
-        ret[stk[-1]] = len(prices) - 1 - stk[-1]
-        stk.pop()
-    return ret;
+    size = len(prices)
+    answer = [0] * size
+    for i in range(size):
+        cnt = 0
+        for j in range(i+1, size):
+            cnt += 1
+            if prices[i] <= prices[j]: answer[i] += 1
+            else:
+                answer[i] += 1
+                break
+        print(cnt)
+    return answer
+
+
