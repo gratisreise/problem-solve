@@ -17,7 +17,10 @@ def solution(n, edge):
             vis[next] = vis[now] + 1
             dq.append(next)
     mx = max(vis)
-    return sum(1 for n in vis if n == mx)
+    for n in vis:
+        if n == mx:
+             ret += 1
+    return ret
     
             
             
