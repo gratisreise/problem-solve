@@ -1,27 +1,26 @@
-from collections import deque
+from collections import defaultdict
 
 def solution(n, edge):
-    vis = [0 for i in range(n)]
-    graph = [[] for _ in range(n)]
-    ret = 0
-    for v in edge:
-        a, b = v[0]-1, v[1]-1
-        graph[a].append(b)
-        graph[b].append(a)
-    dq, vis[0] = deque([0]), 1
-    
-    while dq:
-        now = dq.popleft()
-        for next in graph[now]:
+    dic = defaultdict(list)
+    tree = {i+1:[] for i in range(n)}
+    for arr in edge:
+        a,b = arr
+        tree[a].append(b)
+        tree[b].append(a)
+    mx, q, vis = -1, [1], [0, 1, *[0 for i in range(n-1)]]
+    while q:
+        now = q.pop(0)
+        for next in tree[now]:
             if vis[next]: continue
             vis[next] = vis[now] + 1
-            dq.append(next)
-    mx = max(vis)
-    for n in vis:
-        if n == mx:
-             ret += 1
-    return ret
-    
-            
-            
-        
+            q.append(next)
+            dic[vis[next]].append(next)
+            mx = max(mx, vis[next])
+    return len(dic[mx])
+"""
+가장 멀리 떨어진 노드의 갯수
+높이가 가장 큰것
+탐색을 하면서 
+맵에 해당하는 길이의 점을 저장하고, 길이의 최댓값 저장
+가장 큰 길이의 
+"""
