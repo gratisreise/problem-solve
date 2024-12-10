@@ -1,21 +1,20 @@
 def solution(progresses, speeds):
-    idx = 0
-    ret = []
-    while idx < len(speeds):
+    prev, idx, ret = 0, 0, []
+    while idx < len(progresses):
         for i in range(idx, len(speeds)):
             progresses[i] += speeds[i]
-        cnt = 0
-        while idx < len(speeds) and progresses[idx] >= 100:
-            cnt += 1
+        while idx < len(progresses) and progresses[idx] >= 100:
             idx += 1
-        if cnt > 0: ret.append(cnt)
+        if idx - prev > 0: ret.append(idx - prev)
+        prev = idx
     return ret
-"""
-진도가 100일 때 서비스 반영가능
-진도는 100미만
-속도는 100이하의 자연수
-배포는 하우레 한 번만 가능 
+
 
 """
-
-
+진도 100 서비스 반영
+배포마다 반영되는 기능 갯수 반환
+1. 매일 작업도 반영
+2. 반영되는 기능의 갯수를 저장
+3. 반영된 기능은 작업도 계산에서 제외반환
+4. 기능 갯수의 모음을 반환
+"""
