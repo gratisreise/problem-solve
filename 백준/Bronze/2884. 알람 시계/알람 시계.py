@@ -1,5 +1,3 @@
-time = list(map(int, input().split()))
-sum_m = time[0] * 60 + time[1] - 45 if len(time) > 1 else time[0] * 60 - 45
-H = str(sum_m // 60) if sum_m >= 0 else "23"
-M = str(sum_m % 60)
-print(H, M)
+h,m = map(int, input().split())
+sum_m = h * 60 + m - 45
+print(23 if sum_m < 0 else sum_m // 60, sum_m % 60)
