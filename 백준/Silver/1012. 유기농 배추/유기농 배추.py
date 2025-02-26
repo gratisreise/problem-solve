@@ -29,5 +29,4 @@ for _ in range(t):
             if a[i][j] and vis[i][j] == 0:
                 dfs(i, j, vis, a)
                 cnt += 1
-    ret.append(str(cnt))
-print('\n'.join(ret))
+    print(cnt)
