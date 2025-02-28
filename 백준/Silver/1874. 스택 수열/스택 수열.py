@@ -1,19 +1,35 @@
-from collections import deque
 import sys
+
 ip, op = sys.stdin, sys.stdout
-stk, ret = [], []
+
+# 입력
 n = int(ip.readline())
-temp = 0
-flag = True
-for _ in range(n):
-    num = int(ip.readline())
-    while temp < num:
-        temp += 1
-        stk.append(temp)
-        ret.append('+')
-    if stk and stk[-1] != num:
-        flag = False
-    elif stk and stk[-1] == num:
-        stk.pop()
-        ret.append('-')
-print('\n'.join(ret) if flag else 'NO')
+sequence = [int(ip.readline()) for _ in range(n)]
+
+# 스택과 연산 기록
+stack = []
+operations = []
+
+# 현재 push할 숫자
+current_num = 1
+
+# 수열 전체를 한 번에 처리
+for target in sequence:
+    # 목표 숫자까지 push
+    while current_num <= target:
+        stack.append(current_num)
+        operations.append('+')
+        current_num += 1
+    
+    # 스택 맨 위가 목표와 다르면 불가능
+    if stack[-1] != target:
+        op.write('NO\n')
+        sys.exit()
+    stack.pop()
+    operations.append('-')
+
+# 스택이 비었는지 확인 (필요 시)
+if not stack:
+    op.write('\n'.join(operations) + '\n')
+else:
+    op.write('NO\n')
