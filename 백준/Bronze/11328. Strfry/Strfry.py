@@ -1,3 +1,5 @@
+from collections import Counter
+
 # 테스트 케이스 수 입력
 n = int(input())
 
@@ -11,17 +13,12 @@ for _ in range(n):
         print("Impossible")
         continue
     
-    # 각 문자의 빈도 저장 (소문자 a~z)
-    freq1 = [0] * 26
-    freq2 = [0] * 26
+    # 두 문자열의 문자 빈도 비교
+    freq1 = Counter(str1)
+    freq2 = Counter(str2)
     
-    # 두 문자열의 문자 빈도 계산
-    for c1, c2 in zip(str1, str2):
-        freq1[ord(c1) - ord('a')] += 1
-        freq2[ord(c2) - ord('a')] += 1
-    
-    # 빈도 비교
-    possible = all(freq1[i] == freq2[i] for i in range(26))
+    # 빈도 동일 여부 확인
+    possible = freq1 == freq2
     
     # 결과 출력
     print("Possible" if possible else "Impossible")
