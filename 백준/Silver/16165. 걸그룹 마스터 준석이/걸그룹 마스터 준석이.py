@@ -13,8 +13,6 @@ for key in ret1.keys():
 for _ in range(m):
     string, num = input(), int(input())
     if num == 0:
-        for name in ret1[string]:
-            print(name)
+        print('\n'.join(ret1[string]))
     else:
         print(ret2[string])
-    
