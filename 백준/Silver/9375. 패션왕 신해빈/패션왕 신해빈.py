@@ -1,13 +1,18 @@
-from collections import defaultdict
+import sys
+from collections import Counter
+from functools import reduce
+from operator import mul
+
+input = sys.stdin.readline
+
 t = int(input())
 for _ in range(t):
     n = int(input())
-    cloths = defaultdict(int)
+    clothes = Counter()
     for _ in range(n):
-        name,kind = input().split()
-        cloths[kind] += 1
-    ret = 1
-    for key in cloths.keys():
-        ret *= (cloths[key] + 1)
-    ret -= 1
-    print(ret)
+        _, kind = input().split()
+        clothes[kind] += 1
+    
+    # math.prod 대신 reduce와 mul 사용
+    result = reduce(mul, (count + 1 for count in clothes.values()), 1) - 1
+    print(result)
