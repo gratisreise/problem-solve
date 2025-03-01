@@ -1,5 +1,13 @@
-from collections import deque
-import sys, itertools, math, heapq
+n = input()
+nums = list(map(int, input().split()))
 
-ip, op = sys.stdin, sys.stdout
+prev = -1
+for num in nums:
+    if num <= prev:
+        print("No")
+        exit()
+    prev = num
+print("Yes")
+
+
 
