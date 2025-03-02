@@ -14,15 +14,8 @@ ret = int(1e9)
 for value in dic.values():
     if len(value) > 1:
         for i in range(len(value)-1):
-            ret = min(ret, value[i+1]-value[i]+1)
+            ret = min(ret, value[i+1] - value[i]+1)
 print(ret if ret != int(1e9) else -1)
-
-
-
-
-
-
-
 
 
 """

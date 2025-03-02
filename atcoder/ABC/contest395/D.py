@@ -1,44 +1,40 @@
 import sys
-from collections import defaultdict
-ip, op = sys.stdin, sys.stdout
 
-n, q = map(int, ip.readline().rstrip().split())
+input = sys.stdin.readline
+print = sys.stdout.write
 
-ptoi = defaultdict(int) # 비둘기 -> 위치
-itop = defaultdict(set) # 위치 -> 비둘기들
-for _ in range(q):
-    cmd = ip.readline().rstrip().split()
-    if cmd[0] == '1': # a비둘기 -> b로 둥지변경
-        a, b = int(cmd[1]), int(cmd[2])
-        if a not in ptoi:
-            ptoi[a] = a
-            itop[a].add(a)
-        if b not in ptoi:
-            ptoi[b] = b
-            itop[b].add(b)
-        ptoi[a] = b
-        itop[a].discard(a)
-        itop[b].add(a)
-    elif cmd[0] == '2':
-        a, b = int(cmd[1]), int(cmd[2])
-        if a not in ptoi:
-            ptoi[a] = a
-            itop[a].add(a)
-        if b not in ptoi:
-            ptoi[b] = b
-            itop[b].add(b)
-        #비둘기 위치변경
-        for p in list(itop[a]): ptoi[p] = b
-        for p in list(itop[b]): ptoi[p] = a
-        temp = itop[a]
-        itop[a] = itop[b]
-        itop[b] = temp
-    elif cmd[0] == '3':
-        a = int(cmd[1])
-        if a not in ptoi:
-            ptoi[a] = a
-            itop[a].add(a)
-        op.write(f'{ptoi[a]}\n')
+# 입력: 비둘기/둥지 수 N, 연산 수 Q
+N, Q = map(int, input().split())
+
+# 둥지 -> 논리적 라벨 매핑 (초기: 둥지 i -> 라벨 i)
+box_to_label = list(range(N))  # 0-based
+# 라벨 -> 물리적 둥지 매핑 (초기: 라벨 i -> 둥지 i)
+label_to_box = list(range(N))  # 0-based
+# 비둘기 -> 물리적 둥지 매핑 (초기: 비둘기 i -> 둥지 i)
+pigeon_to_box = list(range(N))  # 0-based
+
+# 연산 처리
+for _ in range(Q):
+    op = list(map(int, input().split()))
+    op_type = op[0]
+    
+    if op_type == 1:  # Type 1: 비둘기 a를 둥지 b로 이동
+        a, b = op[1] - 1, op[2] - 1  # 1-based -> 0-based
+        pigeon_to_box[a] = label_to_box[b]  # 비둘기 a를 b의 논리적 둥지로
+    
+    elif op_type == 2:  # Type 2: 둥지 a와 b 교환
+        a, b = op[1] - 1, op[2] - 1  # 1-based -> 0-based
+        # 라벨 -> 둥지 매핑 교환
+        label_to_box[a], label_to_box[b] = label_to_box[b], label_to_box[a]
+        # 둥지 -> 라벨 매핑 갱신
+        box_to_label[label_to_box[a]], box_to_label[label_to_box[b]] = a, b
+    
+    elif op_type == 3:  # Type 3: 비둘기 a의 현재 둥지 출력
+        a = op[1] - 1  # 1-based -> 0-based
+        current_nest = box_to_label[pigeon_to_box[a]] + 1  # 0-based -> 1-based
+        
+        print(f"{current_nest}\n")
+
 
 """
 최대 숫자 30만개
@@ -66,6 +62,9 @@ a -> b
 b -> temp
 
 
-
-
+a  -> a' | b  -> b'
+a' -> a  | b' -> b
+------------------
+a' -> b  | b' -> a
+a  -> b' | b  -> a'
 """
