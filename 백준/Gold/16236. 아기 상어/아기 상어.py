@@ -1,107 +1,93 @@
-import sys
 from collections import deque
+import sys
 
 input = sys.stdin.readline
 
-# 공간의 크기 입력
-n = int(input())
+# 이동 방향: 상, 좌, 하, 우
+dx = [-1, 0, 1, 0]
+dy = [0, -1, 0, 1]
 
-# 공간 정보 입력
-board = []
-for _ in range(n):
-    board.append(list(map(int, input().split())))
+# BFS로 먹을 물고기 찾기
+def bfs(grid, x, y, size):
+    n = len(grid)
+    visited = [[-1] * n for _ in range(n)]  # 거리 저장 (-1: 미방문)
+    q = deque([(x, y)])
+    visited[x][y] = 0
+    fish = []  # (거리, x, y) 저장
+    
+    while q:
+        cx, cy = q.popleft()
+        for i in range(4):
+            nx, ny = cx + dx[i], cy + dy[i]
+            if 0 <= nx < n and 0 <= ny < n and visited[nx][ny] == -1:
+                # 이동 가능: 빈칸(0) 또는 자신보다 작은 물고기
+                if grid[nx][ny] <= size:
+                    visited[nx][ny] = visited[cx][cy] + 1
+                    q.append((nx, ny))
+                    # 먹을 수 있는 물고기면 리스트에 추가
+                    if 0 < grid[nx][ny] < size:
+                        fish.append((visited[nx][ny], nx, ny))
+    
+    # 먹을 물고기 없으면 빈 리스트 반환
+    if not fish:
+        return None
+    # 가장 가까운 물고기 중 우선순위(위, 왼쪽)로 정렬
+    fish.sort()  # (거리, x, y) 순으로 정렬
+    return fish[0]  # (dist, nx, ny)
 
-# 아기 상어 초기 위치 및 크기 설정
-shark_x, shark_y = 0, 0
-shark_size = 2
-shark_eat = 0
+# 입력 처리
+N = int(input())
+grid = [list(map(int, input().split())) for _ in range(N)]
 
 # 아기 상어 초기 위치 찾기
-for i in range(n):
-    for j in range(n):
-        if board[i][j] == 9:
+shark_x, shark_y = 0, 0
+for i in range(N):
+    for j in range(N):
+        if grid[i][j] == 9:
             shark_x, shark_y = i, j
-            board[i][j] = 0  # 아기 상어 위치 빈 칸으로 변경
-            break
+            grid[i][j] = 0  # 상어 위치를 빈칸으로
 
-# 이동 방향 (상, 하, 좌, 우)
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-# 시간 계산
-time = 0
+# 메인 로직
+shark_size = 2  # 초기 크기
+eaten = 0       # 먹은 물고기 수
+total_time = 0  # 총 이동 시간
 
 while True:
-    # 먹을 수 있는 물고기 찾기
-    fishes = []
-    visited = [[False] * n for _ in range(n)]
-    queue = deque([(shark_x, shark_y, 0)])
-    visited[shark_x][shark_y] = True
-
-    while queue:
-        x, y, dist = queue.popleft()
-
-        # 물고기 발견 시
-        if board[x][y] != 0 and board[x][y] < shark_size:
-            fishes.append((dist, x, y))
-
-        # 4방향 탐색
-        for i in range(4):
-            nx, ny = x + dx[i], y + dy[i]
-            if 0 <= nx < n and 0 <= ny < n and not visited[nx][ny] and board[nx][ny] <= shark_size:
-                queue.append((nx, ny, dist + 1))
-                visited[nx][ny] = True
-
-    # 먹을 수 있는 물고기가 없는 경우
-    if not fishes:
+    result = bfs(grid, shark_x, shark_y, shark_size)
+    if result is None:  # 먹을 물고기 없음
         break
-
-    # 가장 가까운 물고기 선택 (거리, 상, 좌 우선순위)
-    fishes.sort()
-    dist, fish_x, fish_y = fishes[0]
-
-    # 물고기 먹기
-    time += dist
-    shark_x, shark_y = fish_x, fish_y
-    board[fish_x][fish_y] = 0
-    shark_eat += 1
-
-    # 아기 상어 크기 증가
-    if shark_eat == shark_size:
+    
+    dist, nx, ny = result
+    total_time += dist
+    shark_x, shark_y = nx, ny  # 상어 이동
+    grid[nx][ny] = 0  # 물고기 먹음
+    eaten += 1
+    
+    # 크기만큼 먹으면 성장
+    if eaten == shark_size:
         shark_size += 1
-        shark_eat = 0
+        eaten = 0
 
-print(time)
+# 결과 출력
+print(total_time)
+
+
 """
-코드 설명:
-
+문제 분석
 입력:
+NxN 격자 (2 ≤ N ≤ 20).
+격자 값: 0(빈칸), 1~6(물고기 크기), 9(아기 상어 위치).
+조건:
+아기 상어 초기 크기: 2.
+이동: 상, 좌, 하, 우 (상하 우선, 좌우 우선).
+먹을 수 있는 물고기: 자신보다 작은 크기.
+크기만큼 물고기 먹으면 크기 +1.
+먹을 물고기 없으면 종료.
+출력: 아기 상어가 이동한 총 시간.
+접근법
+BFS로 아기 상어에서 먹을 수 있는 모든 물고기까지의 거리 계산.
+가장 가까운 물고기 중 우선순위(위, 왼쪽)로 선택.
+물고기 먹고 크기 갱신, 반복.
+더 이상 먹을 물고기 없으면 종료.
 
-공간의 크기 n을 입력받습니다.
-공간 정보를 board 리스트에 입력받습니다.
-초기 설정:
-
-아기 상어의 초기 위치 shark_x, shark_y와 크기 shark_size, 먹은 물고기 수 shark_eat을 설정합니다.
-이동 방향을 나타내는 dx, dy 리스트를 정의합니다.
-시간을 저장하는 time 변수를 0으로 초기화합니다.
-아기 상어 이동:
-
-while 루프를 사용하여 아기 상어를 이동시킵니다.
-먹을 수 있는 물고기 찾기: BFS를 사용하여 아기 상어로부터 가장 가까운 물고기를 찾습니다.
-물고기 선택: 찾은 물고기 중 가장 가까운 물고기를 선택합니다.
-물고기 먹기: 선택한 물고기를 먹고, 아기 상어의 위치를 변경합니다.
-아기 상어 크기 증가: 먹은 물고기 수가 아기 상어의 크기와 같아지면 아기 상어의 크기를 증가시킵니다.
-먹을 수 있는 물고기가 없는 경우: 루프를 종료합니다.
-결과 출력:
-
-시간을 출력합니다.
-핵심 로직:
-
-BFS: 아기 상어로부터 가장 가까운 물고기를 찾습니다.
-우선순위 큐: 물고기를 찾을 때 거리, 상, 좌 우선순위를 고려합니다.
-아기 상어 크기 증가: 먹은 물고기 수에 따라 아기 상어의 크기를 증가시킵니다.
-코드 최적화:
-
-BFS 최적화: 방문 여부를 확인하여 중복 탐색을 방지합니다.
-우선순위 큐 최적화: 물고기를 찾을 때 우선순위를 고려하여 불필요한 탐색을 줄입니다.
 """
