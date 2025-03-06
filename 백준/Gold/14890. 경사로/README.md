@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 24356 KB, 시간: 240 ms
+메모리: 32412 KB, 시간: 36 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2023년 10월 28일 16:16:35
+2025년 3월 6일 09:55:27
 
 ### 문제 설명
 
@@ -22,11 +22,11 @@
 
 <p>다음과 같은 N=6인 경우 지도를 살펴보자.</p>
 
-<p style="text-align:center"><img alt="" src="" style="height:250px; width:250px"></p>
+<p style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/1.png" style="height:250px; width:250px"></p>
 
 <p>이때, 길은 총 2N개가 있으며, 아래와 같다.</p>
 
-<p style="text-align:center"><img alt="" src="" style="height:290px; width:290px"></p>
+<p style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/2.png" style="height:290px; width:290px"></p>
 
 <p>길을 지나갈 수 있으려면 길에 속한 모든 칸의 높이가 모두 같아야 한다. 또는, 경사로를 놓아서 지나갈 수 있는 길을 만들 수 있다. 경사로는 높이가 항상 1이며, 길이는 L이다. 또, 개수는 매우 많아 부족할 일이 없다. 경사로는 낮은 칸과 높은 칸을 연결하며, 아래와 같은 조건을 만족해야한다.</p>
 
@@ -47,7 +47,7 @@
 
 <p>L = 2인 경우에 경사로를 놓을 수 있는 경우를 그림으로 나타내면 아래와 같다.</p>
 
-<p style="text-align:center"><img alt="" src="" style="height:107px; width:687px"></p>
+<p style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/3.png" style="height:107px; width:687px"></p>
 
 <p>경사로를 놓을 수 없는 경우는 아래와 같다.</p>
 
@@ -57,7 +57,7 @@
 
 <p>가장 위에 주어진 그림 예의 경우에 지나갈 수 있는 길은 파란색으로, 지나갈 수 없는 길은 빨간색으로 표시되어 있으며, 아래와 같다. 경사로의 길이 L = 2이다.</p>
 
-<p style="text-align:center"><img alt="" src="" style="width: 338px; height: 338px;"></p>
+<p style="text-align:center"><img alt="" src="https://upload.acmicpc.net/255e47cf-0988-4b7f-b81c-2742f010a4c5/-/preview/" style="width: 338px; height: 338px;"></p>
 
 <p>지도가 주어졌을 때, 지나갈 수 있는 길의 개수를 구하는 프로그램을 작성하시오.</p>
 
