@@ -1,11 +1,18 @@
+import sys
+input = sys.stdin.readline
 # 입력 처리
 s, c = map(int, input().split())
-a = [int(input()) for _ in range(s)]
 
 # 초기 설정
-sum_a = sum(a)  # 총 파 길이 합
+a = [] # 파길이 모음
+sum_a = 0  # 총 파 길이 합
 lo, hi = 1, 10**9  # 탐색 범위
 ret = 0  # 최대 파닭 길이
+
+for _ in range(s):
+    temp = int(input())
+    a.append(temp)
+    sum_a += temp
 
 # 파닭 길이 가능 여부 체크
 def check(mid):
