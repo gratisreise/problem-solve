@@ -1,5 +1,5 @@
 from bisect import bisect_left
-
+from collections import deque
 # 입력 처리
 n = int(input())
 nums = list(map(int, input().split()))
@@ -23,14 +23,14 @@ for i in range(n):
 print(len_lis)
 
 # LIS 수열 복원
-stk = []
+stk = deque()
 current_len = len_lis - 1
 for i in range(n - 1, -1, -1):
     if ans[i][0] == current_len:  # LIS의 해당 위치에 맞는 값
-        stk.append(ans[i][1])
+        stk.appendleft(ans[i][1])
         current_len -= 1
     if current_len < 0:           # 모든 값 찾으면 종료
         break
 
 # 스택에서 꺼내어 출력 (오름차순)
-print(*stk[::-1])
+print(*stk)
