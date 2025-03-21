@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 11672 KB, 시간: 80 ms
+메모리: 32412 KB, 시간: 44 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2024년 4월 6일 11:24:08
+2025년 3월 21일 11:53:05
 
 ### 문제 설명
 
@@ -38,11 +38,11 @@
 
 <p style="text-align: center;">가로</p>
 
-<p style="text-align: center;"><img alt="" src="" style="width: 579px; height: 203px;"></p>
+<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/045d071f-0ea2-4ab5-a8db-61c215e7e7b7/-/preview/" style="width: 579px; height: 203px;"></p>
 
 <p style="text-align: center;">세로</p>
 
-<p style="text-align: center;"><img alt="" src="" style="width: 886px; height: 203px;"></p>
+<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/ace5e982-6a52-4982-b51d-6c33c6b742bf/-/preview/" style="width: 886px; height: 203px;"></p>
 
 <p style="text-align: center;">대각선</p>
 
