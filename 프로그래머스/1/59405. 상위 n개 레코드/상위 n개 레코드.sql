@@ -1,6 +1,3 @@
-SELECT name
-FROM animal_ins
-WHERE datetime = (
-    SELECT MIN(datetime)
-    FROM animal_ins
-)
+select name from animal_ins
+order by DATETIME
+limit 1
