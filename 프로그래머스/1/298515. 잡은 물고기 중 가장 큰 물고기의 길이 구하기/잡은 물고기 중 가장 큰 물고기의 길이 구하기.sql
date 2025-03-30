@@ -1,7 +1,1 @@
-/*
-- max 물고기 cm 붙여서 출력
-*/
-
-SELECT CONCAT(MAX(LENGTH), 'cm') AS MAX_LENGTH
-FROM FISH_INFO
-
+select concat(max(length), 'cm') as MAX_LENGTH from fish_info
