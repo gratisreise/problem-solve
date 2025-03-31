@@ -1,14 +1,10 @@
-/*
-- 2022년도 평가점수(상반기 + 하반기 점수합, SCORE) max 사원
-- 점수, 사번, 성명, 직책, 이메일
-1. 점수, 사원 조인
-2. 평가점수 컬럼 설정
-3. 최고점수 조건 설정
-*/
+-- 2022년 평가 점수가 가장 높은 사원
+-- 상,하반기 점수의 합
+select 
+sum(g.SCORE)as SCORE, e.EMP_NO, e.EMP_NAME, e.POSITION, e.EMAIL
+from HR_EMPLOYEES e 
+left join HR_GRADE g on e.EMP_NO = g.EMP_NO
+group by e.EMP_NO 
+order by SCORE desc
+limit 1
 
-SELECT SUM(SCORE) SCORE, E.EMP_NO, EMP_NAME, POSITION, EMAIL
-FROM HR_EMPLOYEES E JOIN HR_GRADE G
-ON E.EMP_NO = G.EMP_NO
-GROUP BY G.EMP_NO
-ORDER BY 1 DESC
-LIMIT 1
