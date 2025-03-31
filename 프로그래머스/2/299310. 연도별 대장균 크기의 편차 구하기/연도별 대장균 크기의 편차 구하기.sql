@@ -1,24 +1,14 @@
-/*
-- 분화된 연도, 분화된 연도별 대장균 크기의 편차, 대장균 개체의 ID
-- 편차 = 크기 max - 각 대장균의 크기
-- 연도 오름차, 크기 편차 오름차
-1. 연도별 max 크기 대장균
-2. 같은 연도의 max - 각 크기 컬럼 설정
-3. id 오름차순
-*/
-
+-- 연도, 크기 편차, 대장균 개체의 ID
+-- 연도별 가장 큰 크기 - 각 대장균의 크기
 select 
-    year(DIFFERENTIATION_DATE) YEAR,
-    (b.mx_size - SIZE_OF_COLONY) YEAR_DEV,
-    id
-from (
-    select *, year(DIFFERENTIATION_DATE) year
-    from ECOLI_DATA) a
-join  
-(select 
-    year(DIFFERENTIATION_DATE) year, 
-    max(SIZE_OF_COLONY) mx_size
-from ECOLI_DATA
-group by year) b
-on  a.year = b.year
-order by 1, 2
+year(a.DIFFERENTIATION_DATE) as year,
+(b.mx -a.SIZE_OF_COLONY) as YEAR_DEV,
+ID
+from ECOLI_DATA a 
+join (
+    select year(DIFFERENTIATION_DATE) as year, 
+    max(size_of_colony) as mx
+    from ECOLI_DATA
+    group by year
+     ) b on year(a.DIFFERENTIATION_DATE) = b.year
+order by year, year_dev
