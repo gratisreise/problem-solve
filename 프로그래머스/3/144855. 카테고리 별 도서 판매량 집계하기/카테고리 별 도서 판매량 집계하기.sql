@@ -1,11 +1,9 @@
-/*
-2022년 1월 판매도서
-도서별 판매량 합산
-
-*/
-SELECT B1.CATEGORY, SUM(B2.SALES) as TOTAL_SALES
-FROM BOOK B1 JOIN BOOK_SALES B2
-ON B1.BOOK_ID = B2.BOOK_ID
-WHERE SALES_DATE LIKE '2022-01%'
-GROUP BY B1.CATEGORY
-ORDER BY B1.CATEGORY
+-- 2022년 1월 
+-- 카테고리 별 도서 판매량 합산
+-- 카테고리 오름차
+select b2.category, sum(b1.sales ) as total_sales
+from BOOK_SALES b1
+left join book b2 on b1.book_id = b2.book_id
+where b1.sales_date like '2022-01%'
+group by b2.category
+order by b2.category
