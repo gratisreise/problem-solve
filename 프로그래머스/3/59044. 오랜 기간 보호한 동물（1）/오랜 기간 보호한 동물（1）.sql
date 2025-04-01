@@ -1,15 +1,10 @@
-/*
-1. 입양을 못간 동물 = 
-2. 보호소 기간 내림차
-3. 3개 제한 출력
-4. 보호시작일 오름차
-*/
-SELECT NAME, DATETIME
-FROM ANIMAL_INS 
-WHERE ANIMAL_ID NOT IN(
-    SELECT I.ANIMAL_ID
-    FROM ANIMAL_INS I JOIN ANIMAL_OUTS O
-    ON I.ANIMAL_ID = O.ANIMAL_ID
-)
-ORDER BY DATETIME
-LIMIT 3
+-- 입양 못간 동물, 기간 내림차 3마리
+-- 이름, 보호시작일
+-- 보호
+select i.name, i.datetime
+from ANIMAL_INS i
+left join ANIMAL_OUTS o on i.ANIMAL_ID = o.ANIMAL_ID
+where o.name is null and i.name is not null
+order by i.datetime
+limit 3
+
