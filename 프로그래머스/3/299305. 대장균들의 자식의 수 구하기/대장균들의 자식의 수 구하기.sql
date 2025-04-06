@@ -1,11 +1,9 @@
-/*
-- 대장균 개체의 ID(ID), 자식의 수(CHILD_COUNT)
-- 자식 NULL 0출력
-- id 오름차
-1. group by 
-*/
+-- 자식의 수
+-- 자식없다면 0으로 출력
+-- id 오름차
+select e1.ID, count(e2.ID) as CHILD_COUNT
+from ECOLI_DATA e1
+left join ECOLI_DATA e2 on e1.ID = e2.PARENT_ID
+group by e1.ID
+order by e1.ID
 
-select e1.ID, COUNT(e2.PARENT_ID) CHILD_COUNT
-from ECOLI_DATA e1 LEFT JOIN ECOLI_DATA e2
-    ON e1.ID = e2.PARENT_ID
-GROUP BY e1.ID
