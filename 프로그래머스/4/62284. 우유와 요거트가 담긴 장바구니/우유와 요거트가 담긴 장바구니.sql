@@ -1,16 +1,10 @@
-/*
-- 우유와 요거트 동시에 구입한 장바구니
-- 아이디
-- 어아다 오름차
-*/
-# SELECT CART_ID FROM CART_PRODUCTS
-# WHERE NAME = 'Milk' OR NAME = 'Yogurt'
-# GROUP BY CART_ID
-# HAVING COUNT(CART_ID) >= 2
-select CART_ID
+-- 우유, 요거트 동시 구입
+-- 아이디 조회
+-- 아이디 오름차
+select cart_id
 from CART_PRODUCTS
-WHERE name = 'Milk' OR name = 'Yogurt'
-group by CART_ID
-HAVING COUNT(DISTINCT(name)) = 2
-ORDER BY 1
-    
+where name = 'Milk' or name = 'Yogurt'
+group by cart_id
+having count(distinct(name)) >= 2
+order by cart_id
+
