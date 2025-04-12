@@ -1,21 +1,17 @@
-/*
-- 리뷰 max 회원
-- 회원 이름, 리뷰 텍스트, 리뷰 작성일
-- 리뷰 작성일 오름차, 리뷰 텍스트 오름차
-1. 가장 많은 댓글 수를 구하는 서브쿼리 작성
-2. 그 댓글 수와 같은 수의 멤버 아이디 구하기
-3. 해당 멤버 아이디와 같은 멤버아이디의 리뷰글을 구하기
-4. REVIEW_DATE asc, MEMBER_PROFILE asc
-*/
+-- 리뷰 가장 많이 작성
+-- 리뷰 작성일 오름차, 텍스트 오름차
+select p.MEMBER_NAME, r.REVIEW_TEXT, 
+    date_format(r.REVIEW_DATE, '%Y-%m-%d') as REVIEW_DATE
+from MEMBER_PROFILE p
+join REST_REVIEW r on p.MEMBER_ID = r.MEMBER_ID
+where  p.member_id = (
+    select member_id 
+    from REST_REVIEW
+    group by MEMBER_ID
+    order by count(*) desc
+    limit 1) 
+order by r.REVIEW_DATE, r.REVIEW_TEXT
 
-SELECT c.member_name
-     , a.review_text
-     , date_format(a.review_date, '%Y-%m-%d')
-FROM rest_review a
-         INNER JOIN (SELECT member_id
-                     FROM rest_review
-                     GROUP BY member_id
-                     ORDER BY COUNT(*) DESC LIMIT 1) b
-                    ON a.member_id = b.member_id
-         LEFT JOIN member_profile c ON a.member_id = c.member_id
-ORDER BY a.review_date, a.review_text
+
+
+-- 그룹핑 -> 갯수세주고 -> max 뽑아내기 -> 어떻게 이어주지?
