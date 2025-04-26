@@ -141,5 +141,4 @@ print(min_cost)
     * can_plant: O(5).
     * get_cost: O(5).
 * 총합: O(C((N-2)^2, 3) * 10) ≈ 416,640, 1초 내 충분.
-
 """
