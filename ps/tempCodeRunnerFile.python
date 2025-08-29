@@ -1,0 +1,68 @@
+import sys
+from collections import deque
+ip, op = sys.stdin.readline, sys.stdout.write
+dy, dx = [0, 1, 0, -1], [-1, 0, 1, 0]
+def dfs(i, j, vis):
+    ans = []
+    vis[i][j] = 1
+    q = deque()
+    q.append((i,j))
+    while q:
+        y, x = q.pop()
+        ans.append((y, x))
+        for d in range(4):
+            ny, nx = y + dy[d], x + dx[d]
+            if ny < 0 or nx < 0 or ny >= n or nx >= n or vis[ny][nx]:
+                continue
+            if l <= abs(a[ny][nx] - a[y][x]) <= r:
+                vis[ny][nx] = 1
+                q.append((ny, nx))
+    return ans
+
+
+a = []
+n, l, r = map(int, ip().split())
+for _ in range(n):
+    a.append(list(map(int, ip().split())))
+
+move_count = 0
+
+while True:
+    flag = False #이동확인
+    vis = [[0]*n for _ in range(n)]
+    
+    for i in range(n):
+        for j in range(n):
+            if vis[i][j]: continue #하루에 한번만 이동가능
+            temp = dfs(i, j, vis)
+            if len(temp) == 1: continue
+            sum_p = sum(a[y][x] for y,x in temp)
+            for y,x in temp:
+                a[y][x] = sum_p // len(temp)
+            flag = True     
+    if not flag: break
+    move_count += 1
+print(move_count)
+    
+
+
+
+"""
+y,x:N(1~50), L,R(1~100)
+인구수(0~100), 
+인구이동 2000보다 적거나 같게만 주어진다.
+인구이동 며칠동안 발생
+더이상 인구이동 없을 때까지 인구이동!
+- 인구차이 L~R이면 국경선열기
+- 모두 열리면 인구이동 시작
+- 열린칸(연합) 이내 모두 이동가능
+- 연합의 각 칸의 인구수 = 연합인구수 / 연합칸수 수수점 버림!
+- 연합해체 국경닥기
+연결컴포넌트 조건 l~r
+
+1.인구수 입력받기
+2.인구이동 불가능할때까지 다음을 반복
+    3.연합생성
+    4.인구이동
+
+"""
