@@ -1,52 +1,45 @@
 import java.io.*;
+import java.util.*;
 
-public class Main{
-    static int[] cnt = new int[200];
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+public class Main {
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        String s = br.readLine();
-        for(char c : s.toCharArray()) cnt[c]++;
+        String s = in.readLine();
+        int[] cnt = new int[26];
+        for(char c : s.toCharArray()){
+            cnt[c - 'A']++;
+        }
+        int cnt1 = 0;
+        String mid = "";
 
-        int flag = 0;
-        char mid = ' ';
-        String ret = "";
+        for(int i = 0; i < 26; i++){
+            if(cnt[i] % 2 == 1){
+                cnt1++; mid = ""+ (char)(i + 'A');
+                cnt[i]--;
+            }
+        }
+        if(cnt1 > 1) {
+            out.println("I'm Sorry Hansoo\n");
+            out.flush();
+            out.close();
+            return;
+        }
 
+        var ret = new StringBuilder();
         for(int i = 'Z'; i >= 'A'; i--){
-            if(cnt[i] % 2 == 1){ // 홀수이면
-                cnt[i]--; flag++;
-                mid = (char)i;
-            }
-            if(flag == 2) {
-                bw.write("I'm Sorry Hansoo\n");
-                bw.flush();
-                return;
-            }
-            for(int j = 0; j < cnt[i]; j += 2){
-                ret = (char)i + ret;
-                ret += (char)i;
+            for(int j = 0; j < cnt[i - 'A']; j += 2){
+                ret.append((char)i);
+                ret= new StringBuilder(""+(char)i).append(ret);
             }
         }
-        if(mid != ' ') {
-            int pos = ret.length()/2;
-            ret = ret.substring(0, pos) + mid + ret.substring(pos);
+        if(cnt1 > 0){
+            ret.insert(ret.length()/2, mid);
         }
+        System.out.println(ret);
 
-        bw.write(ret + '\n');
-        bw.flush();
+        out.flush();
+        out.close();
     }
 }
-/*
-cnt배열 이용해서 출력
-1. 문자열 입력받기
-2. 문자열을 순회하면서 cnt에 문자별 갯수 저장
-3. Z->A순으로 순회하기
-    3-1.문자갯수 홀수
-        3-1-1.갯수-1, 홀수갯수+1, 삽입할 문자 에넣기
-        3-1-1.문자열 앞뒤에 문자넣어주기
-    3-2.문자갯수 짝수
-        3-2-1.문자열 앞뒤에 문자넣어주기
-4.펠린드롬 불가능 -> I'm Sorry Hansoo
-5.펠린드롬 가능 -> 펠린드롬 출력
- */
