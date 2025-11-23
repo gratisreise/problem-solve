@@ -1,30 +1,30 @@
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
-        String s;
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        while ((s = br.readLine()) != null) {
-            int n = Integer.parseInt(s);
+        String line;
+
+        while((line = in.readLine()) != null){
+            if(line.isEmpty()) continue;
+
+            int n = Integer.parseInt(line);
+
             int cnt = 1;
-            int ret = 1;
-            while (true) {
-                if (cnt % n == 0) {
-                    bw.write(String.valueOf(ret)+'\n');
-                    bw.flush();
-                    break;
-                } else {
-                    cnt = cnt * 10 + 1;
-                    cnt %= n;
-                    ret++;
-                }
+            int temp = 1;
+
+            while((temp % n) != 0){
+                temp = (temp*10 + 1) % n;
+                cnt++;
             }
+            out.println(cnt);
         }
 
-        br.close();
+        out.flush();
+        out.close();
+        in.close();
     }
 }
