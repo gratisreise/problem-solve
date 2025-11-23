@@ -2,35 +2,33 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        int n = Integer.parseInt(br.readLine());
-        int m = Integer.parseInt(br.readLine());
-        int[] a = new int[n + 4];
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            a[i] = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(in.readLine());
+        int m = Integer.parseInt(in.readLine());
+        var st = new StringTokenizer(in.readLine());
+        int[] arr = new int[n + 1];
+        for(int i = 0; i < n; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-
-        if (m > 200000)  bw.write("0\n");
-        else {
-            int ret = 0;
-            for (int i = 0; i < n; i++) {
-                for (int j = i + 1; j < n; j++) {
-                    if (a[i] + a[j] == m) ret++;
+        int limit = 200_000;
+        if(m > limit){
+            System.out.println(0);
+            return;
+        }
+        int ret = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = i+1; j < n; j++){
+                if(arr[i] + arr[j] == m){
+                    ret++;
                 }
             }
-            bw.write(String.valueOf(ret)+"\n");
         }
-        bw.flush();
+        out.println(ret);
+
+        out.flush();
+        out.close();
     }
 }
-/*
-재료의 개수에서 2개를 선택해서 더했을 때 M이면 출력
-1. M이 20만보다 크면 그냥 1 출력하고 끝
-2. 아니면 2중 for문으로 조합을 돌린다.
-3. 선택된 두수를 더해서 m이랑 맞느지 체크
-4. 맞으면 ret++ 아니면 넘기기
- */
