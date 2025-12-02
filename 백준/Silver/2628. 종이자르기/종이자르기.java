@@ -4,63 +4,60 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         var in = new BufferedReader(new InputStreamReader(System.in));
-        var out = new PrintWriter(System.out);
+        // PrintWriter 대신 System.out.println 사용으로 통일 (간결성)
+        // var out = new PrintWriter(System.out); // 주석 처리
 
         var st = new StringTokenizer(in.readLine());
-        int n = Integer.parseInt(st.nextToken()); // 가로
-        int m = Integer.parseInt(st.nextToken()); // 세로
+        int width = Integer.parseInt(st.nextToken()); // 가로 길이 (n)
+        int height = Integer.parseInt(st.nextToken()); // 세로 길이 (m)
         int k = Integer.parseInt(in.readLine());
-        List<Integer> pointR = new ArrayList<>();
-        List<Integer> pointC = new ArrayList<>();
+
+        // 1. 자르기 경계선을 저장할 리스트 초기화
+        List<Integer> cutCols = new ArrayList<>();
+        List<Integer> cutRows = new ArrayList<>();
+
+        // 2. 초기 경계선 추가 (이것이 예외 처리를 줄이는 핵심입니다)
+        cutCols.add(0);
+        cutCols.add(width);
+        cutRows.add(0);
+        cutRows.add(height);
+
+        // 3. 입력 받은 자르기 위치 추가
         for(int i = 0; i < k; i++){
             st = new StringTokenizer(in.readLine());
-            int dir = Integer.parseInt(st.nextToken());
-            int num = Integer.parseInt(st.nextToken());
-            if(dir == 1)pointR.add(num);
-            else pointC.add(num);
-        }
-        pointR.sort(Integer::compareTo);
-        pointC.sort(Integer::compareTo);
-        int retG = 0;
-        int retS = 0;
-        if(pointR.isEmpty()){
-            retG = n;
-        } else {
-            int prev = 0;
-            for(int i : pointR){
-                retG = Math.max(retG, i - prev);
-                prev = i;
+            int dir = Integer.parseInt(st.nextToken()); // 0: 가로 자르기, 1: 세로 자르기
+            int pos = Integer.parseInt(st.nextToken());
+
+            // 문제 조건: dir=0 가로(세로방향 조각 결정), dir=1 세로(가로방향 조각 결정)
+            if(dir == 0) { // 가로 자르기 (세로 조각 결정)
+                cutRows.add(pos);
+            } else { // 세로 자르기 (가로 조각 결정)
+                cutCols.add(pos);
             }
-            retG = Math.max(retG, n - prev);
         }
-        if(pointC.isEmpty()){
-            retS = m;
-        } else {
-            int prev = 0;
-            for(int i : pointC){
-                retS = Math.max(retS, i - prev);
-                prev = i;
-            }
-            retS = Math.max(retS, m - prev);
+
+        Collections.sort(cutCols);
+        Collections.sort(cutRows);
+
+        int max_width = findMaxSegment(cutCols);
+        int max_height = findMaxSegment(cutRows);
+
+        System.out.println(max_width * max_height);
+    }
+
+    /**
+     * 정렬된 경계선 리스트에서 인접한 두 점 사이의 최대 거리를 찾는 함수
+     * @param points 자르기 위치 목록 (0과 전체 길이를 포함해야 함)
+     * @return 최대 길이 조각의 길이
+     */
+    private static int findMaxSegment(List<Integer> points) {
+        int maxLen = 0;
+        // 리스트의 크기는 최소 2 (0과 끝점)
+        for (int i = 1; i < points.size(); i++) {
+            // 인접한 두 경계선 사이의 거리가 조각의 길이
+            int segmentLen = points.get(i) - points.get(i - 1);
+            maxLen = Math.max(maxLen, segmentLen);
         }
-        System.out.println(retS * retG);
-        out.flush();
-        out.close();
+        return maxLen;
     }
 }
-/*
-가로 0
-세로 1
-
-자르기 어떻게 처리하지??
-아이디어:
-크기 2배 처리
-4만 이면 낫배드 int
-
-만약 가로만 주어지면?
-세로만 주어지면??
-아예없으면??
-
-
-
-*/
