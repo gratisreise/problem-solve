@@ -1,62 +1,57 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
-    static int A, B, team, n, retA, retB;
-    static String time, prev = "00:00";
+public class Main {
 
-    static int sum(){
-        return mToS(time) - mToS(prev);
+    static int calc(String prev, String now){
+        int prevS = mToS(prev);
+        int nowS = mToS(now);
+        return nowS - prevS;
     }
-    static int mToS(String s){
-        String[] temp = s.split(":");
-        int a = Integer.parseInt(temp[0]) * 60;
-        int b = Integer.parseInt(temp[1]);
-        return a + b;
+    static int mToS(String time){
+        String[] s = time.split(":");
+        int m = Integer.parseInt(s[0]) * 60;
+        int ss = Integer.parseInt(s[1]);
+        return m + ss;
     }
-    static String sToM(int n){
-        String a = ("00" + n / 60);
-        String b = ("00" + n % 60);
-        return a.substring(a.length()-2) + ":" + b.substring(b.length()-2);
+    static String con(int second){
+        String min = "00" + (second / 60);
+        String sec = "00" + (second % 60);
+        return min.substring(min.length()-2) +":"+sec.substring(sec.length()-2);
     }
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String rs;
-        StringTokenizer st;
-        st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
+        int[] score = new int[3];
+        int[] time = new int[3];
 
-        while(n-- > 0){
-            st = new StringTokenizer(br.readLine());
-            team = Integer.parseInt(st.nextToken());
-            time = st.nextToken();
-            if(A > B) retA += sum();
-            else if(B > A) retB += sum();
+        int n = Integer.parseInt(in.readLine());
 
-            if(team == 1) A++; else B++;
-            prev = time;
+        String prev = "00:00";
+        for(int i = 0; i < n; i++){
+            var st = new StringTokenizer(in.readLine());
+            int teamNum = Integer.parseInt(st.nextToken());
+            String now = st.nextToken();
+            //지금까지 시간 계산해서 이긴 상태 팀넣어주기
+            if(score[1] > score[2]){
+                time[1] += calc(prev, now);
+            } else if(score[1] < score[2]){
+                time[2] += calc(prev, now);
+            }
+            score[teamNum]++; //점수계산
+            prev = now;
         }
-        time = "48:00";
-        if(A > B) retA += sum();
-        else if(B > A) retB += sum();
-        bw.write(sToM(retA)+'\n');
-        bw.write(sToM(retB)+'\n');
-        bw.flush();
+
+        String end = "48:00";
+        if(score[1] > score[2]){
+            time[1] += calc(prev, end);
+        } else if(score[1] < score[2]){
+            time[2] += calc(prev, end);
+        }
+
+        out.println(con(time[1]));
+        out.println(con(time[2]));
+        out.flush();
+        out.close();
     }
 }
-/*
-골이 들어간 시간 : 팀 이름
-입력: 골이 들어간 횟수 n, n줄에 팀번호 :: 시간
-누가 유리하지? -> 변수에 골수를 담아서 비교하자
-어떻게 계산하지? -> 골이 들어갈 때마다 유불리를 비교해서 체크하자
-언제 계산해야하지? -> 골이 들어간순간 유불리가 바뀔수 있으니 골이 입력되기전에 계산로직을넣자
-시작과 끝의 경계처리
-00:00부터 계산
-48:00끝 계산
-
-1. 골횟수 n 입력.
-2. n번 팀번호 - 시간 입력받기
-3. 입력되기 전에 이전 시간과 비교하여 유불리비교해서 시간 계산
-4. 끝나는 시간에 유불리 비교해서 시간계산
- */
