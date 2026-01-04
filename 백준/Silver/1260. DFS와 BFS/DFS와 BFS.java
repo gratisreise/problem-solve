@@ -3,32 +3,33 @@ import java.util.*;
 
 public class Main {
     static List<Integer>[] graph;
-    static int[] visited;
-    static StringBuilder sbd = new StringBuilder();
-    static StringBuilder sbb = new StringBuilder();
+    static List<Integer> dfs = new ArrayList<>();
+    static List<Integer> bfs = new ArrayList<>();
 
+    static boolean[] visited;
 
     static void dfs(int now){
-        if(visited[now] == 1) return;
-        visited[now] = 1;
-        sbd.append(now).append(" ");
+        visited[now] = true;
+        dfs.add(now);
         for(int next : graph[now]){
-            if(visited[next] == 1) continue;
+            if(visited[next]) continue;
             dfs(next);
         }
     }
+
     static void bfs(int start){
-        Queue<Integer> q = new LinkedList<>();
-        q.add(start);
-        visited[start] = 1;
-        sbb.append(start).append(" ");
+        Queue<Integer> q = new ArrayDeque<>();
+
+        q.offer(start);
+        visited[start] = true;
+
         while(!q.isEmpty()){
             int now = q.poll();
+            bfs.add(now);
             for(int next : graph[now]){
-                if(visited[next] == 1) continue;
-                sbb.append(next).append(" ");
-                visited[next] = 1;
-                q.add(next);
+                if(visited[next]) continue;
+                visited[next] = true;
+                q.offer(next);
             }
         }
     }
@@ -42,10 +43,9 @@ public class Main {
         int v = Integer.parseInt(st.nextToken());
 
         graph = new List[n+1];
-        visited = new int[n+1];
-        for(int i = 1; i <= n; i++){
-            graph[i] = new ArrayList<>();
-        }
+        visited = new boolean[n+1];
+
+        for(int i=  1; i <= n; i++) graph[i] = new ArrayList<>();
 
         for(int i = 0; i < m; i++){
             st = new StringTokenizer(in.readLine());
@@ -54,31 +54,37 @@ public class Main {
             graph[a].add(b);
             graph[b].add(a);
         }
-
-        for(int i = 1; i <= n; i++){
-            graph[i].sort(Comparator.comparingInt(a -> a));
-        }
+        for(int i = 1; i <= n; i++) graph[i].sort(Comparator.naturalOrder());
 
         dfs(v);
-        Arrays.fill(visited, 0);
+        Arrays.fill(visited, false);
         bfs(v);
 
-        System.out.println(sbd +"\n" + sbb);
+        var ret = new StringBuilder();
+        for(int i = 0; i < dfs.size(); i++){
+            ret.append(dfs.get(i));
+            if(i != dfs.size() - 1) ret.append(" ");
+        }
+        ret.append("\n");
+        for(int i = 0; i < bfs.size(); i++){
+            ret.append(bfs.get(i));
+            if(i != bfs.size() - 1) ret.append(" ");
+        }
+        out.println(ret);
 
         out.flush();
         out.close();
     }
 }
 /*
-dfs, bfs의 탐색결과
-정점 번호 낮은 것부터 방문
-1 ~ N
-n, m, 시작점:v
-양방향
-그래프 구현
-인접리스트
-리스트배열 -> 그래프 구현
-dfs, bfs 탐색 ㄱㄱ
+정점번호가 낮은 순으로 순회
+node[1, N], N[1, 1000], M[1, 1만]
+v:시작
+출력: dfs -> bfs
+
+각 탐색에서 buffer로append하기
+각 탐색에서 넘길때 append하고 넘기기 now에서 계속 append하고 넘기기
 
 
- */
+
+*/
