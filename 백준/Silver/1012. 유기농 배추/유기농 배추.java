@@ -1,63 +1,55 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
-    static int t, n, m, k, y, x, ret;
-    static int[][] a, visited;
+public class Main {
     static int[] dy = {-1, 0, 1, 0};
     static int[] dx = {0, 1, 0, -1};
+    static int n, m;
+    static int[][] board, visited;
     static void dfs(int y, int x){
         visited[y][x] = 1;
-        for(int i = 0; i < 4; i++){
-            int ny = y + dy[i];
-            int nx = x + dx[i];
+        for(int d=  0; d < 4; d++){
+            int ny = y + dy[d];
+            int nx = x + dx[d];
             if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-            if(a[ny][nx] == 0 || visited[ny][nx] != 0) continue;
+            if(board[ny][nx] == 0 || visited[ny][nx] != 0) continue;
             dfs(ny, nx);
         }
     }
+    static int count(){
+        int cnt = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(board[i][j] == 0 || visited[i][j] != 0) continue;
+                dfs(i, j);
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String rs;
-        StringTokenizer st;
-        t = Integer.parseInt(br.readLine());
-        while(t-- > 0){
-            st = new StringTokenizer(br.readLine());
+        int test = Integer.parseInt(in.readLine());
+        for(int t = 0; t < test; t++){
+            var st = new StringTokenizer(in.readLine());
             m = Integer.parseInt(st.nextToken());
             n = Integer.parseInt(st.nextToken());
-            k = Integer.parseInt(st.nextToken());
-            ret = 0;
-            a = new int[n + 4][m + 4];
-            visited = new int[n + 4][m + 4];
-
-            //배추심기
-            while(k-- > 0){
-                st = new StringTokenizer(br.readLine());
-                x = Integer.parseInt(st.nextToken());
-                y = Integer.parseInt(st.nextToken());
-                a[y][x] = 1;
+            int k = Integer.parseInt(st.nextToken());
+            board = new int[n][m];
+            visited = new int[n][m];
+            for(int i = 0; i < k; i++){
+                st = new StringTokenizer(in.readLine());
+                int x = Integer.parseInt(st.nextToken());
+                int y = Integer.parseInt(st.nextToken());
+                board[y][x] = 1;
             }
-
-            for(int i = 0; i < n; i++){
-                for(int j = 0; j < m; j++){
-                    if(a[i][j] == 0 || visited[i][j] != 0) continue;
-                    dfs(i, j); ret++;
-                }
-            }
-
-            bw.write(String.valueOf(ret)+'\n');
-            bw.flush();
+            out.println(count());
         }
 
+
+        out.flush();
+        out.close();
     }
 }
-/*
-t입력
-x: m, y : n, 배추위치:k
-k만큼 배추 >>x >>y 들어온다.
-a2차원 배열에 배추 심기
-각 테스트 케이스마다 dfs로 연결컴포넌트 갯수 구하기
-출력하기
- */
