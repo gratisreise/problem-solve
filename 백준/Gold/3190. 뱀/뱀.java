@@ -1,103 +1,90 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
-    static int n, k, l, y, x,time, ret, idx, dir = 1;
-    static int[][] a, visited;
-    static final int[] dy = {-1, 0, 1, 0};
-    static final int[] dx = {0, 1, 0, -1};
-    static Deque<Pair> dq = new ArrayDeque<>();
-    static List<Pair> conv = new ArrayList<>();
-    static class Pair{
-        int f, s;
-        Pair(int f, int s){
-            this.f = f;
-            this.s = s;
+public class Main {
+    static class Point{
+        int y; int x;
+        Point(int y, int x){
+            this.y = y;
+            this.x =x;
         }
     }
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
-        //
-        n = Integer.parseInt(br.readLine());
-        k = Integer.parseInt(br.readLine());
-        // 좌표에서 사과의 존재 표시
-        a = new int[n + 4][n + 4];
-        // 뱀의 길이를 저장
-        visited = new int[n + 4][n + 4];
+    static class Dir{
+        int time; char dir;
+        Dir(int time, char dir){
+            this.time = time;
+            this.dir = dir;
+        }
+    }
+    static int[] dy ={-1, 0, 1, 0};
+    static int[] dx ={0, 1, 0, -1};
+    static boolean check(int y, int x, Deque<Point> dq){
+        Deque<Point> temp = new ArrayDeque<>(dq);
+        while(!temp.isEmpty()){
+            Point now = temp.pollLast();
+            if(now.y == y && now.x == x) return true;
+        }
+        return false;
+    }
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        //사과위치 입력
+        int n = Integer.parseInt(in.readLine());
+        int k = Integer.parseInt(in.readLine());
+
+        int[][] board = new int[n+1][n+1];
+
+        Deque<Point> snake = new ArrayDeque<>();
+        snake.addLast(new Point(1, 1));
+
         for(int i = 0; i < k; i++){
-            st = new StringTokenizer(br.readLine());
-            y = Integer.parseInt(st.nextToken()) - 1;
-            x = Integer.parseInt(st.nextToken()) - 1;
-            a[y][x] = 1;
+            var st = new StringTokenizer(in.readLine());
+            int y = Integer.parseInt(st.nextToken());
+            int x = Integer.parseInt(st.nextToken());
+            board[y][x] = 1;
         }
 
-        l = Integer.parseInt(br.readLine());
-
-        /*
-        * 방향변환 횟수
-        * 시간초 t와 방향변환 c를 입력받는다.
-        * conv에 (시간 , 방향)
-        * 3은 뭐지?
-         */
-        for(int i = 0; i < l; i++){
-            st = new StringTokenizer(br.readLine());
-            int t = Integer.parseInt(st.nextToken());
-            char c = st.nextToken().charAt(0);
-            if(c == 'D') conv.add(new Pair(t, 1));
-            else conv.add(new Pair(t, 3));
+        int L = Integer.parseInt(in.readLine());
+        Queue<Dir> dirs  = new ArrayDeque<>();
+        for(int i = 0; i < L; i++){
+            var st = new StringTokenizer(in.readLine());
+            int time = Integer.parseInt(st.nextToken());
+            char dir = st.nextToken().charAt(0);
+            dirs.add(new Dir(time, dir));
         }
 
-        //뱀 머리의 처음 시간과 방향 입력
-        dq.add(new Pair(0, 0));
-        visited[0][0] = 1;
-        //시간초에 따른 뱀의 움직임 dq에 저장
-        while(!dq.isEmpty()){
-            time++; //시간
-            Pair p = dq.peek();
-            y = p.f;
-            x = p.s;
-            int ny = y + dy[dir];
-            int nx = x + dx[dir];
-            // 충돌하면 게임종료
-            if(ny < 0 || nx < 0 || ny >= n || nx >= n || visited[ny][nx] == 1){
-                break;
-            }
-            /*
-            사과 유무에 따른 뱀의 길이처리
-             */
-            if(a[ny][nx] == 0){
-                //이전 꼬리 좌표 없애기
-                Pair tail = dq.pollLast();
-                visited[tail.f][tail.s] = 0;
-            } else a[ny][nx] = 0;
+        int d = 1; // 방향
+        int ret = 0;
+        while(true){
 
-            // 뱀의 길이 처리
-            visited[ny][nx] = 1;
-            // 뱀의 다음 머리 좌표 저장
-            dq.addFirst(new Pair(ny, nx));
+            ret++;
+            //이동
+            Point head = snake.getFirst();
+            int ny = head.y + dy[d];
+            int nx = head.x + dx[d];
+            if(ny < 1 || nx < 1 || ny > n || nx > n) break;
+            if(check(ny, nx, snake)) break;
+            snake.addFirst(new Point(ny, nx));
+            if(board[ny][nx] != 1) snake.pollLast();
+            else board[ny][nx] = 0;
 
-            // 변환횟수가 l보다 적고 시간이 변환되어야할 시간과 같으면
-            if(idx < l && time == conv.get(idx).f){
-                // 방향처리 오른쪽 90도는 +1, 왼쪽 90도는 +3
-                dir = (dir + conv.get(idx).s) % 4;
-                idx++; // 방향변환 회수 처리
+            //방향전환
+            if(!dirs.isEmpty() && dirs.peek().time == ret){
+                Dir rot = dirs.poll();
+                char dir = rot.dir;
+                if(dir == 'L'){
+                    d = (d-1 + 4) % 4;
+                } else {
+                    d = (d+1) % 4;
+                }
             }
         }
-        ret = time; // 결과에 담아주기
-        bw.write(String.valueOf(ret)+'\n');
-        bw.flush();
-        bw.close();
-        br.close();
+
+        out.println(ret);
+
+
+        out.flush();
+        out.close();
     }
 }
-/*
-1. 뱀의 좌표를 저장할 dq
-2. 뱀의 몸길이를 체크할 visited
-3. 뱀의 방향전환을 저장할 list
-4. 사과의 위치 a
-5. 게임시간 time
- */
