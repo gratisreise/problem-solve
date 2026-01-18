@@ -1,19 +1,22 @@
--- 서울 위치
--- 리뷰 평균점수 소수점 세번째 반올림
--- 평균점수 내림차, 즐찾 내림차
-select r.REST_ID, REST_NAME, FOOD_TYPE, FAVORITES, ADDRESS,
-    round(avg(REVIEW_SCORE), 2) as SCORE
-from REST_INFO i
-join REST_REVIEW r on i.REST_ID = r.REST_ID
-where ADDRESS like '서울%'
-group by REST_NAME
-order by SCORE desc, FAVORITES desc
+select 
+    ri.rest_id, 
+    ri.rest_name, 
+    ri.food_type,
+    ri.favorites,
+    ri.address,
+    round(avg(rr.review_score), 2) as score
+from rest_info as ri
+join rest_review as rr on ri.rest_id = rr.rest_id
+where address like '서울%'
+group by ri.rest_id
+order by score desc, ri.favorites desc
 
 
-# SELECT R.REST_ID, REST_NAME, FOOD_TYPE, FAVORITES, ADDRESS, 
-#     ROUND(AVG(REVIEW_SCORE), 2) AS SCORE
-# FROM REST_INFO I JOIN REST_REVIEW R
-# ON I.REST_ID = R.REST_ID
-# WHERE ADDRESS LIKE '서울%'
-# GROUP BY REST_NAME
-# ORDER BY SCORE DESC, FAVORITES DESC
+
+/*
+식당id, 식당이름, 음식종류, 즐겨찾기수, 주소, 리뷰 평균 점수
+rest_info, rest_review
+위치=서울, 리뷰평균점수 소수점 3번째 반올림, 
+평균점수 내림차, 즐겨찾기수 내림차
+
+*/
