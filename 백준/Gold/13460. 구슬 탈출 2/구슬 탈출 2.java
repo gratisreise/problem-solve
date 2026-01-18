@@ -2,86 +2,91 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    static int N, M;
     static char[][] board;
-    static int ret = 11;
-    static int[] dy = {-1, 0, 1, 0};
-    static int[] dx = {0, 1, 0, -1};
-    static boolean isWall(int ny, int nx){
-        return board[ny][nx] == '#';
-    }
-    static boolean isHole(int ny, int nx){
-        return board[ny][nx] == 'O';
-    }
-    static void go(int ry, int rx, int by, int bx, int cnt){
-        if(cnt >= 10 || cnt >= ret) return;
-
-        for(int d = 0; d < 4; d++){
-            //빨간 구슬 이동
-            int nry = ry, nrx = rx;
-            while(!isWall(nry+dy[d], nrx + dx[d])){
-                nry += dy[d];
-                nrx += dx[d];
-                if(isHole(nry, nrx)) break;
-            }
-
-            //파랑 구슬 이동
-            int nby = by, nbx = bx;
-            while(!isWall(nby + dy[d], nbx + dx[d])){
-                nby += dy[d];
-                nbx += dx[d];
-                if(isHole(nby, nbx)) break;
-            }
-            //파란구슬 구멍에 빠짐
-            if(isHole(nby, nbx)) continue;
-
-            if(isHole(nry, nrx)){
-                ret = Math.min(ret, cnt + 1);
-                return;
-            }
-            if(nry == nby && nrx == nbx){
-                int redDist = Math.abs(nry - ry) + Math.abs(nrx - rx);
-                int blueDist = Math.abs(nby - by) + Math.abs(nbx - bx);
-
-                if(redDist > blueDist){
-                    nry -= dy[d];
-                    nrx -= dx[d];
-                } else {
-                    nby -= dy[d];
-                    nbx -= dx[d];
-                }
-            }
-            go(nry, nrx, nby, nbx, cnt+1);
+    static boolean[][][][] visited;
+    static int[] dy = {-1, 1, 0, 0};
+    static int[] dx = {0, 0, -1, 1};
+    
+    static class State {
+        int ry, rx, by, bx, cnt;
+        State(int ry, int rx, int by, int bx, int cnt) {
+            this.ry = ry; this.rx = rx;
+            this.by = by; this.bx = bx;
+            this.cnt = cnt;
         }
     }
+
     public static void main(String[] args) throws IOException {
         var in = new BufferedReader(new InputStreamReader(System.in));
-        var out = new PrintWriter(System.out);
-
         var st = new StringTokenizer(in.readLine());
 
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        board = new char[n][m];
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        board = new char[N][M];
+        visited = new boolean[N][M][N][M];
 
-        int ry = 0, rx = 0, by = 0, bx = 0;
-        for(int i = 0; i < n; i++){
-            String s = in.readLine();
-            for(int j = 0; j < m; j++){
-                board[i][j] = s.charAt(j);
-                if(board[i][j] == 'B') {
-                    by = i; bx = j;
-                } else if(board[i][j] == 'R'){
-                    ry = i; rx = j;
-                }
+        int sry = 0, srx = 0, sby = 0, sbx = 0;
+
+        for (int i = 0; i < N; i++) {
+            String line = in.readLine();
+            for (int j = 0; j < M; j++) {
+                board[i][j] = line.charAt(j);
+                if (board[i][j] == 'R') { sry = i; srx = j; }
+                else if (board[i][j] == 'B') { sby = i; sbx = j; }
             }
         }
 
-        go(ry, rx, by, bx, 0);
+        System.out.println(bfs(sry, srx, sby, sbx));
+    }
 
-        if(ret == 11) out.println(-1);
-        else out.println(ret);
+    static int bfs(int sry, int srx, int sby, int sbx) {
+        Queue<State> q = new ArrayDeque<>();
+        q.add(new State(sry, srx, sby, sbx, 0));
+        visited[sry][srx][sby][sbx] = true;
 
-        out.flush();
-        out.close();
+        while (!q.isEmpty()) {
+            State cur = q.poll();
+
+            // 10번 이상 기울였다면 실패 (BFS이므로 이후 탐색은 모두 10번 초과임)
+            if(cur.cnt >= 10) return -1;
+
+            for (int i = 0; i < 4; i++) {
+                // 1. 빨간 구슬 이동
+                int nry = cur.ry, nrx = cur.rx;
+                while (board[nry + dy[i]][nrx + dx[i]] != '#') {
+                    nry += dy[i]; nrx += dx[i];
+                    if (board[nry][nrx] == 'O') break;
+                }
+
+                // 2. 파란 구슬 이동
+                int nby = cur.by, nbx = cur.bx;
+                while (board[nby + dy[i]][nbx + dx[i]] != '#') {
+                    nby += dy[i]; nbx += dx[i];
+                    if (board[nby][nbx] == 'O') break;
+                }
+
+                // 3. 실패 조건: 파란 구슬이 빠지면 이번 방향은 무효
+                if (board[nby][nbx] == 'O') continue;
+
+                // 4. 성공 조건: 빨간 구슬만 빠지면 현재 횟수 + 1이 정답
+                if (board[nry][nrx] == 'O') return cur.cnt + 1;
+
+                // 5. 겹쳤을 때 처리: 이동 거리가 먼 쪽을 한 칸 뒤로
+                if (nry == nby && nrx == nbx) {
+                    int rDist = Math.abs(nry - cur.ry) + Math.abs(nrx - cur.rx);
+                    int bDist = Math.abs(nby - cur.by) + Math.abs(nbx - cur.bx);
+                    if (rDist > bDist) { nry -= dy[i]; nrx -= dx[i]; }
+                    else { nby -= dy[i]; nbx -= dx[i]; }
+                }
+
+                // 6. 처음 가보는 상태라면 큐에 삽입
+                if (!visited[nry][nrx][nby][nbx]) {
+                    visited[nry][nrx][nby][nbx] = true;
+                    q.add(new State(nry, nrx, nby, nbx, cur.cnt + 1));
+                }
+            }
+        }
+        return -1;
     }
 }
