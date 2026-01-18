@@ -1,14 +1,16 @@
+select user_id, product_id
+from online_sale
+group by user_id, product_id
+having count(*) >= 2
+order by user_id, product_id desc
+
 /*
-- 동일한 회원 동일한 상품 재구매 데이터
-- 재구매 회원 ID, 제품 ID 출력
-- 회원 ID 오름차, 상품 ID 내림차 정렬
-1. 
+online_sale
+동일한 회원 동일한 상품 재구매
+회원id, 상품id, 
+회원id 오름차, 상품 id 내림차
+
+상품 마다 자신을 재구매한 유저의 아이디 구하기
+group by 2번해서 집계 count 2번 이상이면 출력 
+
 */
-SELECT DISTINCT o1.USER_ID, o1.PRODUCT_ID
-FROM ONLINE_SALE o1, ONLINE_SALE o2
-WHERE o1.USER_ID = o2.USER_ID AND o1.PRODUCT_ID = o2.PRODUCT_ID AND o1.SALES_DATE != o2.SALES_DATE
-ORDER BY o1.USER_ID, o1.PRODUCT_ID DESC
-# select * from ONLINE_SALE
-# order by USER_ID, PRODUCT_ID, SALES_DATE
-
-
