@@ -2,112 +2,114 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static class Point{
-        int y; int x;
-        Point(int y, int x){
-            this.y = y;
-            this.x = x;
-        }
-    }
+    static int n, m;
     static int[][] board;
     static int[] dy = {-1, 0, 1, 0};
     static int[] dx = {0, 1, 0, -1};
-    static int n, m;
-    static int count(Point p){
-        int cnt = 0;
-        for(int d = 0; d < 4; d++){
-            int ny = p.y + dy[d];
-            int nx = p.x + dx[d];
-            if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-            if(board[ny][nx] == 0) cnt++;
-        }
-        return cnt;
-    }
-    static boolean check1(List<Point> points){
-        for(Point p: points){
-            if(board[p.y][p.x] > 0) return false;
-        }
-        return true;
-    }
-    static boolean check(List<Point> points){
-        boolean[][] visited = new boolean[n][m];
+    
+    // 빙산 좌표를 y*m+x 형태로 저장할 리스트
+    static List<Integer> points = new ArrayList<>();
 
-        int cnt = 0;
-        for(Point p : points){
-            if(visited[p.y][p.x] || board[p.y][p.x] == 0) continue;
-            cnt++;
-            Queue<Point> q = new ArrayDeque<>();
-            q.offer(p);
-            visited[p.y][p.x] = true;
-            while(!q.isEmpty()){
-                Point pp = q.poll();
-                int y = pp.y;
-                int x = pp.x;
-                for(int d = 0; d < 4; d++){
-                    int ny = y + dy[d];
-                    int nx = x + dx[d];
-                    if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-                    if(visited[ny][nx] || board[ny][nx] == 0) continue;
-                    visited[ny][nx] = true;
-                    q.offer(new Point(ny, nx));
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        board = new int[n][m];
+
+        for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < m; j++) {
+                board[i][j] = Integer.parseInt(st.nextToken());
+                if (board[i][j] > 0) {
+                    points.add(i * m + j); // 2차원 좌표를 1차원으로 변환하여 저장
                 }
             }
         }
-        return cnt > 1;
-    }
-    public static void main(String[] args) throws IOException {
-        var in = new BufferedReader(new InputStreamReader(System.in));
-        var out = new PrintWriter(System.out);
 
-        var st = new StringTokenizer(in.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-
-        board = new int[n][m];
-
-        List<Point> points = new ArrayList<>();
-        for(int i = 0; i < n; i++){
-            st = new StringTokenizer(in.readLine());
-            for(int j = 0; j < m; j++){
-                board[i][j] = Integer.parseInt(st.nextToken());
-                if(board[i][j] > 0) points.add(new Point(i, j));
-            }
-        }
-
-        int ret = 0;
-        while(true){
-            if(check1(points)){
+        int years = 0;
+        while (true) {
+            if (points.isEmpty()) { // 빙산이 다 녹을 때까지 분리 안 됨
                 System.out.println(0);
-                return;
+                break;
             }
-            if(check(points)) break;
-            ret++;
-            Map<Point, Integer> mp = new HashMap<>();
-            for(Point p : points) {
-                if(board[p.y][p.x] == 0) continue;
-                mp.put(p, count(p));
+
+            if (isSplit()) { // 1. 현재 빙산 좌표들로만 분리 여부 확인
+                System.out.println(years);
+                break;
             }
-            for(Point p : mp.keySet()){
-                board[p.y][p.x] = Math.max(board[p.y][p.x] - mp.get(p), 0);
+
+            meltIce(); // 2. 빙산 녹이기 (points 리스트 갱신)
+            years++;
+        }
+    }
+
+    // 빙산이 분리되었는지 확인 (points에 있는 좌표들만 활용)
+    static boolean isSplit() {
+        if (points.isEmpty()) return false;
+
+        boolean[][] visited = new boolean[n][m];
+        Queue<Integer> q = new ArrayDeque<>();
+
+        // 첫 번째 빙산부터 시작
+        int first = points.get(0);
+        q.offer(first);
+        visited[first / m][first % m] = true;
+
+        int connectedCount = 1;
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            int y = curr / m;
+            int x = curr % m;
+
+            for (int i = 0; i < 4; i++) {
+                int ny = y + dy[i];
+                int nx = x + dx[i];
+
+                if (ny >= 0 && nx >= 0 && ny < n && nx < m) {
+                    if (board[ny][nx] > 0 && !visited[ny][nx]) {
+                        visited[ny][nx] = true;
+                        q.offer(ny * m + nx);
+                        connectedCount++;
+                    }
+                }
             }
         }
+        // 연결된 빙산 개수가 전체 리스트 개수와 다르면 분리된 것!
+        return connectedCount != points.size();
+    }
 
-        out.println(ret);
+    static void meltIce() {
+        // 이번 턴에 얼마나 녹을지 저장 (빙산 좌표 수만큼만 생성)
+        int[] meltAmount = new int[points.size()];
 
-        out.flush();
-        out.close();
+        for (int i = 0; i < points.size(); i++) {
+            int pos = points.get(i);
+            int y = pos / m;
+            int x = pos % m;
+
+            int sea = 0;
+            for (int d = 0; d < 4; d++) {
+                int ny = y + dy[d];
+                int nx = x + dx[d];
+                if (board[ny][nx] == 0) sea++;
+            }
+            meltAmount[i] = sea;
+        }
+
+        // 실제로 녹이고, 살아남은 빙산만 다시 리스트 구성
+        List<Integer> nextPoints = new ArrayList<>();
+        for (int i = 0; i < points.size(); i++) {
+            int pos = points.get(i);
+            int y = pos / m;
+            int x = pos % m;
+
+            board[y][x] = Math.max(0, board[y][x] - meltAmount[i]);
+            if (board[y][x] > 0) {
+                nextPoints.add(pos);
+            }
+        }
+        points = nextPoints; // 리스트 교체
     }
 }
-/*
-바다접촉칸갯수만큼 줄어듬
-한덩어리의 빙신이 두덩어리 이상으로 분리되는 순간
-0
-다녹을 때까지 두덩어리 이상 분리x => 0출력
-처음 입력이 반드시 한덩어리인가?? => 조건없음
-n행[3, 300], m열[3, 300], x요소[0, 10] 요소갯수[0, 1만]
-1. 보드입력 + 빙산 좌표 저장
-2. 빙산 좌표를 돌면서 차감할 값을 map에 저장
-3. 좌표를 돌면서 값을 차감하기
-
-
-*/
