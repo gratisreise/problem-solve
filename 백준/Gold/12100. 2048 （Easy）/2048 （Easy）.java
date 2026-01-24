@@ -1,80 +1,116 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    static int ret = 0;
-    static int n;
+    static int N;
+    static int maxBlock = 0;
 
-    static class Board {
-        int[][] a;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        N = Integer.parseInt(br.readLine());
+        int[][] board = new int[N][N];
 
-        public Board() {
-            a = new int[24][24];
-        }
-
-        void rotate90() {
-            int[][] temp = new int[24][24];
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    temp[i][j] = a[n - j - 1][i];
-                }
-            }
-            a = temp;
-        }
-
-        void move() {
-            int[][] temp = new int[24][24];
-            for (int i = 0; i < n; i++) {
-                int c = -1, d = 0;
-                for (int j = 0; j < n; j++) {
-                    if (a[i][j] == 0) continue;
-                    if (d != 0 && a[i][j] == temp[i][c]) {
-                        temp[i][c] *= 2;
-                        d = 0;
-                    } else {
-                        temp[i][++c] = a[i][j];
-                        d = 1;
-                    }
-                }
-                for (c++; c < n; c++) temp[i][c] = 0;
-            }
-            a = temp;
-        }
-
-        void getMax() {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    ret = Math.max(ret, a[i][j]);
-                }
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < N; j++) {
+                board[i][j] = Integer.parseInt(st.nextToken());
             }
         }
+
+        dfs(board, 0);
+        System.out.println(maxBlock);
     }
 
-    static void go(Board c, int here) {
-        if (here == 5) {
-            c.getMax();
+    // 5번 이동하는 모든 경우의 수를 탐색 (DFS)
+    static void dfs(int[][] board, int count) {
+        if (count == 5) {
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    maxBlock = Math.max(maxBlock, board[i][j]);
+                }
+            }
             return;
         }
+
         for (int i = 0; i < 4; i++) {
-            Board d = new Board();
-            d.a = c.a.clone();
-            d.move();
-            go(d, here + 1);
-            c.rotate90();
+            dfs(move(board, i), count + 1);
         }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        n = scanner.nextInt();
-        Board c = new Board();
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                c.a[i][j] = scanner.nextInt();
+    // 보드를 특정 방향으로 밀기
+    static int[][] move(int[][] board, int dir) {
+        int[][] nextBoard = new int[N][N];
+        
+        // 0: 상, 1: 하, 2: 좌, 3: 우
+        if (dir == 0) { // 위로 밀기
+            for (int j = 0; j < N; j++) {
+                int index = 0;
+                int lastValue = 0;
+                for (int i = 0; i < N; i++) {
+                    if (board[i][j] != 0) {
+                        if (lastValue == board[i][j]) {
+                            nextBoard[index - 1][j] = lastValue * 2;
+                            lastValue = 0; // 한 번 합쳐진 것은 다시 합쳐질 수 없음
+                        } else {
+                            lastValue = board[i][j];
+                            nextBoard[index][j] = lastValue;
+                            index++;
+                        }
+                    }
+                }
+            }
+        } else if (dir == 1) { // 아래로 밀기
+            for (int j = 0; j < N; j++) {
+                int index = N - 1;
+                int lastValue = 0;
+                for (int i = N - 1; i >= 0; i--) {
+                    if (board[i][j] != 0) {
+                        if (lastValue == board[i][j]) {
+                            nextBoard[index + 1][j] = lastValue * 2;
+                            lastValue = 0;
+                        } else {
+                            lastValue = board[i][j];
+                            nextBoard[index][j] = lastValue;
+                            index--;
+                        }
+                    }
+                }
+            }
+        } else if (dir == 2) { // 왼쪽으로 밀기
+            for (int i = 0; i < N; i++) {
+                int index = 0;
+                int lastValue = 0;
+                for (int j = 0; j < N; j++) {
+                    if (board[i][j] != 0) {
+                        if (lastValue == board[i][j]) {
+                            nextBoard[i][index - 1] = lastValue * 2;
+                            lastValue = 0;
+                        } else {
+                            lastValue = board[i][j];
+                            nextBoard[i][index] = lastValue;
+                            index++;
+                        }
+                    }
+                }
+            }
+        } else { // 오른쪽으로 밀기
+            for (int i = 0; i < N; i++) {
+                int index = N - 1;
+                int lastValue = 0;
+                for (int j = N - 1; j >= 0; j--) {
+                    if (board[i][j] != 0) {
+                        if (lastValue == board[i][j]) {
+                            nextBoard[i][index + 1] = lastValue * 2;
+                            lastValue = 0;
+                        } else {
+                            lastValue = board[i][j];
+                            nextBoard[i][index] = lastValue;
+                            index--;
+                        }
+                    }
+                }
             }
         }
-
-        go(c, 0);
-        System.out.println(ret);
+        return nextBoard;
     }
 }
