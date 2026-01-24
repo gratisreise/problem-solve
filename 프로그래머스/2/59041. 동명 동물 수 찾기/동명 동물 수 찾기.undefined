@@ -1,7 +1,13 @@
-# 2번 이상 해당이름 쓰인 횟수 => group by
-SELECT NAME, COUNT(*) as COUNT
-FROM ANIMAL_INS
-WHERE NAME IS NOT NULL
-GROUP BY NAME
-HAVING COUNT(*) >= 2
-ORDER BY NAME
+select name, count(animal_id) as count
+from animal_ins
+where name is not null
+group by name
+having count >= 2
+order by name
+
+
+/*
+두번 이상 쓰인 이름,  이름 쓰인 횟수
+이름 x 집계에서 제외
+이름 오름차
+*/
