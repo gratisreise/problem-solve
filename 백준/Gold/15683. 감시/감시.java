@@ -1,159 +1,119 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int n, m, ret = 1_000_000_000;
-    static int[][] a, temp;
-    static List<Pair> v = new ArrayList<>();
-    static final int[] dy = {-1, 0, 1, 0};
-    static final int[] dx = {0, 1, 0, -1};
+    static int[] dy = {-1, 0, 1, 0}; // 0:상, 1:우, 2:하, 3:좌
+    static int[] dx = {0, 1, 0, -1};
+    static int ret = 70;
 
-    static class Pair {
-        int first, second;
+    // 각 CCTV 타입별 초기 방향 (문제의 번호와 매칭되게 수정)
+    static int[][] cctvDirs = {
+        {},
+        {1},          // 1번: 우
+        {1, 3},       // 2번: 좌우
+        {0, 1},       // 3번: 상우
+        {0, 1, 3},    // 4번: 좌상우 (문제 설명에 맞춰 조정)
+        {0, 1, 2, 3}  // 5번: 상하좌우
+    };
 
-        Pair(int first, int second) {
-            this.first = first;
-            this.second = second;
+    static int n, m;
+
+    static class Point {
+        int y, x, type;
+        Point(int y, int x, int type) {
+            this.y = y; this.x = x; this.type = type;
         }
     }
 
-    static void extendCCTV(int here, int dir, List<Pair> change) {
-        int y = v.get(here).first;
-        int x = v.get(here).second;
+    static List<Point> cctvList = new ArrayList<>();
+    static int[][] originBoard;
 
-        if (a[y][x] == 1) {
-            while (true) {
-                int ny = y + dy[dir];
-                int nx = x + dx[dir];
-                if (ny >= 0 && ny < n && nx >= 0 && nx < m && a[ny][nx] != 6) {
-                    if (a[ny][nx] == 0) {
-                        a[ny][nx] = 8;
-                        change.add(new Pair(ny, nx));
-                    }
-                    y = ny;
-                    x = nx;
-                } else {
-                    break;
-                }
-            }
-        } else if (a[y][x] == 2) {
-            for (int i = 0; i <= 2; i += 2) {
-                int _y = y;
-                int _x = x;
-                while (true) {
-                    int ny = _y + dy[(dir + i) % 4];
-                    int nx = _x + dx[(dir + i) % 4];
-                    if (ny >= 0 && ny < n && nx >= 0 && nx < m && a[ny][nx] != 6) {
-                        if (a[ny][nx] == 0) {
-                            a[ny][nx] = 8;
-                            change.add(new Pair(ny, nx));
-                        }
-                        _y = ny;
-                        _x = nx;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        } else if (a[y][x] == 3) {
-            for (int i = 0; i < 2; i++) {
-                int _y = y;
-                int _x = x;
-                while (true) {
-                    int ny = _y + dy[(dir + i) % 4];
-                    int nx = _x + dx[(dir + i) % 4];
-                    if (ny >= 0 && ny < n && nx >= 0 && nx < m && a[ny][nx] != 6) {
-                        if (a[ny][nx] == 0) {
-                            a[ny][nx] = 8;
-                            change.add(new Pair(ny, nx));
-                        }
-                        _y = ny;
-                        _x = nx;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        } else if (a[y][x] == 4) {
-            for (int i = 0; i < 3; i++) {
-                int _y = y;
-                int _x = x;
-                while (true) {
-                    int ny = _y + dy[(dir + i) % 4];
-                    int nx = _x + dx[(dir + i) % 4];
-                    if (ny >= 0 && ny < n && nx >= 0 && nx < m && a[ny][nx] != 6) {
-                        if (a[ny][nx] == 0) {
-                            a[ny][nx] = 8;
-                            change.add(new Pair(ny, nx));
-                        }
-                        _y = ny;
-                        _x = nx;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        } else if (a[y][x] == 5) {
-            for (int i = 0; i < 4; i++) {
-                int _y = y;
-                int _x = x;
-                while (true) {
-                    int ny = _y + dy[(dir + i) % 4];
-                    int nx = _x + dx[(dir + i) % 4];
-                    if (ny >= 0 && ny < n && nx >= 0 && nx < m && a[ny][nx] != 6) {
-                        if (a[ny][nx] == 0) {
-                            a[ny][nx] = 8;
-                            change.add(new Pair(ny, nx));
-                        }
-                        _y = ny;
-                        _x = nx;
-                    } else {
-                        break;
-                    }
-                }
-            }
+    // 회전 함수 (size만큼 90도 회전)
+    static int[] rotate(int[] baseDir, int size) {
+        int[] temp = new int[baseDir.length];
+        for (int i = 0; i < baseDir.length; i++) {
+            temp[i] = (baseDir[i] + size) % 4;
         }
+        return temp;
     }
 
-    static void dfs(int here) {
-        if (here == v.size()) {
-            int cnt = 0;
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    if (a[i][j] == 0) {
-                        cnt++;
-                    }
-                }
-            }
-            ret = Math.min(cnt, ret);
+    // [핵심 변경!] Map 대신 index를 사용하여 순차적으로 결정
+    static void go(int index, int[][] board) {
+        // 모든 CCTV의 방향을 다 결정했다면?
+        if (index == cctvList.size()) {
+            int cnt = getBlindSpot(board);
+            ret = Math.min(ret, cnt);
             return;
         }
-        for (int k = 0; k < 4; k++) {
-            List<Pair> change = new ArrayList<>();
-            extendCCTV(here, k, change);
-            dfs(here + 1);
-            for (Pair b : change) {
-                a[b.first][b.second] = 0;
+
+        Point curr = cctvList.get(index);
+
+        // 해당 CCTV의 방향을 4번 회전시켜보며 재귀 호출
+        for (int d = 0; d < 4; d++) {
+            int[][] nextBoard = copyBoard(board); // 현재 보드 상태 복사
+            int[] rotatedDir = rotate(cctvDirs[curr.type], d);
+
+            // 칠하기
+            fill(nextBoard, curr, rotatedDir);
+
+            // 다음 CCTV로 넘어가기 (index + 1)
+            go(index + 1, nextBoard);
+
+            // 5번 CCTV는 회전이 의미 없으므로 한 번만 수행하고 break (최적화)
+            if (curr.type == 5) break;
+            // 2번 CCTV는 2번만 회전해도 충분 (선택사항)
+            if (curr.type == 2 && d == 1) break;
+        }
+    }
+
+    static void fill(int[][] board, Point p, int[] dirs) {
+        for (int direction : dirs) {
+            int y = p.y;
+            int x = p.x;
+            while (true) {
+                int ny = y + dy[direction];
+                int nx = x + dx[direction];
+                if (ny < 0 || nx < 0 || ny >= n || nx >= m || board[ny][nx] == 6) break;
+                if (board[ny][nx] == 0) board[ny][nx] = 7; // 감시 구역은 7로 표시
+                y = ny; x = nx;
             }
         }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        n = scanner.nextInt();
-        m = scanner.nextInt();
-        a = new int[n][m];
+    static int[][] copyBoard(int[][] board) {
+        int[][] res = new int[n][m];
+        for (int i = 0; i < n; i++) res[i] = board[i].clone();
+        return res;
+    }
 
+    static int getBlindSpot(int[][] board) {
+        int cnt = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                a[i][j] = scanner.nextInt();
-                if (a[i][j] != 6 && a[i][j] != 0) {
-                    v.add(new Pair(i, j));
+                if (board[i][j] == 0) cnt++;
+            }
+        }
+        return cnt;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(in.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+
+        originBoard = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(in.readLine());
+            for (int j = 0; j < m; j++) {
+                originBoard[i][j] = Integer.parseInt(st.nextToken());
+                if (originBoard[i][j] >= 1 && originBoard[i][j] <= 5) {
+                    cctvList.add(new Point(i, j, originBoard[i][j]));
                 }
             }
         }
-        dfs(0);
+
+        go(0, originBoard);
         System.out.println(ret);
     }
 }
