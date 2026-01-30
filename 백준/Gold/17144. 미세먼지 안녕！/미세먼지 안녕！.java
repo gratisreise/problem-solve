@@ -2,166 +2,110 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int r, c, t;
+    static int R, C, T;
     static int[][] board;
-    static int[][] cleaner = new int[2][2];
-    static int[] dy1 = {0, -1, 0, 1};
-    static int[] dx1 = {1, 0, -1, 0};
-    static int[] dy2 = {0, 1, 0, -1};
-    static int[] dx2 = {1, 0, -1, 0};
+    static int topCleaner; // 위쪽 공기청정기의 행(row) 위치
 
-    static boolean notDust(int y, int x){
-        return board[y][x] == -1 || board[y][x] == 0;
-    }
-    static boolean isOut(int y, int x){
-        return y < 0 || y >= r || x < 0 || x >= c;
-    }
-    static void print(int[][] arr){
-        for(int[] row : arr){
-            System.out.println(Arrays.toString(row));
-        }
-        System.out.println();
-    }
-    static void diffusion(){
-        //임시배열 생성
-        int[][] temp = new int[r][c];
-        //먼지 4방향 확산
-        for(int i = 0; i < r; i++){
-            for(int j = 0; j < c; j++){
-                if(notDust(i, j)) continue;
-                int cnt = 0; int value = board[i][j] / 5;
-                for(int d = 0; d < 4; d++){
-                    int ny = i + dy1[d];
-                    int nx = j + dx1[d];
-                    if(isOut(ny, nx) || board[ny][nx] == -1) continue;
-                    temp[ny][nx] += value;
-                    cnt++;
-                }
-                board[i][j] -= cnt* value;
-            }
-        }
+    // 확산 시 사용하는 4방향
+    static int[] dr = {-1, 1, 0, 0};
+    static int[] dc = {0, 0, -1, 1};
 
-        //해당 배열을 board배열에 적용
-        for(int i = 0; i < r; i++){
-            for(int j = 0; j < c; j++){
-                board[i][j] = board[i][j] + temp[i][j];
-            }
-        }
-    }
-    static void move1(int[][] temp){
-        //현재위치에 먼지가 있으면 다음 위치로 먼지 이동
-        //반시계
-        int[] cleaner1 = cleaner[0];
-        int d = 0;
-        int y = cleaner1[0] + dy1[d];
-        int x = cleaner1[1] + dx1[d];
-        while(y != cleaner1[0] || x != cleaner1[1]){
-            //바람이동
-            int ny = y + dy1[d];
-            int nx = x + dx1[d];
-            if(isOut(ny, nx)) {
-                d++;
-                ny = y + dy1[d];
-                nx = x + dx1[d];
-            }
-            //먼지이동
-            temp[ny][nx] = board[y][x];
-            //먼지제거
-            if(ny == cleaner1[0] && nx == cleaner1[1]) temp[ny][nx] = -1;
-            y = ny; x = nx;
-        }
-        //보드 변경
-        d = 0;
-        y += dy1[d]; x += dx1[d];
-        while(y != cleaner1[0] || x != cleaner1[1]){
-            int ny = y + dy1[d];
-            int nx = x + dx1[d];
-            if(isOut(ny, nx)) {
-                d++;
-                ny = y + dy1[d];
-                nx = x + dx1[d];
-            }
-            board[y][x] = temp[y][x];
-            y = ny; x = nx;
-        }
-    }
-    static void move2(int[][] temp){
-        //시계
-        int[] cleaner2 = cleaner[1];
-        int d = 0;
-        int y = cleaner2[0] + dy2[d];
-        int x = cleaner2[1] + dx2[d];
-        while(y != cleaner2[0] || x != cleaner2[1]){
-            //바람이동
-            int ny = y + dy2[d];
-            int nx = x + dx2[d];
-            if(isOut(ny, nx)) {
-                d++;
-                ny = y + dy2[d];
-                nx = x + dx2[d];
-            }
-            //먼지이동
-            if(board[y][x] != 0) temp[ny][nx] = board[y][x];
-            //먼지제거
-            if(ny == cleaner2[0] && nx == cleaner2[1]) temp[ny][nx] = -1;
-            y = ny; x = nx;
-        }
-        //보드변경
-        d = 0;
-        y += dy2[d]; x += dx2[d];
-        while(y != cleaner2[0] || x != cleaner2[1]){
-            int ny = y + dy2[d];
-            int nx = x + dx2[d];
-            if(isOut(ny, nx)) {
-                d++;
-                ny = y + dy2[d];
-                nx = x + dx2[d];
-            }
-            board[y][x] = temp[y][x];
-            y = ny; x = nx;
-        }
-    }
-    static void move(){
-        //임시배열 필요
-        int[][] temp = new int[r][c];
-        move1(temp);
-        move2(temp);
-    }
     public static void main(String[] args) throws IOException {
-        var in = new BufferedReader(new InputStreamReader(System.in));
-        var out = new PrintWriter(System.out);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        var st = new StringTokenizer(in.readLine());
-        r = Integer.parseInt(st.nextToken());
-        c = Integer.parseInt(st.nextToken());
-        t = Integer.parseInt(st.nextToken());
-        int idx = 0;
-        board = new int[r][c];
-        for(int i = 0; i < r; i++){
-            st = new StringTokenizer(in.readLine());
-            for(int j = 0; j < c; j++){
+        R = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
+        T = Integer.parseInt(st.nextToken());
+
+        board = new int[R][C];
+        for (int i = 0; i < R; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < C; j++) {
                 board[i][j] = Integer.parseInt(st.nextToken());
-                if(board[i][j] == -1){
-                    cleaner[idx][0] = i;
-                    cleaner[idx][1] = j;
-                    idx++;
-                }
+                if (board[i][j] == -1) topCleaner = i - 1; // 마지막 -1의 바로 위가 top
             }
         }
 
-        while(t-- > 0){
+        while (T-- > 0) {
             diffusion();
-            move();
+            purify();
         }
-        int ret = 0;
-        for(int i = 0; i < r; i++){
-            for(int j = 0; j < c; j++){
-                if(notDust(i, j)) continue;
-                ret += board[i][j];
+
+        System.out.println(calculateSum());
+    }
+
+    // 1. 미세먼지 확산 (임시 배열 사용)
+    static void diffusion() {
+        int[][] temp = new int[R][C];
+        for (int r = 0; r < R; r++) {
+            for (int c = 0; c < C; c++) {
+                if (board[r][c] <= 0) continue;
+
+                int val = board[r][c] / 5;
+                int cnt = 0;
+                for (int d = 0; d < 4; d++) {
+                    int nr = r + dr[d], nc = c + dc[d];
+                    if (nr >= 0 && nr < R && nc >= 0 && nc < C && board[nr][nc] != -1) {
+                        temp[nr][nc] += val;
+                        cnt++;
+                    }
+                }
+                board[r][c] -= val * cnt;
             }
         }
-        out.println(ret);
-        out.flush();
-        out.close();
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) board[i][j] += temp[i][j];
+        }
+    }
+
+    // 2. 공기청정기 작동 (역방향 당기기)
+    static void purify() {
+        // 위쪽: 반시계 방향의 역순 (위 -> 오 -> 아래 -> 왼 순서로 당기기)
+        operate(topCleaner, new int[]{-1, 0, 1, 0}, new int[]{0, 1, 0, -1});
+        // 아래쪽: 시계 방향의 역순 (아래 -> 오 -> 위 -> 왼 순서로 당기기)
+        operate(topCleaner + 1, new int[]{1, 0, -1, 0}, new int[]{0, 1, 0, -1});
+    }
+
+
+
+    static void operate(int cleanerY, int[] dy, int[] dx) {
+        int y = cleanerY + dy[0]; // 공기청정기로 들어오는 첫 번째 칸
+        int x = 0;
+        int d = 0;
+
+        while (true) {
+            int ny = y + dy[d];
+            int nx = x + dx[d];
+
+            // 한 바퀴 돌아 공기청정기 위치에 도달하면 종료
+            if (ny == cleanerY && nx == 0) {
+                board[y][x] = 0; // 공기청정기에서 나가는 깨끗한 공기
+                break;
+            }
+
+            // 벽을 만나거나 정해진 영역을 벗어나면 방향 전환
+            if (ny < 0 || ny >= R || nx < 0 || nx >= C ||
+                (cleanerY <= topCleaner && ny > topCleaner) ||
+                (cleanerY > topCleaner && ny <= topCleaner)) {
+                d++;
+                continue;
+            }
+
+            // 다음 칸(ny, nx)의 먼지를 현재 칸(y, x)으로 당겨옴
+            board[y][x] = board[ny][nx];
+            y = ny;
+            x = nx;
+        }
+    }
+
+    static int calculateSum() {
+        int sum = 0;
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                if (board[i][j] > 0) sum += board[i][j];
+            }
+        }
+        return sum;
     }
 }
