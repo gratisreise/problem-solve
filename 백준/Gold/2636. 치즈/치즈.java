@@ -1,60 +1,92 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
+public class Main {
+    static int[][] board;
     static int n, m;
-    static int[][] a, visited;
+    static class Point{
+        int y; int x;
+        Point(int y, int x){
+            this.y = y;
+            this.x = x;
+        }
+    }
     static int[] dy = {-1, 0, 1, 0};
     static int[] dx = {0, 1, 0, -1};
-    static int dfs(int y, int x){
-        visited[y][x] = 1;
-        int ret = 0;
-        if(a[y][x] == 1){
-            a[y][x] = 0; visited[y][x] = 1;
-            return 1;
-        }
-        for(int i = 0; i < 4; i++){
-            int ny = y + dy[i];
-            int nx = x + dx[i];
+    static boolean isMelt(int y, int x){
+        for(int d = 0; d < 4; d++){
+            int ny = y + dy[d];
+            int nx = x + dx[d];
             if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-            if(visited[ny][nx] != 0) continue;
-            ret += dfs(ny, nx);
+            if(board[ny][nx] == 0) return true;
         }
-        return ret;
+        return false;
     }
-
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String rs;
-        StringTokenizer st;
-
-        st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        a = new int[n + 4][m + 4];
+    static boolean check(){
         for(int i = 0; i < n; i++){
-            st = new StringTokenizer(br.readLine());
             for(int j = 0; j < m; j++){
-                a[i][j] = Integer.parseInt(st.nextToken());
+                if(board[i][j] == 1) return false;
             }
         }
-        int prev = 0;
-        int ret = 0;
-        while(true){
-            visited = new int[n + 4][m + 4];
-            int sum = dfs(0, 0);
-            if(sum == 0) break;
-            ret++;
-            prev = sum;
+        return true;
+    }
+    static void fill(List<Point> points){
+        Queue<Point> q = new ArrayDeque<>();
+        q.add(new Point(0, 0));
+        int[][] visited = new int[n][m];
+        visited[0][0] = 1;
+        while(!q.isEmpty()){
+            Point now = q.poll();
+            int y = now.y;
+            int x = now.x;
+            if(board[y][x] == 1){
+                points.add(new Point(y, x));
+                continue;
+            }
+            for(int d = 0; d < 4; d++){
+                int ny = y + dy[d];
+                int nx = x + dx[d];
+                if(ny < 0 || nx < 0|| ny >= n || nx >= m) continue;
+                if(visited[ny][nx] != 0) continue;
+                q.add(new Point(ny, nx));
+                visited[ny][nx] = 1;
+            }
         }
-        bw.write(String.valueOf(ret)+'\n');
-        bw.write(String.valueOf(prev)+'\n');
-        bw.flush();
+    }
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
+
+        var st = new StringTokenizer(in.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        board = new int[n][m];
+        for(int i = 0; i < n; i++){
+            st = new StringTokenizer(in.readLine());
+            for(int j = 0; j < m; j++){
+                board[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        int time = 0;
+        int prev = 0; // 녹인 갯수 = 한시간전의 갯수
+        while(true){
+            //보드순회하면서 녹일치즈 좌표저장
+            List<Point> points = new ArrayList<>();
+
+            fill(points);
+
+            prev = points.size();
+            //녹이기
+            for(Point p : points) board[p.y][p.x] = 0;
+            time++;
+            //보드 치즈 체크 후 멈추기
+            if(check()) break;
+        }
+        out.println(time);
+        out.println(prev);
+        //출력
+        out.flush();
+        out.close();
     }
 }
-/*
-1. 치즈녹이기 -> dfs 치즈 도달=> 치즈 지우고 방문처리
-2. 치즈조각 칸갯수 카운트 -> 리스트에 저장한다.
-3. 시간 카운트 -> while 돌리면서 카운트
- */
