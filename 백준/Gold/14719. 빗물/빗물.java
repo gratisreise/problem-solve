@@ -15,18 +15,21 @@ public class Main {
 
         int[] leftMax = new int[w];
         int[] rightMax = new int[w];
-        for(int i = 0; i < w; i++){
-            for(int l = 0; l < i; l++){
-                leftMax[i] = Math.max(leftMax[i], arr[l]);
-            }
-            for(int r = i+1; r < w; r++){
-                rightMax[i] = Math.max(rightMax[i], arr[r]);
-            }
+        
+        leftMax[0] = arr[0];
+        for(int i = 1; i < w; i++){
+            leftMax[i] = Math.max(leftMax[i-1], arr[i]);
+        }
+        
+        rightMax[w-1] = arr[w-1];
+        for(int i = w-2; i >= 0; i--){
+            rightMax[i] = Math.max(rightMax[i+1], arr[i]);
         }
 
         int ret = 0;
         for(int i = 0; i < w; i++){
-            ret += Math.max((Math.min(leftMax[i], rightMax[i]) - arr[i]), 0);
+            int now = (Math.min(leftMax[i], rightMax[i]) - arr[i]);
+            ret += Math.max(now , 0);
         }
         out.println(ret);
 
