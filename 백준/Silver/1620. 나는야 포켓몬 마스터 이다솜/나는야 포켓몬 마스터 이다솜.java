@@ -10,20 +10,21 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        Map<Integer, String> mp1 = new HashMap<>(); // 이름-> 번호
-        Map<String, Integer> mp2 = new HashMap<>(); // 번호-> 이름
+        Map<Integer, String> mp1 = new HashMap<>(); //번호 -> 이름
+        Map<String, Integer> mp2 = new HashMap<>(); //이름 -> 번호
         for(int i = 0; i < n; i++){
-            String s = in.readLine();
-            mp1.put(i+1, s);
-            mp2.put(s, i+1);
+            String name = in.readLine();
+            mp1.put(i+1, name);
+            mp2.put(name, i+1);
         }
+
         for(int i = 0; i < m; i++){
-            String s = in.readLine();
-            if(s.charAt(0) >= '0' && s.charAt(0) <= '9'){
-                int num = Integer.parseInt(s);
-                out.println(mp1.get(num));
+            String input = in.readLine();
+            if(Character.isUpperCase(input.charAt(0))){
+                out.println(mp2.get(input));
             } else {
-                out.println(mp2.get(s));
+                int num = Integer.parseInt(input);
+                out.println(mp1.get(num));
             }
         }
 
