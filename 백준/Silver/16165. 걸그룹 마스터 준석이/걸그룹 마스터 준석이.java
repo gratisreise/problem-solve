@@ -7,30 +7,32 @@ public class Main {
         var out = new PrintWriter(System.out);
 
         var st = new StringTokenizer(in.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        Map<String, List<String>> mp1 = new HashMap<>();
-        Map<String, String> mp2 = new HashMap<>();
+        int n = Integer.parseInt(st.nextToken()); // 걸그룹 수
+        int m = Integer.parseInt(st.nextToken()); // 문제 수
+        Map<String, List<String>> mp1 = new HashMap<>(); // 팀이름 -> 멤버전원
+        Map<String, String> mp2 = new HashMap<>(); // 멤버이름 -> 팀이름
         for(int i = 0; i < n; i++){
             String team = in.readLine();
             int k = Integer.parseInt(in.readLine());
-            List<String> l = new ArrayList<>();
+            mp1.put(team, new ArrayList<>());
             for(int j = 0; j < k; j++){
                 String name = in.readLine();
-                l.add(name);
                 mp2.put(name, team);
+                mp1.get(team).add(name);
             }
-            l.sort(Comparator.naturalOrder());
-            mp1.put(team, l);
         }
+
+        for(var entry : mp1.entrySet()){
+            entry.getValue().sort(String::compareTo);
+        }
+
         for(int i = 0; i < m; i++){
-            String s = in.readLine();
+            String str = in.readLine();
             int cmd = Integer.parseInt(in.readLine());
-            if(cmd == 1){
-                out.println(mp2.get(s));
-            } else {
-                for(String name : mp1.get(s)){
-                    out.println(name);
+            if(cmd == 1) out.println(mp2.get(str));
+            else {
+                for(String s : mp1.get(str)){
+                    out.println(s);
                 }
             }
         }
