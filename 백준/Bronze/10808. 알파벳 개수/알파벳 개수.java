@@ -8,15 +8,11 @@ public class Main {
 
 
         int[] cnt = new int[26];
-
-
         String s = in.readLine();
-        for(char c : s.toCharArray()){
-            cnt[c-'a']++;
-        }
+        for(char c : s.toCharArray()) cnt[c-'a']++;
 
         for(int i : cnt){
-            out.print(i+" ");
+            out.print(i + " ");
         }
 
 
@@ -24,6 +20,3 @@ public class Main {
         out.close();
     }
 }
-/*
-
-*/
