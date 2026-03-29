@@ -1,35 +1,28 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int[] cnt = new int[150];
-
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        int n = Integer.parseInt(br.readLine());
-        
-        for (int i = 0; i < n; i++) {
-            String s = br.readLine();
-            char c = s.charAt(0);
-            cnt[c]++;
+        int n = Integer.parseInt(in.readLine());
+
+        int[] cnt = new int[26];
+        for(int i = 0; i < n; i++){
+            char c = in.readLine().charAt(0);
+            cnt[c- 'a']++;
+        }
+        var ret = new StringBuilder();
+        for(int i = 0; i < 26; i++){
+            if(cnt[i] < 5) continue;
+            ret.append((char)(i + 'a'));
         }
 
-        StringBuilder ret = new StringBuilder();
+        if(ret.length() == 0) out.println("PREDAJA");
+        else out.println(ret);
 
-        for (int i = 97; i <= 122; i++) {
-            if (cnt[i] >= 5) {
-                ret.append((char) i);
-            }
-        }
-
-        if (ret.length() > 0) {
-            System.out.println(ret);
-        } else {
-            System.out.println("PREDAJA");
-        }
+        out.flush();
+        out.close();
     }
 }
