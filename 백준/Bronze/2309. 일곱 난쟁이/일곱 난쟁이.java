@@ -1,52 +1,42 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        int[] a = new int[9];
+        int n = 9;
+        int[] arr = new int[n];
         int sum = 0;
-
-        // 입력
-        for (int i = 0; i < 9; i++) {
-            st = new StringTokenizer(br.readLine());
-            a[i] = Integer.parseInt(st.nextToken());
-            sum += a[i];
+        for(int i = 0; i < n; i++){
+            int num = Integer.parseInt(in.readLine());
+            arr[i] = num;
+            sum += num;
         }
-
-        int num1 = 0;
-        int num2 = 0;
-
-        // 두 난쟁이의 키의 합이 100이 되는 경우 찾기
-        for (int i = 0; i < 9; i++) {
-            for (int j = i + 1; j < 9; j++) {
-                if (sum - a[i] - a[j] == 100) {
-                    num1 = i;
-                    num2 = j;
-                    break;
+        int a =-1, b = -1;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < i; j++){
+                if(sum - arr[i] - arr[j] == 100){
+                    a = i; b = j;
                 }
             }
         }
-
         List<Integer> l = new ArrayList<>();
-
-        // 결과 리스트에 추가
-        for (int i = 0; i < 9; i++) {
-            if (i == num1 || i == num2) continue;
-            l.add(a[i]);
+        for(int i = 0; i < n; i++){
+            if(i == a || i == b) continue;
+            l.add(arr[i]);
+        }
+        l.sort((a1,a2) -> a1 -a2);
+        for(int i : l){
+            out.println(i);
         }
 
-        // 정렬
-        Collections.sort(l);
-
-        // 출력
-        for (int i : l) System.out.println(i);
+        out.flush();
+        out.close();
     }
 }
+/*
+키합 100, 2명 임포스터 전체에서 2명의 경우를 조합으로 구하고 빼서 확인
+오름차순 출력
+*/
