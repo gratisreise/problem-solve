@@ -7,24 +7,18 @@ public class Main {
         var out = new PrintWriter(System.out);
 
         int n = Integer.parseInt(in.readLine());
-
-        Set<String> set = new HashSet<>();
-
+        var set = new HashSet<String>();
         for(int i = 0; i < n; i++){
-            var st  = new StringTokenizer(in.readLine());
+            var st = new StringTokenizer(in.readLine());
             String name = st.nextToken();
             String cmd = st.nextToken();
-            if(cmd.equals("enter")){
-                set.add(name);
-            } else {
-                set.remove(name);
-            }
+            if(cmd.equals("enter")) set.add(name);
+            else set.remove(name);
         }
-        List<String> l = new ArrayList<>(set);
-        Collections.sort(l, Comparator.reverseOrder());
-        for(String s : l){
-            out.println(s);
-        }
+        List<String> names = new ArrayList<>(set);
+        names.sort(Comparator.reverseOrder());
+        for(String name : names) out.println(name);
+
 
         out.flush();
         out.close();
