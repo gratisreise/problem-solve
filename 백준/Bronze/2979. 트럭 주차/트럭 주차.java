@@ -5,17 +5,17 @@ public class Main {
     public static void main(String[] args) throws IOException {
         var in = new BufferedReader(new InputStreamReader(System.in));
         var out = new PrintWriter(System.out);
-
+        StringTokenizer st;
+        
+        st = new StringTokenizer(in.readLine());
+        int A = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
+        int C = Integer.parseInt(st.nextToken());
         int[] cnt = new int[104];
-        String[] nums = in.readLine().split(" ");
-        int A = Integer.parseInt(nums[0]);
-        int B = Integer.parseInt(nums[1]);
-        int C = Integer.parseInt(nums[2]);
-
         for(int i = 0; i < 3; i++){
-            String[] times = in.readLine().split(" ");
-            int a = Integer.parseInt(times[0]);
-            int b = Integer.parseInt(times[1]);
+            st = new StringTokenizer(in.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
             for(int j = a; j < b; j++) cnt[j]++;
         }
         int ret = 0;
