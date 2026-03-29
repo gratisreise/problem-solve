@@ -1,13 +1,19 @@
 import java.io.*;
+import java.util.*;
 
-public class Main{
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String rs = br.readLine();
-        String temp = new StringBuilder(rs).reverse().toString();
-        if(rs.equals(temp)) bw.write("1\n");
-        else bw.write("0\n");
-        bw.flush();
+public class Main {
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
+
+        String s = in.readLine();
+        String reverse = new StringBuilder(s).reverse().toString();
+        if (s.equals(reverse)) {
+            out.println(1);
+        } else out.println(0);
+
+
+        out.flush();
+        out.close();
     }
 }
