@@ -1,27 +1,25 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String rs;
-        StringTokenizer st; // 개행으로 받을 때 유용
+public class Main {
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        rs = br.readLine();
-        String ret = "";
-
-        for(char c : rs.toCharArray()){
-            if('a' <= c && c <= 'z'){
-                if(c + 13 > 'z') ret += (char)(c - 13);
-                else ret += (char)(c + 13);
-            } else if('A' <= c && c <= 'Z'){
-                if(c + 13 > 'Z') ret += (char)(c - 13);
-                else ret += (char)(c + 13);
-            } else ret += c;
+        String s = in.readLine();
+        var ret = new StringBuilder();
+        for(char c : s.toCharArray()){
+            char now = c;
+            if(Character.isUpperCase(now)){
+                now = (char)(((now + 13 - 'A') %26) +'A');
+            } else if(Character.isLowerCase(now)){
+                now = (char)(((now + 13 - 'a') %26) +'a');
+            }
+            ret.append(now);
         }
+        out.println(ret);
 
-        bw.write(ret+'\n');
-        bw.flush();
+        out.flush();
+        out.close();
     }
 }
