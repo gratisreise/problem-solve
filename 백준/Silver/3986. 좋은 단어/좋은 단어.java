@@ -7,24 +7,24 @@ public class Main {
         var out = new PrintWriter(System.out);
 
         int n = Integer.parseInt(in.readLine());
-
-
         int ret = 0;
         for(int i = 0; i < n; i++){
+            var stack =  new ArrayDeque<Character>();
             String s = in.readLine();
-            Deque<Character> dq = new ArrayDeque<>();
             for(char c : s.toCharArray()){
-                if(!dq.isEmpty() && dq.getLast() == c){
-                    dq.pollLast();
-                } else {
-                    dq.addLast(c);
-                }
+                if(!stack.isEmpty() && stack.peek() == c){
+                    stack.pop();
+                } else stack.push(c);
             }
-            if(dq.isEmpty()) ret++;
+            if(stack.isEmpty()) ret++;
         }
-        System.out.println(ret);
+        out.println(ret);
 
         out.flush();
         out.close();
     }
 }
+/*
+같은글자끼리쌍짓기, 선교차 x,
+쌓이면서 같은 글자는 펑 => 남는거 없으면 끝
+*/
