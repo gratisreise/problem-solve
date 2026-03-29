@@ -8,26 +8,25 @@ public class Main {
 
         int n = Integer.parseInt(in.readLine());
         int m = Integer.parseInt(in.readLine());
+        int[] arr = new int[n];
         var st = new StringTokenizer(in.readLine());
-        int[] arr = new int[n + 1];
         for(int i = 0; i < n; i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
-        int limit = 200_000;
-        if(m > limit){
-            System.out.println(0);
-            return;
-        }
+        
+        Arrays.sort(arr);
+        int l = 0, r = arr.length - 1;
         int ret = 0;
-        for(int i = 0; i < n; i++){
-            for(int j = i+1; j < n; j++){
-                if(arr[i] + arr[j] == m){
-                    ret++;
-                }
-            }
+        while(l < r){
+            int sum = arr[l] + arr[r];
+            if(sum == m){
+                ret++;
+                l++; r--;
+            } else if(sum < m){
+                l++;
+            } else r--;
         }
         out.println(ret);
-
         out.flush();
         out.close();
     }
