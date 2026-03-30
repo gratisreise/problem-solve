@@ -1,5 +1,8 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayDeque;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -7,30 +10,32 @@ public class Main {
         var out = new PrintWriter(System.out);
 
         int n = Integer.parseInt(in.readLine());
-        int idx = 1;
-        Deque<Integer> stk = new ArrayDeque<>();
-        List<String> ret = new ArrayList<>();
-        String plus = "+";
-        String minus = "-";
-        for(int i = 0; i < n; i++){
-            int now = Integer.parseInt(in.readLine());
-            while(idx <= now){
-                stk.push(idx++);
-                ret.add(plus);
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++) nums[i] = Integer.parseInt(in.readLine());
+
+        var stk = new ArrayDeque<Integer>();
+        var ret = new StringBuilder();
+
+        int cur = 1; // 다음에 push할 숫자
+
+        for (int num : nums) {
+            // target까지 push
+            while(cur <= num && cur <= n){
+                stk.push(cur++);
+                ret.append("+\n");
             }
-            if(!stk.isEmpty() && stk.peek() != now){
+            // 스택 top이 target과 같으면 pop
+            if(!stk.isEmpty() && stk.peek() == num){
+                stk.pop();
+                ret.append("-\n");
+            } else {
                 System.out.println("NO");
                 return;
             }
-            if(!stk.isEmpty() && stk.peek() == now){
-                stk.pop();
-                ret.add(minus);
-            }
         }
-        for(String s : ret) out.println(s);
 
-
-
+        //모든 연산출력
+        out.println(ret);
         out.flush();
         out.close();
     }
