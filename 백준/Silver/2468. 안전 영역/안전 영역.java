@@ -1,56 +1,62 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
-    static int n;
-    static int[][] a, visited;
-    static int[] dy = {-1, 0, 1, 0};
-    static int[] dx = {0, 1, 0, -1};
-    static void dfs(int y, int x, int d){
-        visited[y][x] = 1;
-        for(int i = 0; i < 4; i++){
-            int ny = y + dy[i];
-            int nx = x + dx[i];
-            if(ny < 0 || nx < 0 || nx >= n || nx >= n) continue;
-            if(a[ny][nx] <= d || visited[ny][nx] != 0) continue;
-            dfs(ny, nx, d);
+public class Main {
+    static class Pair{
+        int y; int x;
+        Pair(int y, int x){
+            this.y = y;
+            this.x = x;
         }
     }
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
+    static int[][] board;
+    static boolean[][] visited;
+    static int n;
+    static int[] dy = {-1, 0, 1, 0}, dx = {0, 1, 0, -1};
+    static void dfs(int y, int x, int h){
+        var stk = new ArrayDeque<Pair>();
+        stk.push(new Pair(y, x));
+        while(!stk.isEmpty()){
+            Pair p = stk.pop();
+            int cy = p.y;
+            int cx = p.x;
+            for(int d = 0; d < 4; d++){
+                int ny = cy + dy[d];
+                int nx = cx + dx[d];
+                if(ny < 0 || nx < 0 || ny >= n || nx >= n) continue;
+                if(visited[ny][nx] || board[ny][nx] <= h) continue;
+                visited[ny][nx] = true;
+                stk.push(new Pair(ny, nx));
+            }
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        a = new int[n + 4][n + 4];
+        n = Integer.parseInt(in.readLine());
+        board = new int[n][n];
         for(int i = 0; i < n; i++){
-            st = new StringTokenizer(br.readLine());
+            var st = new StringTokenizer(in.readLine());
             for(int j = 0; j < n; j++){
-                a[i][j] = Integer.parseInt(st.nextToken());
+                board[i][j] = Integer.parseInt(st.nextToken());
             }
         }
         int ret = -1;
-        for(int d = 0; d <= 100; d++){
+        for(int h = 0; h <= 100; h++){
+            visited = new boolean[n][n];
             int cnt = 0;
-            visited = new int[n + 4][n + 4];
             for(int i = 0; i < n; i++){
                 for(int j = 0; j < n; j++){
-                    if(a[i][j] <= d || visited[i][j] != 0) continue;
-                    dfs(i, j, d); cnt++;
+                    if(board[i][j] <= h || visited[i][j]) continue;
+                    dfs(i, j, h); cnt++;
                 }
             }
-            ret = Math.max(cnt, ret);
+            ret = Math.max(ret, cnt);
         }
-        bw.write(String.valueOf(ret)+'\n');
-        bw.flush();
+        out.println(ret);
+
+        out.flush();
+        out.close();
     }
 }
-/*
-1. 높이정보 2차원 배열에 저장
-2. 0 <= d <= 100 범위에서 최대 영역갯수 체크
-3. 내리는양에 따라 cnt, 방문배열 재할당
-4. 맵을 돌면서 dfs 갯수 체크
-5. 최대값비교
-6. 최댓값 출력
- */
