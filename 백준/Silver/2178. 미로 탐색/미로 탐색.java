@@ -20,9 +20,9 @@ public class Main {
         int[][] board = new int[n][m];
         int[][] visited = new int[n][m];
         for(int i = 0; i < n; i++){
-            char[] line = in.readLine().toCharArray();
+            String line = in.readLine();
             for(int j = 0; j < m; j++){
-                board[i][j] = line[j] - '0';
+                board[i][j] = line.charAt(j) - '0';
             }
         }
         visited[0][0] = 1;
