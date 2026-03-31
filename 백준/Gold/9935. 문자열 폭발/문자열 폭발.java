@@ -6,43 +6,28 @@ public class Main {
         var in = new BufferedReader(new InputStreamReader(System.in));
         var out = new PrintWriter(System.out);
 
-        String str = in.readLine();
-        String bomb = in.readLine();
-        int strLen = str.length();
-        int bombLen = bomb.length();
-
-        // char 배열을 스택처럼 사용 (손가락 보호 + 성능 최강)
-        char[] result = new char[strLen];
-        int size = 0;
-
-        for (int i = 0; i < strLen; i++) {
-            result[size++] = str.charAt(i); // 일단 넣는다!
-
-            // 스택에 쌓인 글자가 폭발 문자열보다 길면 검사 시작
-            if (size >= bombLen) {
-                boolean isBomb = true;
-                for (int j = 0; j < bombLen; j++) {
-                    // 뒤에서부터 비교
-                    if (result[size - bombLen + j] != bomb.charAt(j)) {
-                        isBomb = false;
-                        break;
-                    }
-                }
-
-                if (isBomb) {
-                    size -= bombLen; // 폭발! 포인터만 뒤로 밀면 끝 (O(1))
-                }
+        char[] str = in.readLine().toCharArray();
+        String s = in.readLine();
+        int len = s.length();
+        char last = s.charAt(len-1);
+        var stk = new ArrayDeque<Character>();
+        for(char c : str){
+            stk.addLast(c);
+            if(stk.size() >= len && stk.peekLast() == last){
+                var temp = new StringBuilder();
+                for(int i = 0; i < len; i++) temp.append(stk.pollLast());
+                if(temp.reverse().toString().equals(s)) continue;
+                for(int i = 0; i < len ; i++) stk.addLast(temp.charAt(i));
             }
         }
-
-        if (size == 0) {
+        if(stk.isEmpty()){
             out.println("FRULA");
         } else {
-            // 남은 만큼만 빌더에 담기
-            var sb = new StringBuilder();
-            for (int i = 0; i < size; i++) sb.append(result[i]);
-            out.println(sb);
+            var ret = new StringBuilder();
+            while(!stk.isEmpty()) ret.append(stk.pollFirst());
+            out.println(ret);
         }
+
 
         out.flush();
         out.close();
