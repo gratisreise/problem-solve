@@ -1,55 +1,35 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
-    static int n, p, d, ret;
-    static class Pair{
-        int d, p;
-        Pair(int d, int p){
-            this.d = d;
-            this.p = p;
-        }
-    }
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
-        st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        List<Pair> l = new ArrayList<>();
-        PriorityQueue<Integer> pq = new PriorityQueue();
+public class Main {
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
+
+        int n = Integer.parseInt(in.readLine());
+        var l = new ArrayList<int[]>();
+
+
         for(int i = 0; i < n; i++){
-            st = new StringTokenizer(br.readLine());
+            var st = new StringTokenizer(in.readLine());
             int p = Integer.parseInt(st.nextToken());
             int d = Integer.parseInt(st.nextToken());
-            l.add(new Pair(d, p));
+            l.add(new int[]{d, p});
         }
-        
-        Collections.sort(l, (a, b) -> Integer.compare(a.d, b.d));
 
-        for(Pair p : l){
-            ret += p.p;
-            pq.add(p.p);
-            while(pq.size() > p.d){
-                ret -= pq.poll();
+        l.sort((a,b) -> a[0]-b[0]);
+        var pq = new PriorityQueue<Integer>();
+        for(int[] arr : l){
+            pq.add(arr[1]);
+            while(!pq.isEmpty() && pq.size() > arr[0]){
+                pq.poll();
             }
         }
-        bw.write(String.valueOf(ret)+'\n');
-        bw.flush();
-        bw.close();
-        br.close();
+        int ret = 0;
+        while(!pq.isEmpty()) ret += pq.poll();
+        out.println(ret);
+
+        out.flush();
+        out.close();
     }
 }
-/*
-1. 날짜 기준 오름차 정렬
-2. 리스트에 저장
-3. 리스트를 순회
-    3-1. 오름차 pq에 가격을 저장
-    3-2. ret에 가격 더하기
-    3-2. pq의 크기가 날짜보다 큰지 확인
-        3-2-1.크면
-            날짜에 해당하는 값중 최대가 아닌게 있으므로 ret에 가격 빼기
-        3-2-2.작거나같으면
-            날짜에 해당하는 값중 최대값이다.
-4. ret 출력!!
-*/
