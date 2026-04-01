@@ -1,42 +1,43 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static int n;
-    static char[][] a = new char[65][65];
 
-    static String go(int y, int x, int n) {
-        if (n == 1) return String.valueOf(a[y][x]);
-        char b = a[y][x];
-        StringBuilder ret = new StringBuilder();
-        
-        for (int i = y; i < y + n; i++) {
-            for (int j = x; j < x + n; j++) {
-                if (a[i][j] != b) {
+    static char[][] board;
+    static String quad(int y, int x, int size){
+        if(size == 1) return board[y][x]+"";
+        char a = board[y][x];
+        var ret = new StringBuilder();
+        for(int i = y; i < y + size; i++){
+            for(int j = x; j < x + size; j++){
+                if(board[i][j] != a){
                     ret.append("(");
-                    ret.append(go(y, x, n / 2));
-                    ret.append(go(y, x + n / 2, n / 2));
-                    ret.append(go(y + n / 2, x, n / 2));
-                    ret.append(go(y + n / 2, x + n / 2, n / 2));
+                    ret.append(quad(y, x, size / 2));
+                    ret.append(quad(y, x + size/2, size/2));
+                    ret.append(quad(y+size/2, x, size/2));
+                    ret.append(quad(y+size/2, x + size/2, size/2));
                     ret.append(")");
                     return ret.toString();
                 }
             }
         }
-        
-        return String.valueOf(a[y][x]);
+        return ""+a;
     }
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
+        int n = Integer.parseInt(in.readLine());
+        board = new char[n][n];
 
-        for (int i = 0; i < n; i++) {
-            String line = sc.next();
-            for (int j = 0; j < n; j++) {
-                a[i][j] = line.charAt(j);
-            }
+        for(int i = 0; i < n; i++){
+            board[i] = in.readLine().toCharArray();
         }
 
-        System.out.println(go(0, 0, n));
+        out.println(quad(0, 0, n));
+
+
+        out.flush();
+        out.close();
     }
 }
