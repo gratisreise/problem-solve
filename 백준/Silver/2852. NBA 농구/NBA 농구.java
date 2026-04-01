@@ -2,55 +2,44 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-
-    static int calc(String prev, String now){
-        int prevS = mToS(prev);
-        int nowS = mToS(now);
-        return nowS - prevS;
-    }
     static int mToS(String time){
-        String[] s = time.split(":");
-        int m = Integer.parseInt(s[0]) * 60;
-        int ss = Integer.parseInt(s[1]);
-        return m + ss;
+        String[] times = time.split(":");
+        int m = Integer.parseInt(times[0]) * 60;
+        int s = Integer.parseInt(times[1]);
+        return m + s;
     }
-    static String con(int second){
-        String min = "00" + (second / 60);
-        String sec = "00" + (second % 60);
-        return min.substring(min.length()-2) +":"+sec.substring(sec.length()-2);
+    static int count(String prev, String now) {
+        return mToS(now) - mToS(prev);
+    }
+    static String sToM(int time){
+        String m = ("00" + time/60);
+        String s = ("00" + time%60);
+        return m.substring(m.length()-2) + ":" +s.substring(s.length()-2);
     }
     public static void main(String[] args) throws IOException {
         var in = new BufferedReader(new InputStreamReader(System.in));
         var out = new PrintWriter(System.out);
-        int[] score = new int[3];
-        int[] time = new int[3];
 
         int n = Integer.parseInt(in.readLine());
-
+        int a = 0, b = 0; //점수
+        int A = 0, B = 0; //유리시간
         String prev = "00:00";
         for(int i = 0; i < n; i++){
             var st = new StringTokenizer(in.readLine());
-            int teamNum = Integer.parseInt(st.nextToken());
-            String now = st.nextToken();
-            //지금까지 시간 계산해서 이긴 상태 팀넣어주기
-            if(score[1] > score[2]){
-                time[1] += calc(prev, now);
-            } else if(score[1] < score[2]){
-                time[2] += calc(prev, now);
-            }
-            score[teamNum]++; //점수계산
-            prev = now;
+            int team = Integer.parseInt(st.nextToken());
+            String time = st.nextToken();
+            if(a > b) A += count(prev, time);
+            else if(a < b) B += count(prev, time);
+            if(team == 1) a++; else b++;
+            prev = time;
         }
 
         String end = "48:00";
-        if(score[1] > score[2]){
-            time[1] += calc(prev, end);
-        } else if(score[1] < score[2]){
-            time[2] += calc(prev, end);
-        }
+        if(a > b) A += count(prev, end);
+        else if(a < b) B += count(prev, end);
+        out.println(sToM(A));
+        out.println(sToM(B));
 
-        out.println(con(time[1]));
-        out.println(con(time[2]));
         out.flush();
         out.close();
     }
