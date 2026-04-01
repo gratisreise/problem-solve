@@ -1,21 +1,26 @@
-import java.util.*;
+import java.io.*;
 
 public class Main {
-    static int t, n, ret2, ret5;
+    public static void main(String[] args) throws IOException {
+        // 1. 빠른 입출력을 위한 설정
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        t = sc.nextInt();
-        while (t-- > 0) {
-            n = sc.nextInt();
-            ret2 = ret5 = 0;
-            for (int i = 2; i <= n; i *= 2) {
-                ret2 += n / i;
+        // 2. 테스트 케이스 개수 입력
+        int T = Integer.parseInt(br.readLine());
+
+        while (T-- > 0) {
+            int N = Integer.parseInt(br.readLine());
+            int count = 0;
+            for (int i = 5; i <= N; i *= 5) {
+                count += N / i;
+                if (N / 5 < i) break; 
             }
-            for (int i = 5; i <= n; i *= 5) {
-                ret5 += n / i;
-            }
-            System.out.println(Math.min(ret2, ret5));
+
+            sb.append(count).append("\n");
         }
+
+        // 4. 결과 한꺼번에 출력
+        System.out.print(sb.toString());
     }
 }
