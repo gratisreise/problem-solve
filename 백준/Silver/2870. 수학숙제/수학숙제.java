@@ -2,47 +2,50 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static boolean isNumber(char c){
-        return c >= '0' && c <= '9';
-    }
-    static String cut(String s){
+    // 앞의 0을 제거하는 메서드 (학생의 cut과 로직은 비슷하지만 더 간결하게!)
+    static String cleanZero(String s) {
         int idx = 0;
-        while(idx < s.length() && s.charAt(idx) == '0'){
+        // 0이 아닌 숫자가 나올 때까지 인덱스 이동
+        while(idx < s.length() - 1 && s.charAt(idx) == '0'){
             idx++;
         }
-        return idx == s.length() ? "0" : s.substring(idx);
+        return s.substring(idx);
     }
+
     public static void main(String[] args) throws IOException {
-        var in = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         var out = new PrintWriter(System.out);
 
-        int n = Integer.parseInt(in.readLine());
-        List<String> l = new ArrayList<>();
+        int n = Integer.parseInt(br.readLine());
+        List<String> list = new ArrayList<>();
+
         for(int i = 0; i < n; i++){
-            String s = in.readLine();
-            int len = s.length();
-            for(int j = 0; j < len; j++) {
-                int temp = j;
-                var sb = new StringBuilder();
-                while (temp < len && isNumber(s.charAt(temp))) {
-                    sb.append(s.charAt(temp++));
+            String line = br.readLine();
+            StringBuilder sb = new StringBuilder();
+
+            for(int j = 0; j < line.length(); j++){
+                char c = line.charAt(j);
+                if(Character.isDigit(c)){
+                    sb.append(c);
+                } else {
+                    if(sb.length() > 0){
+                        list.add(cleanZero(sb.toString()));
+                        sb.setLength(0);
+                    }
                 }
-                j = temp;
-                if(sb.length() > 0) l.add(sb.toString());
             }
+            //끝처리
+            if(sb.length() > 0) list.add(cleanZero(sb.toString()));
         }
-        var ret = new ArrayList<String>();
-        for(String s : l){
-            if(s.charAt(0) == '0') ret.add(cut(s));
-            else ret.add(s);
-        }
-        ret.sort((a, b) -> {
+
+        list.sort((a, b) ->{
             if(a.length() == b.length()) return a.compareTo(b);
             return a.length() - b.length();
         });
-        for(String s : ret) out.println(s);
 
-
+        // 결과 출력
+        for (String s : list) out.println(s);
+        
         out.flush();
         out.close();
     }
