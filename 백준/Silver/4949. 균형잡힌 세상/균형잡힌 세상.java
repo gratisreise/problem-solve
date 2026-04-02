@@ -1,20 +1,36 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            String s = sc.nextLine();
-            if (s.equals(".")) break;
-            Stack<Character> stk = new Stack<>();
-            for (char c : s.toCharArray()) {
-                if (c != '(' && c != ')' && c != '[' && c != ']') continue;
-                if (!stk.isEmpty() && c == ')' && stk.peek() == '(') stk.pop();
-                else if (!stk.isEmpty() && c == ']' && stk.peek() == '[') stk.pop();
-                else stk.push(c);
+    static boolean isIn(char c){
+        return c == '[' || c == ']' || c == '(' || c == ')';
+    }
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
+
+        while(true){
+            String s = in.readLine();
+            if(s.equals(".")) break;
+            var stk = new ArrayDeque<Character>();
+            for(char c : s.toCharArray()){
+                if(!isIn(c)) continue;
+                if(c == '[' || c == ']'){
+                    if(!stk.isEmpty() && stk.peekLast() == '[' && c == ']'){
+                        stk.pollLast();
+                    } else stk.addLast(c);
+                } else if(c == '(' || c == ')'){
+                    if(!stk.isEmpty() && stk.peekLast() == '(' && c == ')'){
+                        stk.pollLast();
+                    } else stk.addLast(c);
+                }
             }
-            if (stk.isEmpty()) System.out.println("yes");
-            else System.out.println("no");
+            if(stk.isEmpty()) out.println("yes");
+            else out.println("no");
         }
+
+
+        out.flush();
+        out.close();
     }
 }
