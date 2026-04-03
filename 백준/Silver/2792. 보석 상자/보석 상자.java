@@ -2,43 +2,45 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-   public static void main(String[] args) throws IOException {
-       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-       StringTokenizer st = new StringTokenizer(br.readLine());
-       long n = Long.parseLong(st.nextToken());
-       long m = Long.parseLong(st.nextToken());
-       long[] a = new long[(int) m];
 
-       long hi = 0;
-       for (int i = 0; i < m; i++) {
-           a[i] = Long.parseLong(br.readLine());
-           hi = Math.max(hi, a[i]);
-       }
+    static int[] stones;
+    static int n, m;
+    static boolean check(long mid){
+        int cnt = 0;
+        for(int i = 0; i < m; i++){
+            cnt += stones[i]/ mid;
+            if(stones[i] % mid > 0) cnt++;
+        }
+        return cnt <= n;
+    }
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-       long lo = 1;
-       long ret = Long.MAX_VALUE;
+        var st = new StringTokenizer(in.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        stones = new int[m];
+        long r = -1;
+        for(int i = 0; i < m; i++) {
+            stones[i] = Integer.parseInt(in.readLine());
+            r = Math.max(r, stones[i]);
+        }
+        long l = 1;
 
-       while (lo <= hi) {
-           long mid = (lo + hi) / 2;
-           if (check(a, n, m, mid)) {
-               ret = Math.min(ret, mid);
-               hi = mid - 1;
-           } else {
-               lo = mid + 1;
-           }
-       }
+        long ret = -1;
+        while(l <= r){
+            long mid = (l + r) / 2;
+            if(check(mid)){
+                r = mid - 1;
+                ret = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
 
-       System.out.println(ret);
-   }
-
-   private static boolean check(long[] a, long n, long m, long mid) {
-       long num = 0;
-       for (int i = 0; i < m; i++) {
-           num += a[i] / mid;
-           if (a[i] % mid != 0) {
-               num++;
-           }
-       }
-       return n >= num;
-   }
+        out.println(ret);
+        out.flush();
+        out.close();
+    }
 }
