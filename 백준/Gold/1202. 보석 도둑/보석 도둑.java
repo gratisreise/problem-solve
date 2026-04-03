@@ -1,60 +1,41 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
-    static int n, k;
-    static long ret;
+public class Main {
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-    static class Pair{
-        long m, v;
-        Pair(long m, long v){
-            this.m = m;
-            this.v = v;
+        var st = new StringTokenizer(in.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+        var pq1 = new PriorityQueue<int[]>((a, b) -> a[0] - b[0]); //보석pq
+        for(int i = 0 ; i < n; i++){
+            st = new StringTokenizer(in.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            pq1.add(new int[]{a, b});
         }
-    }
-    public static void main(String args[]) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
 
-        st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        k = Integer.parseInt(st.nextToken());
-
-        List<Pair> l = new ArrayList<>();
-        List<Long> g = new ArrayList<>();
-        PriorityQueue<Long> pq = new PriorityQueue<>(Collections.reverseOrder());
-
-        for(int i = 0; i < n; i++){
-            st = new StringTokenizer(br.readLine());
-            long a = Long.parseLong(st.nextToken());
-            long b = Long.parseLong(st.nextToken());
-            l.add(new Pair(a, b));
-        }
+        var l = new ArrayList<Integer>();
         for(int i = 0; i < k; i++){
-            long num = Long.parseLong(br.readLine());
-            g.add(num);
+            l.add(Integer.parseInt(in.readLine()));
         }
-
-        Collections.sort(l, (a, b) -> Long.compare(a.m, b.m));
-        Collections.sort(g);
-
-        for(int i = 0, j = 0; i < k; i++){
-            while(j < n && l.get(j).m <= g.get(i)){
-                pq.add(l.get(j).v);
-                j++;
+        l.sort((a, b) -> a - b);
+        var pq2 = new PriorityQueue<Integer>((a, b) -> b - a); //보석 가치pq
+        long ret = 0;
+        for(int bag : l){
+            while(!pq1.isEmpty() && pq1.peek()[0] <= bag){
+                int[] temp = pq1.poll();
+                pq2.add(temp[1]);
             }
-            if(!pq.isEmpty()) ret += pq.poll();
+            if(!pq2.isEmpty()) ret += pq2.poll();
         }
-        bw.write(String.valueOf(ret)+'\n');
-        bw.flush();
-        bw.close();
-        br.close();
+        out.println(ret);
+
+
+
+        out.flush();
+        out.close();
     }
 }
-
-/*
-아이디어:
-가방을 무게순으로 오름차로 배열하고 내림차 우선순위큐에 가격을 담는다
-해당 무게에 해당하는 가격 중 가장비싼 가격을 ret에 더한다.
-*/
