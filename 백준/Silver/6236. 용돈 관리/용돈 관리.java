@@ -1,37 +1,48 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    static long n, m;
-    static int lo, hi, mid, ret;
-    static int[] a = new int[100004];
+    static int n, m;
+    static int[] arr;
     static boolean check(int mid){
-        int cnt = 1, temp = mid;
-        for(int i = 0; i < n; i++){
-            if(temp < a[i]){
-                temp = mid;
+        int cnt = 0;
+        int temp = 0;
+        for(int money : arr){
+            if(money > mid) return false;
+            if(temp - money < 0){
+                temp = mid - money;
                 cnt++;
-            }
-            temp -= a[i];
+            } else temp -= money;
         }
         return cnt <= m;
     }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        n = sc.nextLong();
-        m = sc.nextLong();
+    public static void main(String[] args) throws IOException {
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        for(int i = 0; i < n; i++){
-            a[i] = sc.nextInt();
-            lo = Math.max(lo, a[i]);
+        var st = new StringTokenizer(in.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        arr = new int[n];
+        int l = 1, r = 0;
+        for(int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(in.readLine());
+            r += arr[i];
         }
-        hi = 1_000_000_004;
-        while(lo <= hi){
-            mid = (lo + hi) / 2;
-            if(check(mid)){
-                hi = mid - 1;
-                ret = mid;
-            } else lo = mid + 1;
+        int k = 0;
+        while(l <= r){
+            int mid = (l + r) / 2;
+            if(check(mid)){ // 가능하면 줄이고
+                r = mid - 1;
+                k = mid;
+            } else{ // 안되면 늘리고
+                l = mid + 1;
+            }
         }
-        System.out.println(ret);
+
+        out.println(k);
+
+        out.flush();
+        out.close();
     }
 }
