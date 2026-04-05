@@ -2,43 +2,46 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static final int INF = 1000000000;
-    static final int MAX = 16;
     static int n;
-    static int[][] dist = new int[MAX][MAX];
-    static int[][] dp = new int[MAX][1 << MAX];
-
-    public static int tsp(int here, int visited) {
-        if (visited == (1 << n) - 1) {
-            return dist[here][0] != 0 ? dist[here][0] : INF;
+    static int[][] dp, w;
+    static final int INF = 16_000_000;
+    static int go(int now, int visit){
+        if(visit  == (1 << n) - 1){
+            if(w[now][0] == 0) return INF;
+            return w[now][0];
         }
-
-        if (dp[here][visited] != 0) {
-            return dp[here][visited];
+        if(dp[now][visit] != -1) return dp[now][visit];
+        dp[now][visit] = INF;
+        for(int next = 0; next < n; next++){
+            if(w[now][next] != 0 && (visit & (1 << next)) == 0){
+                int res = go(next, visit | (1 << next));
+                dp[now][visit] = Math.min(dp[now][visit], res + w[now][next]);
+            }
         }
-
-        int ret = INF;
-        for (int i = 0; i < n; i++) {
-            if ((visited & (1 << i)) != 0) continue;
-            if (dist[here][i] == 0) continue;
-            ret = Math.min(ret, dist[here][i] + tsp(i, visited | (1 << i)));
-        }
-
-        dp[here][visited] = ret;
-        return ret;
+        return dp[now][visit];
     }
-
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
+        var in = new BufferedReader(new InputStreamReader(System.in));
+        var out = new PrintWriter(System.out);
 
-        for (int i = 0; i < n; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < n; j++) {
-                dist[i][j] = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(in.readLine());
+        w = new int[n][n];
+        for(int i = 0; i < n; i++){
+            var st = new StringTokenizer(in.readLine());
+            for(int j = 0; j < n; j++){
+                w[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
-        System.out.println(tsp(0, 1));
+        dp = new int[n][1 << n];
+        for(int i = 0; i < n; i++){
+            Arrays.fill(dp[i], -1);
+        }
+
+        out.println(go(0, 1));
+
+
+        out.flush();
+        out.close();
     }
 }
