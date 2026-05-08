@@ -1,2 +1,3 @@
-def solution(n): 
-    return sum(int(i) for i in list(str(n)))
+def solution(n):
+    n = str(n)    
+    return sum(int(c) for c in n)
