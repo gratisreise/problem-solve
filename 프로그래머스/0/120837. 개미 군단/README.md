@@ -1,10 +1,10 @@
 # [level 0] 개미 군단 - 120837 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120837) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120837?language=python3) 
 
 ### 성능 요약
 
-메모리: 33.4 MB, 시간: 0.03 ms
+메모리: 9.08 MB, 시간: 0.00 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 10월 07일 09:41:02
+2026년 05월 09일 20:21:11
 
 ### 문제 설명
 
