@@ -1,5 +1,2 @@
 def solution(num_str):
-    answer = 0
-    for i in num_str:
-        answer += int(i)
-    return answer
+    return sum(int(c) for c in num_str)
