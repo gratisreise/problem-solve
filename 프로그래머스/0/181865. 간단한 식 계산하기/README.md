@@ -1,10 +1,10 @@
 # [level 0] 간단한 식 계산하기 - 181865 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181865) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181865?language=python3) 
 
 ### 성능 요약
 
-메모리: 80.4 MB, 시간: 0.15 ms
+메모리: 9 MB, 시간: 0.02 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 09월 26일 14:24:46
+2026년 05월 11일 08:44:13
 
 ### 문제 설명
 
