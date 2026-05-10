@@ -1,5 +1,5 @@
 def solution(arr, n):
-    for i in range(len(arr)):
-        if len(arr) % 2 != 0 and i % 2 == 0: arr[i] += n
-        elif len(arr) % 2 == 0 and i % 2 != 0: arr[i] += n
-    return arr
+    if len(arr) % 2 == 1:
+        return [arr[i] + n if i % 2 == 0 else arr[i] for i in range(len(arr)) ]
+    else:
+        return [arr[i] + n if i % 2 == 1 else arr[i] for i in range(len(arr)) ]
