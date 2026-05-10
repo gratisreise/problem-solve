@@ -1,10 +1,10 @@
 # [level 0] 뒤에서 5등까지 - 181853 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181853) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181853?language=python3) 
 
 ### 성능 요약
 
-메모리: 71 MB, 시간: 0.52 ms
+메모리: 9.11 MB, 시간: 0.00 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 09월 25일 11:52:12
+2026년 05월 10일 10:03:18
 
 ### 문제 설명
 
