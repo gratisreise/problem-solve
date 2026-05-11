@@ -1,10 +1,10 @@
 # [level 0] n보다 커질 때까지 더하기 - 181884 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181884) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181884?language=python3) 
 
 ### 성능 요약
 
-메모리: 71.3 MB, 시간: 0.03 ms
+메모리: 9.01 MB, 시간: 0.00 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 09월 26일 11:22:23
+2026년 05월 11일 10:51:57
 
 ### 문제 설명
 
@@ -63,21 +63,40 @@
 <ul>
 <li>예제 1번의 <code>numbers</code>를 문제 설명대로 더해가는 과정을 나타내면 다음의 표와 같습니다.</li>
 </ul>
-
-<p>|i|numbers[i]|sum|</p>
-
-<p>|---|---|---|</p>
-
-<p>|||0|</p>
-
-<p>|0|34|34|</p>
-
-<p>|1|5|39|</p>
-
-<p>|2|71|110|</p>
-
-<p>|3|29|139|</p>
-<div class="highlight"><pre class="codehilite"><code>29를 더한 뒤에 sum 값은 139이고 `n` 값인 123보다 크므로 139를 return 합니다.
+<table class="table">
+        <thead><tr>
+<th>i</th>
+<th>numbers[i]</th>
+<th>sum</th>
+</tr>
+</thead>
+        <tbody><tr>
+<td></td>
+<td></td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>34</td>
+<td>34</td>
+</tr>
+<tr>
+<td>1</td>
+<td>5</td>
+<td>39</td>
+</tr>
+<tr>
+<td>2</td>
+<td>71</td>
+<td>110</td>
+</tr>
+<tr>
+<td>3</td>
+<td>29</td>
+<td>139</td>
+</tr>
+</tbody>
+      </table><div class="highlight"><pre class="codehilite"><code>29를 더한 뒤에 sum 값은 139이고 `n` 값인 123보다 크므로 139를 return 합니다.
 </code></pre></div>
 <ul>
 <li>예제 2번의 <code>numbers</code>의 마지막 원소 전까지의 원소를 sum에 더하면 139입니다. 139는 <code>n</code> 값인 139보다 크지 않고 마지막 원소인 100을 더하면 139보다 커지므로 239를 return 합니다.</li>
