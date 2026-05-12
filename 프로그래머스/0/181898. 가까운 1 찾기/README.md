@@ -1,10 +1,10 @@
 # [level 0] 가까운 1 찾기 - 181898 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181898) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181898?language=python3) 
 
 ### 성능 요약
 
-메모리: 85.4 MB, 시간: 0.42 ms
+메모리: 10.4 MB, 시간: 0.41 ms
 
 ### 구분
 
@@ -16,11 +16,11 @@
 
 ### 제출 일자
 
-2024년 09월 26일 16:12:00
+2026년 05월 12일 18:01:09
 
 ### 문제 설명
 
-<p>정수 배열 <code>arr</code>가 주어집니다. 이때 <code>arr</code>의 원소는 1 또는 0입니다. 정수 <code>idx</code>가 주어졌을 때, <code>idx</code>보다 크면서 배열의 값이 1인 가장 작은 인덱스를 찾아서 반환하는 solution 함수를 완성해 주세요.</p>
+<p>정수 배열 <code>arr</code>가 주어집니다. 이때 <code>arr</code>의 원소는 1 또는 0입니다. 정수 <code>idx</code>가 주어졌을 때, <code>idx</code>보다 크거나 같으면서 배열의 값이 1인 가장 작은 인덱스를 찾아서 반환하는 solution 함수를 완성해 주세요.</p>
 
 <p>단, 만약 그러한 인덱스가 없다면 -1을 반환합니다.</p>
 
@@ -29,7 +29,7 @@
 <h5>제한사항</h5>
 
 <ul>
-<li>3 ≤ <code>arr</code>의 길이 ≤ 100'000
+<li>3 ≤ <code>arr</code>의 길이 ≤ 100,000
 
 <ul>
 <li><code>arr</code>의 원소는 전부 1 또는 0입니다. </li>
