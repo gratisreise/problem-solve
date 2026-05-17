@@ -1,21 +1,16 @@
 import java.util.*;
 class Solution {
     public long solution(long n) {
-        String s = "" + n;
-        int[] arr = new int[s.length()];
-        String temp = "";
-        for(int i = 0; i < s.length(); i++){
-            arr[i] = s.charAt(i) - '0';
+        String temp = String.valueOf(n);
+        String ret = "";
+        List<Integer> l = new ArrayList<>();
+        for(char c : temp.toCharArray()){
+            l.add(c - '0');
         }
-        Arrays.sort(arr);
-        s = "";
-        for(int i = arr.length-1; i >= 0; i--){
-                s += ("" + arr[i]);
+        Collections.sort(l);
+        for(int i = l.size()-1; i >= 0; i--){
+            ret += l.get(i);
         }
-        long ret = Long.parseLong(s);
-        
-        
-        
-        return ret;
+        return Long.parseLong(ret);
     }
 }
