@@ -1,1 +1,7 @@
-def solution(myString, pat): return sum(1 for i in range(len(pat), len(myString) + 1) if pat == myString[i-len(pat):i])
+def solution(myString, pat):
+    if len(pat) > len(myString):
+        return 0
+    
+    return sum(1 for i in range(0, len(myString) - len(pat)+1) if myString[i:i+len(pat)] == pat)
+        
+        
