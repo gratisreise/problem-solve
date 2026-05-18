@@ -1,3 +1,21 @@
-import re
-def solution(myStr): 
-    return ["EMPTY"] if not [s for s in re.split("a|b|c", myStr) if s] else [s for s in re.split("a|b|c", myStr) if s] 
+
+def spplit(s):
+    deli = ['a', 'b', 'c']
+    temp = ''
+    ret = []
+    for c in s:
+        if c in deli:
+            if temp:
+                ret.append(temp)
+            temp = ''
+            continue
+        temp += c
+    if temp:
+        ret.append(temp)
+    if not ret:
+        ret.append("EMPTY")
+    return ret
+    
+
+def solution(myStr):
+    return spplit(myStr)
