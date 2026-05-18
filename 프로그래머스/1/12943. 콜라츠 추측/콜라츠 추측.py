@@ -1,15 +1,9 @@
 def solution(num):
-    ret = 0
-    while num != 1:
-        if num % 2:
-            num = 3 * num + 1
-        else:
+    cnt = 0
+    while cnt < 500 and num != 1:
+        if num % 2 == 0:
             num //= 2
-        ret += 1
-        if ret >= 500: return -1
-    return ret
-"""
-
-
-
-"""
+        else:
+            num = num * 3 + 1
+        cnt += 1
+    return cnt if num == 1 else -1
