@@ -1,6 +1,8 @@
 def solution(arr, flag):
-    ret = []
-    for i, f in enumerate(flag):
-        if f: ret.extend([arr[i]] * (arr[i] * 2))
-        else: ret = ret[:-arr[i]]
+    ret = []  
+    for i, x in enumerate(arr):
+        if flag[i]:
+            ret += [x] * (2*x)
+        else:
+            ret = ret[:(len(ret) - x)]
     return ret
