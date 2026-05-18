@@ -1,2 +1,7 @@
-def solution(myString, pat): 
-    return myString[0:max( i for i in range(len(myString)-len(pat)+1) if myString[i:i+len(pat)] == pat)+len(pat)]
+def solution(myString, pat):
+    ret = ''
+    for i in range(len(myString)+1):
+        if myString[:i].endswith(pat):
+            ret = myString[:i]
+    return ret
+        
