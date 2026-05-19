@@ -1,10 +1,10 @@
 # [level 0] 모스부호 (1) - 120838 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120838) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120838?language=python3) 
 
 ### 성능 요약
 
-메모리: 75.1 MB, 시간: 0.31 ms
+메모리: 9.17 MB, 시간: 0.01 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 09일 16:26:06
+2026년 05월 19일 09:10:56
 
 ### 문제 설명
 
