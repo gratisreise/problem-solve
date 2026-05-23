@@ -1,10 +1,10 @@
 # [level 0] 잘라서 배열로 저장하기 - 120913 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120913) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120913?language=python3) 
 
 ### 성능 요약
 
-메모리: 75.9 MB, 시간: 1.84 ms
+메모리: 9.16 MB, 시간: 0.01 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 09월 28일 13:09:21
+2026년 05월 23일 11:28:18
 
 ### 문제 설명
 
