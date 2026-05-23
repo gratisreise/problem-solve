@@ -1,10 +1,10 @@
 # [level 1] 가운데 글자 가져오기 - 12903 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12903) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12903?language=python3) 
 
 ### 성능 요약
 
-메모리: 77 MB, 시간: 0.01 ms
+메모리: 9.18 MB, 시간: 0.00 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 09일 16:38:04
+2026년 05월 23일 11:17:03
 
 ### 문제 설명
 
