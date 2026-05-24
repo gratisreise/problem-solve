@@ -1,10 +1,10 @@
 # [level 0] 문자열 여러 번 뒤집기 - 181913 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181913) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181913?language=python3) 
 
 ### 성능 요약
 
-메모리: 81.9 MB, 시간: 1.29 ms
+메모리: 9.27 MB, 시간: 10.32 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 09월 30일 09:08:20
+2026년 05월 24일 13:37:48
 
 ### 문제 설명
 
@@ -57,21 +57,34 @@
 <ul>
 <li>예제 1번의 <code>my_string</code>은 "rermgorpsam"이고 주어진 <code>queries</code>를 순서대로 처리하면 다음과 같습니다.</li>
 </ul>
-
-<p>|queries|my_string|</p>
-
-<p>|---|---|</p>
-
-<p>||"rermgorpsam"|</p>
-
-<p>|[2, 3]|"remrgorpsam"|</p>
-
-<p>|[0, 7]|"progrmersam"|</p>
-
-<p>|[5, 9]|"prograsremm"|</p>
-
-<p>|[6, 10]|"programmers"|</p>
-<div class="highlight"><pre class="codehilite"><code>따라서 "programmers"를 return 합니다.
+<table class="table">
+        <thead><tr>
+<th>queries</th>
+<th>my_string</th>
+</tr>
+</thead>
+        <tbody><tr>
+<td></td>
+<td>"rermgorpsam"</td>
+</tr>
+<tr>
+<td>[2, 3]</td>
+<td>"remrgorpsam"</td>
+</tr>
+<tr>
+<td>[0, 7]</td>
+<td>"progrmersam"</td>
+</tr>
+<tr>
+<td>[5, 9]</td>
+<td>"prograsremm"</td>
+</tr>
+<tr>
+<td>[6, 10]</td>
+<td>"programmers"</td>
+</tr>
+</tbody>
+      </table><div class="highlight"><pre class="codehilite"><code>따라서 "programmers"를 return 합니다.
 </code></pre></div>
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
