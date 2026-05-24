@@ -1,10 +1,10 @@
 # [level 0] 이진수 더하기 - 120885 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120885) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120885?language=python3) 
 
 ### 성능 요약
 
-메모리: 81.9 MB, 시간: 0.03 ms
+메모리: 9.27 MB, 시간: 0.03 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 09월 28일 13:05:30
+2026년 05월 24일 14:33:29
 
 ### 문제 설명
 
