@@ -1,8 +1,12 @@
+from collections import Counter
 def solution(my_string):
-    count = [0] * 52
-    for char in my_string:
-        if char.isupper():
-            count[ord(char) - ord('A')] += 1
-        elif char.islower():
-            count[ord(char) - ord('a')+26] += 1
-    return count
+    cnt = Counter(my_string)
+    alp = [0] * 52
+    print(cnt)
+    for c in cnt.keys():
+        if ord(c) < ord('a'):
+            alp[ord(c) - ord('A')] = cnt[c]
+        else:
+            alp[ord(c) - ord('a') + 26] = cnt[c]
+    return alp
+    
