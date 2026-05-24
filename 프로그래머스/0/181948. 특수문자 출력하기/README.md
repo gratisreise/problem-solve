@@ -1,10 +1,10 @@
 # [level 0] 특수문자 출력하기 - 181948 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181948) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181948?language=python3) 
 
 ### 성능 요약
 
-메모리: 59.2 MB, 시간: 138.50 ms
+메모리: 7.19 MB, 시간: 9.25 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 03월 19일 11:16:01
+2026년 05월 24일 13:17:38
 
 ### 문제 설명
 
