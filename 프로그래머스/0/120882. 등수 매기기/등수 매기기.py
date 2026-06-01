@@ -1,11 +1,17 @@
-def solution(score): 
-    # 둘이 더한 걸로 등수나열 하고 그 나열 한 것의 마지막 인덱스
-    temp = []
-    for a in score:
-        temp.append(a[0] + a[1])
-    temp = sorted(temp, reverse = True)
-    ret = []
-    for i in score:
-        ret.append(temp.index(i[0] + i[1])+1)
-    return ret
-    
+from collections import Counter
+def solution(score):
+    avgs = [(x[0] + x[1])/2 for x in score]
+    cnt = Counter(avgs)
+    orders = sorted(cnt.keys(), reverse=True)
+    ranks = {}
+    rank = 1
+    for x in orders:
+        ranks[x] = rank
+        rank += cnt[x]
+    return [ranks[x] for x in avgs]
+
+"""
+1. 인덱스 - 평균점수
+2. 등수정하기
+3. 인덱스 - 등수반환
+"""
