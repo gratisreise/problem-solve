@@ -1,11 +1,18 @@
 def solution(s):
-    s = list(s)
-    cnt = 0
-    for i in range(len(s)):
-        if s[i] == ' ':
-            cnt = 0
-            continue
-        s[i] = s[i].lower() if cnt % 2 else s[i].upper()
-        cnt += 1
-        
-    return ''.join(s)
+    ret = ''
+    idx = 0
+    for c in s:
+        now = c
+        if now == ' ':
+            idx = 0
+        else:
+            if idx % 2 == 0:
+                now = now.upper()
+            else:
+                now = now.lower()
+            idx += 1
+        ret += now
+    return ret
+
+            
+    
