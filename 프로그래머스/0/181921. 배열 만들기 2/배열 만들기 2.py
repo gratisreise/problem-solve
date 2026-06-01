@@ -1,7 +1,12 @@
 def solution(l, r):
     ret = []
-    for i in range(l, r+1):
-        temp = list(str(i))
-        if len(temp) == temp.count('5') + temp.count('0'):
+    for i in range(l, r + 1):
+        flag = False
+        for c in str(i):
+            if c != '0' and c != '5':
+                flag = True
+            if flag:
+                break
+        if not flag:
             ret.append(i)
-    return ret if ret else [-1]
+    return [-1] if not ret else ret
