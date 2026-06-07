@@ -1,22 +1,15 @@
 def solution(num, total):
-    ret = []
-    mid = int(total/num)
-    t = 1
-    if num % 2 != 0:
-        ret.append(mid)
-        while sum(ret) != total or len(ret) != num: 
-            print(mid-t, mid, mid +t)
-            ret.append(mid - t)
-            ret.append(mid + t)
-            t += 1
+    if num % 2 == 0:
+        start = total // num - (num //2 -1)
     else:
-        l = mid
-        r = mid + 1
-        while sum(ret) != total or len(ret) != num:
-            print(l, r)
-            ret.append(l)
-            ret.append(r)
-            l-=1
-            r+=1
-    ret.sort()
-    return ret
+        start = (total // num) - (num //2)
+    return [x for x in range(start, start + num)]
+    
+
+"""
+1부터해서
+나누면 중앙이네 
+짝수면 해당 숫자를 기준으로 앞 숫자부터 시작
+
+
+"""
