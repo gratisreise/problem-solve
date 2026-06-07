@@ -1,24 +1,28 @@
-import re
-
 def solution(babbling):
-    # 조카가 발음할 수 있는 단어 목록
-    valid_sounds = ["aya", "ye", "woo", "ma"]
-    
-    # 발음할 수 있는 단어 개수를 저장할 변수
-    count = 0
-    
-    for word in babbling:
-        # 중복되는 발음이 있는지 확인
-        if any(double in word for double in ["ayaaya", "yeye", "woowoo", "mama"]):
-            continue
+    temp = ["aya", "ye", "woo", "ma"]
+    ret = 0
+    for bab in babbling:
+        flag = True
+        for word in temp:
+            if word*2 in  bab:
+                flag = False
+                break
         
-        # 발음할 수 있는 단어가 아니라면, 남은 문자열이 있으면 발음할 수 없음
-        temp = word
-        for sound in valid_sounds:
-            temp = temp.replace(sound, " ")
-        
-        # 남은 문자열이 빈 문자열이라면 발음 가능
-        if temp.strip() == "":
-            count += 1
+        if flag:
+            for word in temp:
+                bab = bab.replace(word, ' ')
             
-    return count
+            bab = bab.replace(' ', '')
+            if not bab:
+                ret += 1
+    return ret
+        
+        
+                
+                
+                
+"""
+연속을 어떻게 체크하지??
+
+
+"""
