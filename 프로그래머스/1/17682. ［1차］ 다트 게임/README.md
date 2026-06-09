@@ -1,10 +1,10 @@
 # [level 1] [1차] 다트 게임 - 17682 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17682) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17682?language=python3) 
 
 ### 성능 요약
 
-메모리: 78.6 MB, 시간: 10.84 ms
+메모리: 11.4 MB, 시간: 0.03 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 19일 11:13:25
+2026년 06월 09일 21:36:22
 
 ### 문제 설명
 
