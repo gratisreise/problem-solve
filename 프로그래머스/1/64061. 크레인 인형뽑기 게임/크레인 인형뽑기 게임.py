@@ -1,23 +1,27 @@
 def solution(board, moves):
-    row = len(board)
-    stk = []
+    baguni = []
+    row, col = len(board), len(board[0])
     ret = 0
-    for i in moves:
-        i = i-1
+    for m in moves:
+        pos = m - 1
         for j in range(row):
-            if board[j][i]:
-                if stk and stk[-1] == board[j][i]:
-                    stk.pop()
-                    ret += 2
-                else: stk.append(board[j][i])
-                board[j][i] = 0
+            if board[j][pos] != 0:
+                if baguni and baguni[-1] == board[j][pos]:
+                    baguni.pop()
+                    ret += 1
+                else:
+                    baguni.append(board[j][pos])
+                board[j][pos] = 0
                 break
-    return ret
-# 짝 발생 -> 폭파
-# 인형이 없는 곳은 제끼기
-# 크레인 위치 1 ~ 5
-# 사라진 인형의 갯수 -> 폭발횟수 * 2
-# 모든 move에 대해
-# 해당 열에 대해 행을 순회
-# 인형있으면 0으로 바꾸고 stk 체크
-# 인형이없으면 그냥 통과
+    return ret * 2
+            
+
+
+"""
+인형 없는 곳에서 크레인 작동 안줄거임
+터트려져 사라진 인형의 갯수를 리턴
+
+1. move의 위치에서 인형뽑기
+2. 바구니 폭발
+3. 폭발횟수 * 2 반환
+"""
