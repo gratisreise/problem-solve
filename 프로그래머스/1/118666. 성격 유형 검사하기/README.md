@@ -1,10 +1,10 @@
 # [level 1] 성격 유형 검사하기 - 118666 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/118666) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/118666?language=python3) 
 
 ### 성능 요약
 
-메모리: 70.5 MB, 시간: 29.42 ms
+메모리: 11.4 MB, 시간: 0.31 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 25일 10:21:16
+2026년 06월 13일 13:25:52
 
 ### 문제 설명
 
@@ -127,11 +127,12 @@
 <li><code>survey[i]</code>의 첫 번째 캐릭터는 i+1번 질문의 비동의 관련 선택지를 선택하면 받는 성격 유형을 의미합니다. </li>
 <li><code>survey[i]</code>의 두 번째 캐릭터는 i+1번 질문의 동의 관련 선택지를 선택하면 받는 성격 유형을 의미합니다.</li>
 </ul></li>
-<li><p><code>choices</code>의 길이 = <code>survey</code>의 길이</p>
+<li><code>choices</code>의 길이 = <code>survey</code>의 길이
 
 <ul>
 <li><code>choices[i]</code>는 검사자가 선택한 i+1번째 질문의 선택지를 의미합니다.</li>
 <li>1 ≤ <code>choices</code>의 원소 ≤ 7</li>
+</ul></li>
 </ul>
 <table class="table">
         <thead><tr>
@@ -168,9 +169,7 @@
 <td>매우 동의</td>
 </tr>
 </tbody>
-      </table></li>
-</ul>
-
+      </table>
 <hr>
 
 <h5>입출력 예</h5>
