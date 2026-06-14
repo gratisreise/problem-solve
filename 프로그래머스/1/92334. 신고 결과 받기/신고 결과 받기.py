@@ -1,42 +1,37 @@
 def solution(id_list, report, k):
-    report_name = {}
-    report_count = {}
+    dic1 = {x:set() for x in id_list} # 내가신고
+    dic2 = {x:set() for x in id_list} # 나를신고
     
-    for id in id_list:
-        report_name[id] = set()
-        report_count[id] = 0
-    
-    # 신고한 유저의 이름저장
-    for s in report:
-        arr = s.split( )
-        report_name[arr[0]].add(arr[1])
-    
-    # 신고받은 횟수 카운팅
-    for id in report_name.keys():
-        for report in report_name[id]:
-            report_count[report] += 1
-    
-    # 이메일 발송 횟수 세기
-    ret = []
-    for id in report_name.keys():
-        cnt = 0
-        for name in report_name[id]:
-            if report_count[name] >= k:
-                cnt += 1
-        ret.append(cnt)
+    for rep in report:
+        name1, name2 = rep.split()
+        dic1[name1].add(name2)
+        dic2[name2].add(name1)
         
+    ret = []
+    for i in id_list:
+        cnt = sum(1 for x in dic1[i] if len(dic2[x]) >= k)
+        ret.append(cnt)
     return ret
+                
+        
 """
-한번에 한 명의 유저신고
-    - 신고 횟수 제한x,
-    - 동일 유저 신고 가능 -> 1회로 처리
-k번 이상 신고된 유저는 게시판 이용 정지 -> 신고한 모든 유저에게 정지 이메일 발송
-    - 신고 내용 모두 취합 하여 마지막에 정지와 동시에 이메일 발송
-유저 - 신고한유저
-유저 - 신고받은 횟수
-정지대상 리스트
+[조건]
+신고처리, 한 번에 한명 신고
+횟수제한x, 한유저 여러번 => 신고회수1회로 처리
+k번이상 신고유저 => 이용정지, 신고한 유저에게 메일 발송
+신고내용 취합후 이용정지 시키면서 메일 발송
 
-report에 대해 - 유저 - set(신고한 유저이름 저장)
-유저 신고한 유저를 돌면서 -> 유저의 신고한 횟수 카운팅 
-유저 - 신고한 유저를 돌면서 -> 신고횟수가 k이상이면 카운팅
+
+[아이디어]
+1.report를 돌면서 각 사람마다 누구를 신고했는지 집합에 추가
+2.사랍-집합 맵을 돌면서 사람-피신고횟수를 채우기
+3.사람-신고한사람집합 돌면서 사람-수신메일횟수 채우기
+
+[자료구조]
+사람-내가신고, 사람-나를 신고, 사람-수신메일회수
+
+
+[로직]
+
+
 """
