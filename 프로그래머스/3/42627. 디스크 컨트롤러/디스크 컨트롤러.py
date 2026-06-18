@@ -1,37 +1,53 @@
-from heapq import heappush as push, heappop as pop
-
+import heapq
+from collections import  deque
 def solution(jobs):
-    ret, now, i = 0, 0, 0
-    start = -1
+    jobs = [(i, x[0], x[1]) for i,x in enumerate(jobs)] # 번호, 요청, 소요
+    jobs.sort(key = lambda x :(x[1], x[0]))
+    
+    jobs = deque(jobs)
     heap = []
     
-    while i < len(jobs):
-        # 이전 시작 ~ 현재
-        for job in jobs:
-            if start < job[0] <= now:
-                push(heap, job[::-1])
-        if len(heap) > 0:
-            cur = pop(heap)
-            start = now #시작 시간 = 현재로
-            now += cur[0] #현재 시간 + 소요시간
-            ret += now - cur[1] #현재 + 들어온 시작 시간
-            i += 1 #인덱스 ++ 
+    now = 0
+    total_time = 0
+    n = len(jobs)
+    
+    while heap or jobs:
+        # 작업저장
+        while jobs and jobs[0][1] <= now:
+            idx, start, duration = jobs.popleft()
+            heapq.heappush(heap, (duration, start, idx)) # 소요, 요청, 번호
+        #작업수행
+        if heap:
+            duration, start, idx = heapq.heappop(heap)
+            now += duration
+            total_time += (now - start)
         else:
-            now += 1
+            now = jobs[0][1]
+    
+    return total_time // n
         
         
-    return ret // len(jobs)
+        
+    
+        
+
+
+
 """
-시간을 더할 때 중간에 시간이 스킵 되는 것은 이전 현재 시간과 현재의 현재시간을 범위 제한하여
-찾는 것으로 해결
-작업의 인덱스를 따로 두는 것으로 종료 설정
-1. 모든 작업에 대하여
-    1-1. 들어온 작업이 있는지 확인
-    1-2. 작업이 있으면 
-        1-2-1. 현재시간 + 소요시간
-        1-2-2. 결과에 현재 - 요청 더하기
-        1-2-3. 행동 인덱스 ++
-    1-3. 작업이 없으면
-        시간 +1
-평균 반환시간을 반환
+우선순위 디스크에서 작업
+1. (번호, 요청 시각, 소요 시간) 저장 => 처음 비어 있음
+2. 작업x, 대기큐빔x => 우선순위 순으로 작업: 소요짧, 요청빠, 번호 작
+3. 한번 점유하면 방해 불가
+4. 마치는 시점 요청 시점 겹치면 => 선 작업 저장, 작업 완료, 작업 시작 =>  작업 마치자 마자 작업 시작 가능함: 같은 시간처리 가능
+0부터 시작
+
+[아이디어]
+리스트를 순회하면서 요청시간보다 적은 놈들 대기큐에 넣고 작업 꺼내서 실시하기 
+
+
+[로직]
+1. 요청시간 순으로 오름차 정렬
+2. 현재시간 보다 작거나 같은 놈들 전부 대기큐에 넣기
+3. 대기큐에 남아있는 작업처리
+
 """
