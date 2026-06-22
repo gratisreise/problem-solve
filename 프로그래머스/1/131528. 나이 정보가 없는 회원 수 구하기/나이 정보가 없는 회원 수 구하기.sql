@@ -1,4 +1,3 @@
-# NULL: AGE, GENDER
-# 나이 정보가 없는 회원수, 컬럼명 users
-SELECT COUNT(IF(ISNULL(AGE), 1, NULL)) as USERS
-FROM USER_INFO
+select count(*) as users
+from user_info
+where age is null
