@@ -1,5 +1,15 @@
--- 냉동시설 Null = N, 창고id 오름차 정렬
-select WAREHOUSE_ID, WAREHOUSE_NAME, ADDRESS, ifnull(FREEZER_YN, 'N') as FREEZER_YN
+select warehouse_id, warehouse_name, address, ifnull(freezer_yn, 'N') as freezer_yn
 from food_warehouse
-where ADDRESS like '%경기도%'
-order by WAREHOUSE_ID
+where address like '경기도%'
+order by warehouse_id
+
+
+
+/*
+경기도, 
+여부 == NULL => 'N' 출력
+오름차순 정렬
+
+창고의id, 이름, 주소, 냉동시설 여부
+
+*/
