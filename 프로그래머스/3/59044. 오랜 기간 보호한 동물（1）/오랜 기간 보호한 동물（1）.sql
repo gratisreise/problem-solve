@@ -1,10 +1,14 @@
--- 입양 못간 동물, 기간 내림차 3마리
--- 이름, 보호시작일
--- 보호
 select i.name, i.datetime
-from ANIMAL_INS i
-left join ANIMAL_OUTS o on i.ANIMAL_ID = o.ANIMAL_ID
-where o.name is null and i.name is not null
+from animal_ins i
+ left join animal_outs o
+    on  i.animal_id = o.animal_id
+where o.animal_id is null
 order by i.datetime
 limit 3
 
+
+/*
+입양x, 가장 오래 보호소 있음, 동물, 3마리, 
+이름, 보호시작일 
+
+*/
