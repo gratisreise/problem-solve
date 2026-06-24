@@ -1,9 +1,15 @@
--- 종류 세단
--- 10월 대여 시작 기록
--- id중복금지
--- id내림차
-select distinct(c1.car_id)
-from CAR_RENTAL_COMPANY_RENTAL_HISTORY c1
-left join CAR_RENTAL_COMPANY_CAR c2 on c1.CAR_ID = c2.CAR_ID
-where month(START_DATE) = 10 and c2.car_type = '세단'
-order by car_id desc
+select distinct(cc.car_id)
+from car_rental_company_car cc
+ join car_rental_company_rental_history cr
+  on cc.car_id = cr.car_id
+where month(start_date) = 10 and cc.car_type = '세단'
+order by 1 desc
+
+
+/*
+종류=세단, 10월에 대여시작
+자동차id 출력, 중복x, 
+내림차 정렬
+
+
+*/
