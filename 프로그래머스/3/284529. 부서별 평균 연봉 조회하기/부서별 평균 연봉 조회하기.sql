@@ -1,10 +1,19 @@
--- 부서별
--- 평균연봉
--- 부서id, 영문 부서명, 평균 연봉
--- 평균 연봉 소수점 첫째 자리 반올림, 컬럼명:AVG_SAL
--- 평균 연봉 내림차 정렬
-select e.DEPT_ID, d.DEPT_NAME_EN, round(avg(SAL), 0) as AVG_SAL
-from HR_DEPARTMENT d
-join HR_EMPLOYEES e on d.DEPT_ID = e.DEPT_ID
-group by e.DEPT_ID
-order by AVG_SAL desc
+select d.dept_id, dept_name_en, round(avg(sal), 0) as avg_sal
+from hr_department d
+ join hr_employees e
+ on d.dept_id = e.dept_id
+group by d.dept_id
+order by avg_sal desc
+
+
+
+/*
+부서별, 평균연봉
+평균연봉 내림차
+
+부서별, 부서ID, 영문 부서명, 평균 연봉(소수점 첫째 반올림) as avg_sal
+
+
+
+
+*/
