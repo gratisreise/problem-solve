@@ -1,8 +1,13 @@
--- 입양을 간 기록은 있는데, 보호소에 들어온 기록이 없는 동물
---  ID 오름차
+select o.animal_id, o.name
+from animal_outs o
+    left join animal_ins i 
+    on o.animal_id = i.animal_id 
+where i.animal_id is null
+order by o.animal_id
 
-select o.ANIMAL_ID, o.name
-from ANIMAL_OUTS o
-left join ANIMAL_INS i on o.ANIMAL_ID = i.ANIMAL_ID
-where i.ANIMAL_ID is null
-order by o.ANIMAL_ID
+
+/*
+입양은 감 들어온기록x
+동물id, 이름 
+
+*/
