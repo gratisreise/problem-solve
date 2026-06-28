@@ -1,6 +1,11 @@
--- BASS & SNAPPER
--- FISH_COUNT
-select count(*) as FISH_COUNT
-from FISH_INFO i 
-left join FISH_NAME_INFO n  on i.FISH_TYPE = n.FISH_TYPE
-where n.FISH_NAME in ('BASS', 'SNAPPER')
+select count(*) as fish_count
+from fish_info i
+ join fish_name_info n
+  on i.fish_type = n.fish_type
+where n.fish_name in ('BASS', 'SNAPPER')
+
+/*
+bass, snapper 수 출력
+ㄴ
+
+*/
