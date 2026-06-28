@@ -1,15 +1,15 @@
-/*
-- 평균 대여 기간 >= 7이상 자동차
-- 자동차 ID, 평균 대여 기간(AVERAGE_DURATION, 소수두번째 반올림)
-- 평균 대여 기간 내림차, 자동차 ID 내림차
-1. CAR_ID로 그룹핑
-2. AVG(대여기간), ROUND 2째 반올림
-3. 7일 이상 조건 설정
-4. AVERAGE_DURATION 내림차, CAR_ID 내림차
-*/
-SELECT CAR_ID, ROUND(AVG(DATEDIFF(END_DATE, START_DATE) + 1), 1) AS AVERAGE_DURATION
-FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
-GROUP BY CAR_ID
-HAVING AVERAGE_DURATION >= 7
-ORDER BY AVERAGE_DURATION DESC, CAR_ID DESC
+select car_id, 
+    round(avg((datediff(end_date, start_date) + 1)), 1) as average_duration
+from car_rental_company_rental_history
+group by car_id 
+having avg((datediff(end_date, start_date) + 1)) >= 7
+order by average_duration desc, car_id desc
 
+
+/*
+평균대여 기간 7일 이상인 자동차 
+
+자동차id, 평균대여기간 as average_duration(소수둘째반올림)
+평균대여기간 내림차, 자동차id 내림차
+
+*/

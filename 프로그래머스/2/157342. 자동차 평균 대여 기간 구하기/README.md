@@ -1,10 +1,10 @@
 # [level 2] 자동차 평균 대여 기간 구하기 - 157342 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/157342?language=mysql) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/157342) 
 
 ### 성능 요약
 
-메모리: 0.0 MB, 시간: 0.00 ms
+메모리: undefined, 시간: 
 
 ### 구분
 
@@ -12,11 +12,11 @@
 
 ### 채점결과
 
-Empty
+합계: 100.0 / 100.0
 
 ### 제출 일자
 
-2024년 09월 04일 09:20:09
+2026년 06월 28일 11:23:41
 
 ### 문제 설명
 
@@ -131,5 +131,9 @@ Empty
 </tr>
 </tbody>
       </table>
+<hr>
+
+<p>※ 공지 - 2024년 10월 2일 채점코드가 수정되었습니다. 기존에 제출한 코드가 통과하지 못할 수도 있습니다.</p>
+
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
