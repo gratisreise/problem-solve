@@ -1,21 +1,18 @@
--- 2022년 4월 13일 
--- 취소x, CS 진료 예약 내역
--- 진료예약일시 오름차
-select a.APNT_NO, PT_NAME, a.PT_NO, a.MCDP_CD, d.DR_NAME, a.APNT_YMD
-from APPOINTMENT a
-join PATIENT p on a.PT_NO = p.PT_NO
-join DOCTOR d on a.MDDR_ID = d.DR_ID
-where 
-    a.APNT_YMD like '2022-04-13%'
-    and a.MCDP_CD = 'CS'
-    and a.APNT_CNCL_YN = 'N'
-order by a.APNT_YMD
+select a.apnt_no, p.pt_name, p.pt_no, d.mcdp_cd, d.dr_name, a.apnt_ymd
+from appointment a
+ join patient p
+ on a.pt_no = p.pt_no
+ join doctor d
+ on a.mddr_id = d.dr_id
+where a.apnt_cncl_yn = 'N' and d.mcdp_cd = 'CS' and a.apnt_ymd like '2022-04-13%'
+order by a.apnt_ymd 
 
-# SELECT APNT_NO, PT_NAME, a.PT_NO, a.MCDP_CD, DR_NAME, APNT_YMD
-# FROM APPOINTMENT a 
-#     JOIN PATIENT p ON a.PT_NO = p.PT_NO
-#     JOIN DOCTOR d ON MDDR_ID = DR_ID
-# WHERE APNT_CNCL_YN = 'N'
-#     AND a.MCDP_CD = 'CS'
-#     AND APNT_YMD LIKE '2022-04-13%'
-# ORDER BY APNT_YMD
+
+/*
+2022년 4월 13일
+취소되지 않은, CS, 진료예약내역
+진료예약번호, 환자이름, 환자번호, 진료과코드, 의사이름, 진료예약일시
+진료예약일시 오름차
+
+
+*/
