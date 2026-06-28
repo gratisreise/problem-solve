@@ -1,12 +1,10 @@
-/*
-- DEVELOPER_INFOS 테이블 Python 스킬 보유자
-- 개발자의 ID, 이메일, 이름, 성
-- ID를 기준으로 오름차순
-1. where로 skill 조건 설정 or
-2. id 오름차순
-*/
+select id, email, first_name, last_name
+from developer_infos
+where concat_ws(' ', skill_1, skill_2, skill_3) like '%Python%' 
+order by id
 
-SELECT ID, EMAIL, FIRST_NAME, LAST_NAME
-FROM DEVELOPER_INFOS
-WHERE SKILL_1 = 'Python' OR SKILL_2 = 'Python' OR SKILL_3 = 'Python'
-ORDER BY ID 
+
+/*
+python 스킬을 가진 개발자의 정보 조회
+
+*/
