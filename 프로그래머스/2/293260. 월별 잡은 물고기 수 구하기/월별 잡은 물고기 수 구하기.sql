@@ -1,8 +1,13 @@
--- 월별 잡은 물고기 수, 월
--- FISH_COUNT, MONTH
--- 월 기준 오름차
--- 없는 달은 제외, 1~12월 형태
-select count(*) as FISH_COUNT, month(TIME) as MONTH
-from FISH_INFO
-group by MONTH
-order by MONTH
+select count(*) as fish_count, month(time) as month
+from fish_info
+group by month 
+order by month
+
+/*
+월별 
+잡은 물고기수, 월
+월기준 오름차
+9이하 두자리 출력x
+잡은물고기 없는 월 출력x
+
+*/
