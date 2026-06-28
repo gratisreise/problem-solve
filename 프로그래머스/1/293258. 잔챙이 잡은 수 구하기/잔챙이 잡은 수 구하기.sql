@@ -1,8 +1,11 @@
-/*
-- 10cm 이하일 경우  길이가 NULL
-- 물고기 중 10cm 이하인 물고기의 수
-*/
+select count(*) as fish_count
+from fish_info 
+where length is null
 
-SELECT COUNT(*) AS FISH_COUNT
-FROM FISH_INFO
-WHERE LENGTH IS NULL
+
+/*
+잡은 물고기, 길이 10cm 이하, 
+물고기수 as fish_count
+
+
+*/
