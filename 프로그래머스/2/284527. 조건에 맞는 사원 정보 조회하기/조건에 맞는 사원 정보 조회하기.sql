@@ -1,10 +1,18 @@
--- 2022년 평가 점수가 가장 높은 사원
--- 상,하반기 점수의 합
-select 
-sum(g.SCORE)as SCORE, e.EMP_NO, e.EMP_NAME, e.POSITION, e.EMAIL
-from HR_EMPLOYEES e 
-left join HR_GRADE g on e.EMP_NO = g.EMP_NO
-group by e.EMP_NO 
-order by SCORE desc
-limit 1
+select sum(g.score) as score, e.emp_no, emp_name, position, email
+from hr_employees e
+ join hr_grade g
+  on e.emp_no = g.emp_no
+group by e.emp_no
+having score = (
+    select sum(score) score
+    from hr_grade
+    group by emp_no
+    order by score desc
+    limit 1
+)
 
+/*
+2022년도,평가점수 max 사원정보
+점수, 사번, 성명, 직책, 이메일 
+평가점수 = 상 + 하  as score
+*/
