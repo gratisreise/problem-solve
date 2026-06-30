@@ -1,5 +1,15 @@
--- 가장큰 10마리 물고기
--- 길이 내림차, 아이디 오름차, null인경우 없음
-select id, length from fish_info
+select id, length
+from fish_info
 order by length desc, id
 limit 10
+
+
+/*
+가장큰 10마리, 
+길이 내림차, id 오름차 
+가장큰 노중 null 없음
+
+id, 길이
+
+
+*/
