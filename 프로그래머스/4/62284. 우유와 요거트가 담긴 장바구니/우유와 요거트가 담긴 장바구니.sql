@@ -1,10 +1,14 @@
--- 우유, 요거트 동시 구입
--- 아이디 조회
--- 아이디 오름차
 select cart_id
-from CART_PRODUCTS
-where name = 'Milk' or name = 'Yogurt'
+from cart_products
 group by cart_id
-having count(distinct(name)) >= 2
+having sum(name = 'Milk') > 0  and sum(name = 'Yogurt') > 0
 order by cart_id
 
+/*
+우유 & 요거트 동시 구입했나?
+id 오름차
+
+장바구니id,
+
+
+*/
