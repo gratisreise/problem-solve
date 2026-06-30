@@ -1,23 +1,15 @@
-with 
-f as(
-    select flavor, sum(total_order) as total
+with total as(
+    select flavor, total_order 
     from first_half
-    group by flavor
-),
-j as(
-    select flavor, sum(total_order) as total
+    
+    union all
+    
+    select flavor, total_order
     from july
-    group by flavor
 )
 
-select f.flavor
-from f join j on f.flavor = j.flavor
-order by (f.total + j.total) desc
+select flavor
+from total
+group by flavor
+order by sum(total_order) desc
 limit 3
-
-
-/*
-맛 그룹화 => 총합 => 둘이 조인해서 상위값 모으기
-
-
-*/
