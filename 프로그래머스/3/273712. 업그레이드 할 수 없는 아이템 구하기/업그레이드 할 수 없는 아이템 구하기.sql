@@ -1,7 +1,16 @@
--- 업그레이드 불가 아이템
--- id 기준 내림차
-select i.ITEM_ID, i.ITEM_NAME, i.RARITY
-from ITEM_INFO i
-left join ITEM_TREE t on i.ITEM_ID = t.PARENT_ITEM_ID
-where t.ITEM_ID is null
-order by i.ITEM_ID desc
+select i.item_id, i.item_name, i.rarity
+from item_info i
+left join item_tree t
+on i.item_id = t.parent_item_id
+where t.parent_item_id is null
+order by i.item_id desc
+
+
+/*
+업그레이드 불가
+
+id, 이름, 희귀도
+id 내림차
+
+
+*/
