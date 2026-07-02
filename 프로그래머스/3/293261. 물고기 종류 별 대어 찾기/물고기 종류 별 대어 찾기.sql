@@ -1,13 +1,20 @@
--- 물고기 종류별
--- 가장 큰 물고기
--- 물고기 id 오름차순
-
-select f1.ID, f2.FISH_NAME, f1.LENGTH
-from FISH_INFO f1
-join FISH_NAME_INFO f2 on f1.FISH_TYPE = f2.FISH_TYPE
-where (f1.fish_type, f1.LENGTH) in (
-    select fish_type, max(LENGTH)
-    from FISH_INFO
-    group by FISH_TYPE
+select id, fish_name, length
+from fish_info i
+join fish_name_info n
+on i.fish_type = n.fish_type
+where length = (
+    select max(length)
+    from fish_info
+    where fish_type = i.fish_type
 )
-order by f1.ID
+
+
+/*
+물고기 종류별, max크기
+id 오름차, 
+
+ID, 이름, 길이
+
+
+
+*/
