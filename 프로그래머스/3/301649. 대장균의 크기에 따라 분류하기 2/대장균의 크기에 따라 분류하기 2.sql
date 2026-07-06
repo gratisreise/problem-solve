@@ -1,15 +1,30 @@
--- 크기 상위 0~25: CRITICAL, 26~50: HIGH, 51~75: MDEIUM, 76~100: LOW
--- 아이디 오름차순
--- 상위% 어케 구하노
--- 
+with ranked as (
+    select 
+        id, 
+        row_number() over(order by size_of_colony desc) as rn,
+        count(*) over() as total
+    from ecoli_data
+)
 
-SELECT 
-    ID,
-    CASE
-        WHEN PERCENT_RANK() OVER (ORDER BY SIZE_OF_COLONY DESC) <= 0.25 THEN 'CRITICAL'
-        WHEN PERCENT_RANK() OVER (ORDER BY SIZE_OF_COLONY DESC) <= 0.50 THEN 'HIGH'
-        WHEN PERCENT_RANK() OVER (ORDER BY SIZE_OF_COLONY DESC) <= 0.75 THEN 'MEDIUM'
-        ELSE 'LOW'
-    END AS COLONY_NAME
-FROM ECOLI_DATA
-order by ID
+select
+    id,
+    case
+        when rn <= total / 4 then 'CRITICAL'
+        when rn <= total / 2 then 'HIGH'
+        when rn <= total *3 / 4 then 'MEDIUM'
+        else 'LOW'
+    end as COLONY_NAME
+from ranked
+order by id
+
+# select * from ranked
+
+/*
+대장균 크기 내림차순 
+사우이 0~25% CRITICAL
+26~50% 'HIGH'
+51~75% 'MEDIUM'
+76~100% 'LOW'
+
+
+*/
