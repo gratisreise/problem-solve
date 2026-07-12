@@ -1,41 +1,24 @@
+select 
+    case
+        when group_concat(s.name) like '%Python%' and group_concat(category) like '%Front End%' then 'A'
+        when group_concat(s.name) like '%C#%' then 'B'
+        when group_concat(category) like '%Front End%' then 'C'
+        else null
+    end as grade,
+    id,
+    email
+from developers d
+join skillcodes s
+on d.skill_code & s.code >= 1
+group by id 
+having grade is not null
+order by grade, id
 /*
-grade 컬럼 지정
-a, b, c로 나눌 수 있게 각 조건에 맞게 작성
+A: Front End and Python 
+B: C#
+C: 그외 front end
+
+skill_code로 조인하고
+category를 sum하고 
 
 */
-WITH FrontEnd AS (
-    SELECT CODE 
-    FROM SKILLCODES
-    WHERE CATEGORY = 'Front End'
-),
-C AS ( -- SKILLCODES C# select
-    SELECT CODE 
-    FROM SKILLCODES
-    WHERE NAME = 'C#'
-),
-Python AS ( -- SKILLCODES Python select
-    SELECT CODE 
-    FROM SKILLCODES
-    WHERE NAME = 'Python'
-),
-GRADE AS ( -- GRADE 
-    SELECT ID, 
-    CASE 
-        WHEN SKILL_CODE & (SELECT CODE FROM Python) != 0 
-                AND 
-                (SELECT COUNT(*)   
-                 FROM FrontEnd 
-                 WHERE SKILL_CODE & CODE != 0) >= 1 THEN 'A' 
-        WHEN SKILL_CODE & (SELECT CODE FROM C) >= 1 THEN 'B'
-        WHEN (SELECT COUNT(*)
-              FROM FrontEnd
-              WHERE SKILL_CODE & CODE != 0) >= 1 THEN 'C' 
-        ELSE  'D'
-    END GRADE 
-    FROM DEVELOPERS 
-)
-SELECT G.GRADE, G.ID, D.EMAIL
-FROM GRADE G JOIN DEVELOPERS D
-ON G.ID = D.ID 
-WHERE G.GRADE != 'D'
-ORDER BY 1, 2
