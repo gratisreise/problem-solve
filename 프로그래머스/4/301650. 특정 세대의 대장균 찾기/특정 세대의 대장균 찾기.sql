@@ -1,8 +1,20 @@
--- 3세대 대장균의 ID 출력
--- 2번 조인해서 부모의 부모 id가 not null
-select e1.ID
-from ECOLI_DATA e1 
-join ECOLI_DATA e2 on e1.PARENT_ID = e2.ID
-join ECOLI_DATA e3 on e2.PARENT_ID = e3.ID
-where e2.PARENT_ID is not null and e3.PARENT_ID is null
-order by e1.ID
+select e3.id
+from ecoli_data e1
+join ecoli_data e2
+on e1.id = e2.parent_id 
+join ecoli_data e3
+on e2.id = e3.parent_id
+where e1.parent_id is null
+order by e3.id
+
+
+
+/*
+3세대 대장균
+ID
+오름차
+부모의 id랑 id랑 엮고 부모의 id가 null이 아닌 것들 중에 
+parent가 null이 아닌 것들을 찾으면 3세대?
+나의 부모의 부모가 null이 아니면 3세대
+
+*/
