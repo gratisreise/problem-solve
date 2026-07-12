@@ -1,13 +1,13 @@
-/*
-- DEVELOPERS 테이블 Python or C#
-- 개발자의 ID, 이메일, 이름, 성
-1. 두테이블 코드로 조인
-2. name이 python이거나 c#인 것 조회
-3. id 기준 오름차순
-*/
+select distinct(id), email, first_name, last_name
+from developers d
+join skillcodes s
+on d.skill_code & s.code >= 1
+where s.name = 'Python' or s.name = 'C#'
+order by id
 
-SELECT DISTINCT(id), email, FIRST_NAME, LAST_NAME
-FROM developers
-         JOIN skillcodes ON developers.skill_code & SKILLCODES.CODE
-WHERE NAME ="C#" OR NAME ="Python"
-ORDER BY ID
+
+/*
+&이게 맞으면 된는건가??
+
+
+*/
