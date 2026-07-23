@@ -1,11 +1,13 @@
-select left(product_code, 2) as category, count(*) as products
+select 
+    left(product_code, 2) as category,
+    count(*) as products 
 from product
-group by category
-order by category
+group by left(product_code, 2) 
+order by left(product_code, 2)
 
 
 /*
-상품코드별(앞 2자리) 상품갯수() 
-카테고리 오름차
+상품카테고리 코드 앞2자리 별 상품 갯수
+코드 오름차 
 
 */
