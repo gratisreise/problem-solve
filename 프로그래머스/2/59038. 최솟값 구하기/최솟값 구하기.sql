@@ -1,2 +1,1 @@
-select min(datetime) as 시간
-from animal_ins
+select min(datetime) from animal_ins
