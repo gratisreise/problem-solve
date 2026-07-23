@@ -1,14 +1,17 @@
-select animal_type, ifnull(name, 'No name') as name, sex_upon_intake
+select 
+    animal_type, 
+    case 
+        when name is null then 'No name'
+        else name
+    end as name,
+    sex_upon_intake
 from animal_ins
-order by animal_id
-
+order by animal_id 
 
 
 /*
-NULL => 'No name' 
-아이디 오름차, 
-
-생물종, 이름, 성별 및 중성화 여부
+아이디순
+null => No name
 
 
 */
