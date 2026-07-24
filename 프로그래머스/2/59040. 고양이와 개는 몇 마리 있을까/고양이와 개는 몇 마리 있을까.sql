@@ -1,6 +1,12 @@
-# NULL: NAME
-# 고양이 마리수, 개 마리수, 이름 오름차
-SELECT ANIMAL_TYPE, COUNT(*) as count
-FROM ANIMAL_INS
-GROUP BY ANIMAL_TYPE
-ORDER BY ANIMAL_TYPE
+select animal_type, count(*) as count
+from animal_ins
+where animal_type in ('Cat', 'Dog')
+group by animal_type
+order by animal_type
+
+/*
+고양이, 개
+각각 몇마리 
+고양이 먼저
+
+*/
