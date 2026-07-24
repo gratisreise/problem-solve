@@ -1,8 +1,3 @@
-select count(*) as users
+select count(*)
 from user_info
-where age is null
-
-/*
-나이정보x, 
-몇명
-*/
+where age is null 
