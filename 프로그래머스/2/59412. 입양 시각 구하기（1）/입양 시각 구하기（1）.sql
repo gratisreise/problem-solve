@@ -1,6 +1,14 @@
--- 09:00 ~ 19:59 시간대별로 몇건의 입양이 발생 했는지 조회
--- 9~ 19 까지
-select hour(datetime) as hour, count(*) as count from ANIMAL_OUTS
+select
+    hour(datetime) as hour,
+    count(*) as count
+from animal_outs
 where hour(datetime) >= 9 and hour(datetime) <= 19
 group by hour
 order by hour
+
+
+/*
+몇시에 입양이 가장 활발 
+09 ~ 19
+
+*/
