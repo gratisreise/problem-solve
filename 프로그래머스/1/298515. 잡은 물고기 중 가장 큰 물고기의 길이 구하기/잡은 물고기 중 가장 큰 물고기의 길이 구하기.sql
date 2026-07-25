@@ -1,7 +1,9 @@
-select concat(max(ifnull(length, 10)), 'cm') as max_length
+select concat(max(length), 'cm') as max_length
 from fish_info
 
+
 /*
-잡은 물고기, max 물고기 길이 cm 
+가장큰 물고기 cm 넣고 출력
+
 
 */
