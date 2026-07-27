@@ -1,11 +1,11 @@
-select round(avg(daily_fee), 0) as avrage_fee
-from car_rental_company_car
-where car_type = 'suv'
-
+select
+    round(avg(daily_fee)) as average_fee
+from car_rental_company_car 
+where car_type = 'SUV'
 
 /*
-자동차종류 = suv, 
-평균일일대여요금(소수첫째반올림) as average_fee 
+자동차 종류 SUV
+평균 일일 대여 요금(반올림, 1) => average_fee
 
 
 */
