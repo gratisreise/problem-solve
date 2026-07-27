@@ -1,17 +1,16 @@
-select id, 
+select 
+    id,
     case 
         when size_of_colony <= 100 then 'LOW'
         when size_of_colony > 1000 then 'HIGH'
         else 'MEDIUM'
-    end as size
-from ecoli_data 
-order by id 
+    end as SIZE
+from ecoli_data
+order by id
 
 /*
-대장균 개체 100이하 'LOW', 100초과 1000이하'MEDIUM', 1000초과 'HIGH'
-id오름차
-
-id, size 
-
+크기 100이하 LOW
+100~1000 MEDIUM 
+1000 초과 HIGH
 
 */
