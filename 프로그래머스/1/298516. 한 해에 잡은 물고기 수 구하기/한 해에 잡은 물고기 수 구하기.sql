@@ -4,5 +4,6 @@ where year(time) = 2021
 
 /*
 2021년도
-잡은물고기수 fish_count
+잡은 물고기수
+
 */
