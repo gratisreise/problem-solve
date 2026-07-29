@@ -1,17 +1,7 @@
-select car_id, 
-    round(avg(datediff(end_date, start_date) + 1), 1) as average_duration
+select
+    car_id,
+    round(avg(datediff(end_date, start_date)), 1) + 1 as average_duration
 from car_rental_company_rental_history
 group by car_id
 having average_duration >= 7
 order by average_duration desc, car_id desc
-
-
-
-/*
-평균 대여기간 7일 이상,
-자동차id, 평균대여기간(소수점 2째,)
-평대 내림차, 자동차id desc
-
-
-
-*/
