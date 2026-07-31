@@ -1,18 +1,18 @@
 select id, name, host_id
 from places
 where host_id in (
-    select host_id
+    select host_id 
     from places
-    group by host_id 
+    group by host_id
     having count(*) >= 2
 )
-order by id
+order by id asc
+
 
 /*
-공간을 둘 이상등록한 유저
-아이디순 
+공간 둘 이상 등록 => 헤비유저
+헤비유저가 등록한 공간의 정보
+아이디 오름차
 
-
-공간의 정보
 
 */
