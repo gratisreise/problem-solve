@@ -1,26 +1,25 @@
-with year_max as (
-    select max(size_of_colony) as max_size, year(differentiation_date) as year
+with pre1 as(
+    select 
+        id,
+        year(differentiation_date) as year,
+        max(size_of_colony) over(partition by year(differentiation_date)) as mx,
+        size_of_colony as size
     from ecoli_data
-    group by year(differentiation_date) 
 )
 
+
 select 
-    y.year,
-    (max_size - size_of_colony) as  year_dev,
-    e.id
-from ecoli_data e
-join year_max y
-on year(e.differentiation_date) = y.year
-order by y.year, year_dev 
+    year,
+    (mx - size) as year_dev,
+    id
+from pre1
+order by year asc, year_dev asc
 
 
 
 /*
-분화된 연도별 
-대장균 크기의 편차
-
-id, year, 
-편차 = max - 각 대장균 크기
-연도 오름차
+분화된 연도별, 
+연도 오름차, 편차 오름차
+편차 = max - 내크기
 
 */
