@@ -1,13 +1,14 @@
-select distinct(id), email, first_name, last_name
+select d.id, d.email, d.first_name, d.last_name
 from developers d
-join skillcodes s
-on d.skill_code & s.code >= 1
-where s.name = 'Python' or s.name = 'C#'
-order by id
+left join skillcodes s
+on d.skill_code & s.code >= 1 
+group by d.id
+having sum(s.name = 'Python') >= 1 or sum(s.name = 'C#') >= 1
+order by id asc
 
 
 /*
-&이게 맞으면 된는건가??
-
+python or C#
+id 오름차
 
 */
