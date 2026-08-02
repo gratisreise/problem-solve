@@ -1,30 +1,37 @@
-with 
-counts as (
-    select h.history_id, h.car_id, ifnull(max(discount_rate), 0) as discount
-    from car_rental_company_rental_history h
-    left join car_rental_company_discount_plan p
-    on datediff(end_date, start_date) + 1 >= trim(replace(duration_type, '일 이상', '')) + '0' and car_type = '트럭'
-    group by h.history_id, h.car_id
-    order by h.history_id
+with pre1 as(
+    select 
+        history_id, 
+        datediff(end_date, start_date) + 1 as days,
+        (datediff(end_date, start_date)+1) * c.daily_fee as sum_fee
+    from car_rental_company_car c
+    join car_rental_company_rental_history h
+    on c.car_id = h.car_id
+    where car_type = '트럭'
+), pre2 as(
+    select 
+        trim(replace(duration_type, '일 이상', '')) + 0 as days,
+        (1-discount_rate/100) as discount
+    from car_rental_company_discount_plan
+    where car_type = '트럭'
 )
 
+# select * from pre2
 
 select 
-    h.history_id,
-    cc.daily_fee * (datediff(end_date, start_date) + 1) * (1 - discount/100) as fee
-from car_rental_company_rental_history h
-join counts c
-on h.history_id = c.history_id and h.car_id = c.car_id
-join car_rental_company_car cc
-on h.car_id = cc.car_id
-where cc.car_type = '트럭'
-order by fee desc, h.history_id desc 
+    p1.history_id,
+    sum_fee * ifnull(min(discount), 1) as fee
+from pre1 p1
+left join pre2 p2
+on p1.days >= p2.days 
+group by p1.history_id 
+order by fee desc , p1.history_id desc
+
 
 
 /*
-자동차 종류 = 트럭 
-대여기록id, 대여금액
-대여금액 내림차, 기록id 내림차
+자동차 종류 = 트럭
+대여기록별  대여금액, 
+대여 금액 내림차, 기록id 내림차
 
 
 */
