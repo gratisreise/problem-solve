@@ -1,15 +1,24 @@
-WITH RECURSIVE cte AS (SELECT id, parent_id, 1 AS gen
-                       FROM ecoli_data
-                       WHERE parent_id IS NULL
+with recursive cte as (
+    select id, 1 as generation
+    from ecoli_data 
+    where parent_id is null
+    
+    union all
+    
+    select e.id, c.generation + 1
+    from ecoli_data e
+    join cte c
+    on c.id = e.parent_id 
+)
 
-                       UNION ALL
+select count(*) as "count", generation 
+from cte c
+left join ecoli_data e
+on c.id = e.parent_id 
+where e.parent_id is null
+group by generation
 
-                       SELECT e.id, e.parent_id, cte.gen + 1 AS gen
-                       FROM ecoli_data e
-                                JOIN cte ON cte.id = e.parent_id)
-SELECT COUNT(a.id) AS 'COUNT', a.gen AS generation
-FROM cte a
-         LEFT JOIN cte b ON a.id = b.parent_id
-WHERE b.id IS NULL
-GROUP BY a.gen
-ORDER BY a.gen
+# select count(*) as "count", generation
+# from cte
+# group by generation
+# order by 
