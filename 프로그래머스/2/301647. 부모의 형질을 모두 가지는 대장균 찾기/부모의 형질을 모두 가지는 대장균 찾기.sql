@@ -1,12 +1,14 @@
 select e1.id, e1.genotype, e2.genotype as parent_genotype
 from ecoli_data e1
 join ecoli_data e2
-on e1.parent_id = e2.id
-where e2.genotype & e1.genotype = e2.genotype
+on e1.parent_id = e2.id and e1.genotype & e2.genotype = e2.genotype
 order by e1.id
 
+
+
 /*
-부모 형질 모두 보유 = 부모의 gentype이랑 & 연산시 1이상
-id 오름차
+부모의 형질을 모두 보유 =>
+나의 유전형질 & 부모의 유전형질 =부모의 유전형질
+나랑 부모랑 조인해서 유전형질 부모인 것 들만 남기기
 
 */
