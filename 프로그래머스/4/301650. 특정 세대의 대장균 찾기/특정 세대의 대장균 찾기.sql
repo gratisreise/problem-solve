@@ -1,11 +1,19 @@
-select e3.id
-from ecoli_data e1
-join ecoli_data e2
-on e1.id = e2.parent_id 
-join ecoli_data e3
-on e2.id = e3.parent_id
-where e1.parent_id is null
-order by e3.id
+with recursive tree as (
+    select id, 1 as generation
+    from ecoli_data
+    where parent_id is null
+    
+    union all
+    
+    select e.id, t.generation + 1
+    from ecoli_data e
+    join tree t
+    on e.parent_id = t.id
+)
+
+select id from tree
+where generation = 3
+order by id
 
 
 
