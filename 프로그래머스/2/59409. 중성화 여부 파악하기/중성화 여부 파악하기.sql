@@ -1,13 +1,10 @@
-select animal_id, name,
-    case 
+# 중성화 여부, Neutered or Spayed, 아이디순
+select 
+    animal_id,
+    name,
+    case
         when sex_upon_intake regexp 'Neutered|Spayed' then 'O'
         else 'X'
-    end as 중성화
+    end '중성화'
 from animal_ins
-order by animal_id
-
-/*
-중성화 여부, 
-아이디 순
-중성화 => 'O' else 'X'
-*/
+order by animal_id asc
