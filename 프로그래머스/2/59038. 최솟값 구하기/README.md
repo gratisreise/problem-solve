@@ -1,6 +1,6 @@
 # [level 2] 최솟값 구하기 - 59038 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59038) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59038?language=mysql) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 07월 23일 20:19:39
+2026년 08월 23일 14:30:40
 
 ### 문제 설명
 
