@@ -1,17 +1,7 @@
+# 이름 = No name
 select 
     animal_type, 
-    case 
-        when name is null then 'No name'
-        else name
-    end as name,
+    ifnull(name, 'No name') as Name, 
     sex_upon_intake
 from animal_ins
-order by animal_id 
-
-
-/*
-아이디순
-null => No name
-
-
-*/
+order by animal_id asc
