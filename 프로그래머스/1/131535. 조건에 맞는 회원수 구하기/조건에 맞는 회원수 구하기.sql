@@ -1,10 +1,4 @@
-select count(*)
+# 2021년 가입, 20<=나이 <= 29
+select count(user_id) as users
 from user_info
-where year(joined) = 2021 and age between 20 and 29
-
-
-
-/*
-2021년 가입, 
-20~29 회원수
-*/
+where age >= 20 and age <= 29 and year(joined) = 2021
