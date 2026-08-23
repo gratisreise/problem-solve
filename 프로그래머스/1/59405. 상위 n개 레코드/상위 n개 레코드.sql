@@ -1,8 +1,4 @@
 select name
 from animal_ins
-order by datetime
+order by datetime asc
 limit 1
-
-/*
-들어온, 가장먼저 들어온 
-*/
