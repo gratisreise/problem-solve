@@ -1,1 +1,4 @@
-select max(price) as max_price from product
+# 판매중, max, MAX_PRICE
+
+select max(price) as MAX_PRICE
+from product
