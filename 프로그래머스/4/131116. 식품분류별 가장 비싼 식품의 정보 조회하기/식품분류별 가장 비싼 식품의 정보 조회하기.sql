@@ -1,19 +1,11 @@
-select 
-    category,
-    price as max_price,
-    product_name 
-from food_product f
-where price = (
-    select max(price)
+# 식품분류별, ['과자', '국', '김치', '식용유'], 식품가격 내림차
+with maxs as(
+    select category, price, product_name, 
+        max(price) over(partition by category order by price desc) as max_price
     from food_product
-    where f.category = category
-) and category in ('과자', '국', '김치', '식용유')
+)
+
+select category, max_price, product_name
+from maxs
+where price = max_price and category in ('과자', '국', '김치', '식용유')
 order by max_price desc
-
-/*
-식품분류별 제일비싼 식품
-분류, 가격, 이름
-분류 = 과자,김치,국, 식용유 
-가격 내림차
-
-*/
