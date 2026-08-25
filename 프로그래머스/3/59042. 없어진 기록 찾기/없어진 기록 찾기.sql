@@ -1,14 +1,6 @@
+# 입양기록O & 보호소 들어옴X, ID 오름차 
 select o.animal_id, o.name
-from animal_ins i
-right join animal_outs o
-on i.animal_id = o.animal_id
+from animal_outs o left join animal_ins i
+on o.animal_id = i.animal_id
 where i.animal_id is null
-order by o.animal_id
-
-
-/*
-outO, inX, 
-id 오름차
-
-
-*/
+order by o.animal_id asc
