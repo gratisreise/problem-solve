@@ -1,9 +1,2 @@
-select count(*) as fish_count
-from fish_info
+select count(*) from fish_info
 where year(time) = 2021
-
-/*
-2021년도
-잡은 물고기수
-
-*/
