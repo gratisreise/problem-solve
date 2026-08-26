@@ -1,12 +1,6 @@
+# 우유 + 요거트 동시 구입 장바구니, 아이디 오름차
 select cart_id
 from cart_products
 group by cart_id
-having sum(name = 'Milk') > 0 and sum(name = 'Yogurt') > 0
-order by cart_id
-
-
-/*
-우유, 요거트 동시에 구입한 장바구니 확인
-아이디 오름차
-
-*/
+having group_concat(name) like '%Milk%' and group_concat(name) like '%Yogurt%'
+order by cart_id asc
