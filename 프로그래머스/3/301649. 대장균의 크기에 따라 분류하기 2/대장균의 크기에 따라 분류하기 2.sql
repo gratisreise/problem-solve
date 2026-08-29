@@ -1,29 +1,19 @@
-with temp as (
+# 크기 내림차순 상윈 0~25 26~50 51~75, 76 ~100 ntile
+# 개체id 오름차, 데이터 4배수, 같은 사이즈 없음
+with pre1 as(
     select 
-        id, 
-        row_number() over(order by size_of_colony desc) as rn,
-        count(*) over() as cnt
+        *,
+        ntile(4) over(order by size_of_colony desc) as ns
     from ecoli_data
 )
 
-select
+select 
     id,
-    case
-        when rn <= cnt * 1/4 then 'CRITICAL'
-        when rn <= cnt * 2/4 then 'HIGH'
-        when rn <= cnt * 3/4 then 'MEDIUM'
+    case ns
+        when 1 then 'CRITICAL'
+        when 2 then 'HIGH'
+        when 3 then 'MEDIUM'
         else 'LOW'
-    end as colony_name
-from temp
+    end colony_name
+from pre1
 order by id asc
-
-
-
-/*
-크기순 상위 4개 단위로 나눔
-개체 id 오름차, 
-데이터 4배수, 사이즈 중복x
-순위 / 전체 행의 갯수가 1/4, 2/4, 3/4, 
-
-
-*/
